@@ -9,12 +9,13 @@ function App() {
     return (
       // 라우터는 하나의 컴포넌트로 감싸야 한다. 
       // 감싸지 않으면 라우터를 사용할 수 없다. 
-      <Router>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/Filming" element={<Filming />} />
-        </Routes>
-      </Router>
+    <Router>
+      <Routes>
+            <Route path='/' exact component={Main} />
+            <Route path='/Filming' component={Filming} />
+            <Route path="*" element={<h1>404 페이지</h1>}/>
+      </Routes>
+    </Router>
     );
 }
 
