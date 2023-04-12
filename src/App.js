@@ -7,7 +7,7 @@ import Filming from "./pages/Filming";
 
 function App() {
     return (
-      // 라우터는 하나의 컴포넌트로 감싸야 한다. 
+      // 라우터는 하나의 컴포넌트로 감싸야 한다.    
       // 감싸지 않으면 라우터를 사용할 수 없다. 
     <Router>
       <Routes>
