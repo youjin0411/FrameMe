@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
-// 모듈 설치 : npm install react-webcam
 import Webcam from 'react-webcam';
-// 모듈 설치 : npm install react-bootstrap bootstrap
 import { Button, Container, Row, Col } from 'react-bootstrap';
+import styled from 'styled-components';
 
 function Filming() {
-  // 이미지를 저장할 상태 변수
-  // useState() 함수는 배열을 반환하는 함수로, 배열의 첫 번째 요소는 상태 변수이고 두 번째 요소는 상태를 변경하는 함수다.
-  const [imageSrc, setImageSrc] = useState(null);
+  const [imageSrcs, setImageSrcs] = useState([]);
 
-  // React.useRef() 함수는 ref를 생성하는 함수다.
   const webcamRef = React.useRef(null);
 
-  // capture
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    setImageSrc(imageSrc);
-  }, [webcamRef, setImageSrc]);
+    setImageSrcs(prevImageSrcs => [...prevImageSrcs, imageSrc]);
+  }, [webcamRef, setImageSrcs]);
 
-  const saveImage = () => {
+  const saveImage = imageSrc => {
     const canvas = document.createElement('canvas');
     const img = new Image();
     img.src = imageSrc;
@@ -37,30 +32,49 @@ function Filming() {
   return (
     <Container>
       <Row>
-        <Col>
-          <Webcam
-            audio={false}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            className="w-100"
-          />
-          <Button onClick={capture}>Capture photo</Button>
-          {imageSrc && (
-            <Button onClick={saveImage}>Save</Button>
-          )}
-        </Col>
-        <Col>
-          {imageSrc && (
-            <img
-              src={imageSrc}
-              alt="captured"
-              className="w-100"
+        <Content>
+          <Col>
+            <Webcam
+              width="853px"
+              heigth="485px"
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              className="w-100 h-100"
             />
-          )}
+            <br />
+            <Button onClick={() => {
+              for (let i = 0; i < 8; i++) {
+                setTimeout(capture, i * 1000);
+              }
+            }}>Capture photos automatically</Button>
+          </Col>
+        </Content>
+        <Col>
+          {imageSrcs.map((imageSrc, index) => (
+            <div key={index}>
+              <img
+                src={imageSrc}
+                alt={`captured-${index}`}
+                className="w-100"
+                onClick={() => saveImage(imageSrc)}
+              />
+            </div>
+          ))}
         </Col>
       </Row>
     </Container>
   );
-}
+};
 
+const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 60vh;
+  margin-top: 20vw;
+`;
 export default Filming;
+  
