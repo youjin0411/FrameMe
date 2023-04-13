@@ -15,7 +15,7 @@ const Navbar = () => {
 				<Bars />
 				<NavMenu>
 					<Logo to='/'>
-						<img src={image2} width="75" height="36" alt="logo"/>
+						<img src={image2} width="100" height="46" alt="logo"/>
 					</Logo>
 					<Blank/>
 					<DropdownMenu />
@@ -52,7 +52,7 @@ const Logo = styled(Link)`
 `;
 
 const Blank = styled.div`
-	width: 34vw;
+	width: 45vw;
 `
 
 const NavMenu = styled.div`
