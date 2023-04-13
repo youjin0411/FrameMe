@@ -1,4 +1,5 @@
 import React from "react";
+// npm install styled-components
 import styled from "styled-components";
 
 const DropdownMenu = () => {
@@ -29,7 +30,7 @@ const Link = styled.a`
   font-weight: medium;
   text-decoration: none;
   color: black;
-  font-size: 12px;
+  font-size: 16px;
   width: 50%;
   display: block;
   text-align: center;
