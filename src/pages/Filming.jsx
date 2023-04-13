@@ -22,6 +22,7 @@ function Filming() {
     setImageSrcs(prevImageSrcs => [...prevImageSrcs, imageSrc]);
     // 캡쳐한 이미지의 개수를 1 증가
     setImageCount(count => count + 1); 
+    clearInterval();
   }, [webcamRef, setImageSrcs, setImageCount]);
 
   // 8초 간격으로 캡쳐
