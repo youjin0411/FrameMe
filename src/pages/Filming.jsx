@@ -3,7 +3,6 @@ import Webcam from 'react-webcam';
 import { Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
 function Filming() {
   // imageSrcs: 캡쳐한 이미지들을 저장하는 배열
   const [imageSrcs, setImageSrcs] = useState([]);
@@ -11,12 +10,10 @@ function Filming() {
   const [timeLeft, setTimeLeft] = useState(8);
   // imageCount: 캡쳐한 이미지의 개수
   const [imageCount, setImageCount] = useState(0);
-
   // webcamRef: 웹캠을 사용하기 위한 변수
   const webcamRef = React.useRef(null);
   // timeRef: 8초 간격으로 캡쳐하기 위한 변수
   const timeRef = React.useRef(Date.now());
-
   // 캡쳐 함수
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -43,10 +40,8 @@ function Filming() {
       }
       // 8초 간격으로 캡쳐
     }, 100);
-
     return () => clearInterval(intervalId);
   }, []);
-
   React.useEffect(() => {
     const timer = setTimeout(() => {
       // 8초 이상 캡쳐하면 캡쳐 중지
@@ -58,10 +53,8 @@ function Filming() {
       }
       // 8초 이상 캡쳐하면 캡쳐 중지
     }, timeLeft * 1000);
-
     return () => clearTimeout(timer);
   }, [imageSrcs, capture, timeLeft]);
-
   const saveImage = imageSrc => {
     const canvas = document.createElement('canvas');
     const img = new Image();
@@ -77,7 +70,6 @@ function Filming() {
       link.click();
     };
   };
-
   return (
     <Container>
       <Row>
@@ -111,9 +103,6 @@ function Filming() {
             />
           </Col>
         </Content>
-        <Link to="/image-page">
-          <button>이미지 보기</button>
-        </Link>
         <div style={{marginTop:'2vw'}}>
         <Col
         style={{    
@@ -134,12 +123,14 @@ function Filming() {
           ))}
           <br />
         </Col>
+        <Link to={{pathname: '/image-page', state: { imageSrcs }}}>
+          <button>이미지 보기</button>
+        </Link>
         </div>
       </Row>
     </Container>
   );
 }
-
 const Content = styled.div`
   display: flex;
   justify-content: center;
@@ -149,5 +140,4 @@ const Content = styled.div`
   height: 60vh;
   margin-top: 2vw;
 `;
-
 export default Filming;
