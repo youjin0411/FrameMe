@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Webcam from 'react-webcam';
 import { Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 function Filming() {
   // imageSrcs: 캡쳐한 이미지들을 저장하는 배열
@@ -110,6 +111,9 @@ function Filming() {
             />
           </Col>
         </Content>
+        <Link to="/image-page">
+          <button>이미지 보기</button>
+        </Link>
         <div style={{marginTop:'2vw'}}>
         <Col
         style={{    
