@@ -55,6 +55,8 @@ function Filming() {
     }, timeLeft * 1000);
     return () => clearTimeout(timer);
   }, [imageSrcs, capture, timeLeft]);
+
+  // 이미지 저장 함수
   const saveImage = imageSrc => {
     const canvas = document.createElement('canvas');
     const img = new Image();
