@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   align-items: center;
   column-gap: 44px;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   width: 220px;
 `;
 

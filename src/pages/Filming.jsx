@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import Webcam from 'react-webcam';
 import { Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 function Filming() {
   // imageSrcs: 캡쳐한 이미지들을 저장하는 배열
   const [imageSrcs, setImageSrcs] = useState([]);
-  // timeLeft: 8초 간격으로 캡쳐하기 위한 변수
-  const [timeLeft, setTimeLeft] = useState(8);
+  // timeLeft: 6초 간격으로 캡쳐하기 위한 변수
+  const [timeLeft, setTimeLeft] = useState(6);
   // imageCount: 캡쳐한 이미지의 개수
   const [imageCount, setImageCount] = useState(0);
   // webcamRef: 웹캠을 사용하기 위한 변수
   const webcamRef = React.useRef(null);
-  // timeRef: 8초 간격으로 캡쳐하기 위한 변수
+  // timeRef: 6초 간격으로 캡쳐하기 위한 변수
   const timeRef = React.useRef(Date.now());
   // 캡쳐 함수
   const capture = React.useCallback(() => {
@@ -29,7 +28,7 @@ function Filming() {
       // Data.now() - timeRef.current: (현재 시간 - 8초 전 시간) / 1000은 8초 간격으로 캡쳐하기 위한 변수
       const elapsed = (Date.now() - timeRef.current) / 1000;
       // 8초 이상 캡쳐하면 캡쳐 중지 후 timeRef.current를 현재 시간으로 초기화
-      const newTimeLeft = Math.max(0, 8 - elapsed);
+      const newTimeLeft = Math.max(0, 6 - elapsed);
       // newTimeLeft가 0이면 캡쳐 중지
       setTimeLeft(newTimeLeft);
       if (newTimeLeft === 0) {
@@ -48,15 +47,13 @@ function Filming() {
       if (imageSrcs.length < 8) {
         capture();
         // 8초 간격으로 캡쳐
-        setTimeLeft(8);
+        setTimeLeft(6);
         timeRef.current = Date.now();
       }
       // 8초 이상 캡쳐하면 캡쳐 중지
     }, timeLeft * 1000);
     return () => clearTimeout(timer);
   }, [imageSrcs, capture, timeLeft]);
-
-  // 이미지 저장 함수
   const saveImage = imageSrc => {
     const canvas = document.createElement('canvas');
     const img = new Image();
@@ -125,9 +122,6 @@ function Filming() {
           ))}
           <br />
         </Col>
-        <Link to={{pathname: '/image-page', state: { imageSrcs }}}>
-          <button>이미지 보기</button>
-        </Link>
         </div>
       </Row>
     </Container>

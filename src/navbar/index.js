@@ -15,7 +15,7 @@ const Navbar = () => {
 				<Bars />
 				<NavMenu>
 					<Logo to='/'>
-						<img src={image2} width="100" height="46" alt="logo"/>
+						<img src={image2} width="107" height="52" alt="logo"/>
 					</Logo>
 					<Blank/>
 					<DropdownMenu />
