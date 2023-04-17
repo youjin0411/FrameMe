@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Webcam from 'react-webcam';
 import { Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 function Filming() {
   // imageSrcs: 캡쳐한 이미지들을 저장하는 배열
   const [imageSrcs, setImageSrcs] = useState([]);
@@ -74,27 +75,27 @@ function Filming() {
       <Row>
         <div
         style={{
-          marginTop:'1vw',
+          marginTop:'120px',
           display:'flex',
           justifyContent:'center',
           alignItems:'center',
           fontWeight:'bold',
-          fontSize:'1.5vw',
+          fontSize:'40px',
       }}>{imageCount}/8</div>
         <div 
         style={{
-          marginTop:'1vw',
+          marginTop:'4px',
           display:'flex',
           justifyContent:'center',
           alignItems:'center',
           fontWeight:'bold',
-          fontSize:'1.5vw',
+          fontSize:'70px',
       }}>{Math.round(timeLeft)}</div>
         <Content>
           <Col>
             <Webcam
               width="1001px"
-              height="660px"
+              height="641px"
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
@@ -122,6 +123,9 @@ function Filming() {
           ))}
           <br />
         </Col>
+        <Link to={{pathname: '/image-page', state: { imageSrcs }}}>
+          <button>이미지 보기</button>
+        </Link>
         </div>
       </Row>
     </Container>

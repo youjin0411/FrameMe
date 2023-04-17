@@ -15,7 +15,7 @@ const Navbar = () => {
 				<Bars />
 				<NavMenu>
 					<Logo to='/'>
-						<img src={image2} width="107" height="52" alt="logo"/>
+						<img src={image2} width="107" height="52" alt="logo" style={{ padding: '10px', paddingTop: '10px'}}/>
 					</Logo>
 					<Blank/>
 					<DropdownMenu />
@@ -26,7 +26,7 @@ const Navbar = () => {
 };
 
 const Container = styled.div`
-	height: 60px;
+	height: 85px;
 	border-bottom: 1px solid #656565;
 	width: 98%;
 	margin: 0 auto;
@@ -39,7 +39,7 @@ const Nav = styled.nav`
 	left: 0;
 	right: 0;
 	width: 100vw;
-	height: 60px;
+	height: 80px;
 	display: flex;
 	justify-content: flex-end;
 	margin: 0 auto;
@@ -49,6 +49,7 @@ const Nav = styled.nav`
 const Logo = styled(Link)`
 	color: #000000;
 	text-decoration: none;
+	margin-top: 10px;
 `;
 
 const Blank = styled.div`
