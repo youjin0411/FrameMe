@@ -51,26 +51,26 @@ clearInterval();
 
 // 8초 간격으로 캡쳐
 React.useEffect(() => {
-const intervalId = setInterval(() => {
-// Data.now() - timeRef.current: (현재 시간 - 8초 전 시간) / 1000은 8초 간격으로 캡쳐하기 위한 변수
-const elapsed = (Date.now() - timeRef.current) / 1000;
-// 8초 이상 캡쳐하면 캡쳐 중지 후 timeRef.current를 현재 시간으로 초기화
-const newTimeLeft = Math.max(0, 6 - elapsed);
-// newTimeLeft가 0이면 캡쳐 중지
-setTimeLeft(newTimeLeft);
-if (newTimeLeft === 0) {
-// 캡쳐 중지
-clearInterval(intervalId);
-// timeRef.current를 현재 시간으로 초기화
-timeRef.current = Date.now();
-}
-// 8초 간격으로 캡쳐
-}, 100);
-return () => clearInterval(intervalId);
-}, []);
+    const intervalId = setInterval(() => {
+      // Data.now() - timeRef.current: (현재 시간 - 8초 전 시간) / 1000은 8초 간격으로 캡쳐하기 위한 변수
+      const elapsed = (Date.now() - timeRef.current) / 1000;
+      // 8초 이상 캡쳐하면 캡쳐 중지 후 timeRef.current를 현재 시간으로 초기화
+      const newTimeLeft = Math.max(0, 6 - elapsed);
+      // newTimeLeft가 0이면 캡쳐 중지
+      setTimeLeft(newTimeLeft);
+      if (newTimeLeft === 0) {
+        // 캡쳐 중지
+        clearInterval(intervalId);
+        // timeRef.current를 현재 시간으로 초기화
+        timeRef.current = Date.now();
+      }
+      // 8초 간격으로 캡쳐
+    }, 100);
+    return () => clearInterval(intervalId);
+  }, []);
 
 React.useEffect(() => {
-const timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       // 8초 이상 캡쳐하면 캡쳐 중지
       if (imageSrcs.length < 8) {
         capture();
