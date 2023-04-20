@@ -6,51 +6,52 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Filming() {
-// imageSrcs: 캡쳐한 이미지들을 저장하는 배열
-const [imageSrcs, setImageSrcs] = useState([]);
-// timeLeft: 6초 간격으로 캡쳐하기 위한 변수
-const [timeLeft, setTimeLeft] = useState(6);
-// imageCount: 캡쳐한 이미지의 개수
-const [imageCount, setImageCount] = useState(0);
-// webcamRef: 웹캠을 사용하기 위한 변수
-const webcamRef = React.useRef(null);
-// timeRef: 6초 간격으로 캡쳐하기 위한 변수
-const timeRef = React.useRef(Date.now());
+  // imageSrcs: 캡쳐한 이미지들을 저장하는 배열
+  const [imageSrcs, setImageSrcs] = useState([]);
+  // timeLeft: 6초 간격으로 캡쳐하기 위한 변수
+  const [timeLeft, setTimeLeft] = useState(6);
+  // imageCount: 캡쳐한 이미지의 개수
+  const [imageCount, setImageCount] = useState(0);
+  // webcamRef: 웹캠을 사용하기 위한 변수
+  const webcamRef = React.useRef(null);
+  // timeRef: 6초 간격으로 캡쳐하기 위한 변수
+  const timeRef = React.useRef(Date.now());
 
 // axios 인스턴스 생성
 const axiosInstance = axios.create({
-baseURL: 'http://localhost:3001', // 프록시 서버의 주소
+  baseURL: 'http://localhost:3001', // 프록시 서버의 주소
 });
 
 // 이미지 업로드 함수
-const uploadImage = useCallback(async imageFile => {
-try {
-const formData = new FormData();
-formData.append('image', imageFile);
-const response = await axiosInstance.post('/upload', formData, {
-headers: {
-'Content-Type': 'multipart/form-data',
-},
-});
-console.log(response);
-} catch (error) {
-console.error(error);
-}
-}, [axiosInstance]);
+const uploadImage = useCallback(async (imageFile) => {
+  try {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+    const response = await axiosInstance.post('/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}, [axiosInstance]); // 추가
 
 // 캡쳐 함수
-const capture = useCallback(() => {
-const imageSrc = webcamRef.current.getScreenshot();
-setImageSrcs(prevImageSrcs => [...prevImageSrcs, imageSrc]);
-// 캡쳐한 이미지의 개수를 1 증가
-setImageCount(count => count + 1);
-// 이미지를 서버에 업로드
-uploadImage(imageSrc);
-clearInterval();
+const capture = useCallback(async () => {
+  const imageSrc = webcamRef.current.getScreenshot();
+  const response = await fetch(imageSrc);
+  const blob = await response.blob();
+  const formData = new FormData();
+  formData.append('image', blob);
+  setImageSrcs((prevImageSrcs) => [...prevImageSrcs, imageSrc]);
+  setImageCount((count) => count + 1);
+  uploadImage(formData);
 }, [webcamRef, setImageSrcs, setImageCount, uploadImage]);
 
-// 8초 간격으로 캡쳐
-React.useEffect(() => {
+  // 8초 간격으로 캡쳐
+  React.useEffect(() => {
     const intervalId = setInterval(() => {
       // Data.now() - timeRef.current: (현재 시간 - 8초 전 시간) / 1000은 8초 간격으로 캡쳐하기 위한 변수
       const elapsed = (Date.now() - timeRef.current) / 1000;
@@ -82,22 +83,6 @@ React.useEffect(() => {
     }, timeLeft * 1000);
     return () => clearTimeout(timer);
   }, [imageSrcs, capture, timeLeft]);
-
-  // const saveImage = imageSrc => {
-  //   const canvas = document.createElement('canvas');
-  //   const img = new Image();
-  //   img.src = imageSrc;
-  //   img.onload = () => {
-  //     canvas.width = img.width;
-  //     canvas.height = img.height;
-  //     const ctx = canvas.getContext('2d');
-  //     ctx.drawImage(img, 0, 0);
-  //     const link = document.createElement('a');
-  //     link.download = 'captured.jpg';
-  //     link.href = canvas.toDataURL('image/jpeg');
-  //     link.click();
-  //   };
-  // };
   return (
     <Container>
       <Row>
