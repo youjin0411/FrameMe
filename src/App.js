@@ -6,7 +6,7 @@ import Navbar from './navbar/index';
 import Main from "./pages/Mainstart";
 import Wepcam from "./pages/Filming";
 import ChoiceImg from "./pages/ChoiceImg"
-import Imgpage from "./pages/Imagepage"
+import Photoshoot from './pages/Photoshoot'
 
 function App() {
     return (
@@ -25,9 +25,9 @@ function App() {
           <Navbar />
           <ChoiceImg />
         </>} />
-        <Route path="/image-page" element={<>
+        <Route path="/photoshoot" element={<>
           <Navbar />
-          <Imgpage />
+          <Photoshoot />
         </>} />
       </Routes>
     </Router>
