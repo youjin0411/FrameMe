@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 // npm install react-webcam
 import Webcam from "react-webcam";
-import { invertFilter, grayscaleFilter, grayscaleInvertFilter, redFilter, blueFilter, greenFilter } from './filters';
+import { grayscaleFilter, brightnessFilter} from './filters.js';
 
 const videoConstraints = {
     width: 1280,
@@ -28,12 +28,8 @@ const ImageEditor = (props) => {
         <img src={props.imageSrc} />
         <canvas ref={canvasRef} width="320" height="180" />
         <br />
-        <button onClick={() => { applyFilter(grayscaleFilter) }}>grayscale</button>
-        <button onClick={() => { applyFilter(invertFilter) }}>invert</button>
-        <button onClick={() => { applyFilter(grayscaleInvertFilter) }}>grayscale + invert</button>
-        <button onClick={() => { applyFilter(redFilter) }}>red</button>
-        <button onClick={() => { applyFilter(blueFilter) }}>blue</button>
-        <button onClick={() => { applyFilter(greenFilter) }}>green</button>
+        <button onClick={() => { applyFilter(grayscaleFilter) }}>invert</button>
+        <button onClick={() => { applyFilter(brightnessFilter) }}>grayscale</button>
     </div>
 }
 
@@ -92,3 +88,5 @@ const WebcamApp = (props) => {
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<WebcamApp />)
+
+export default WebcamApp;
