@@ -28,6 +28,7 @@ const uploadImage = useCallback(async (imageFile) => {
     const formData = new FormData();
     formData.append('image', imageFile);
     const response = await axiosInstance.post('/upload', formData, {
+      // header의 콘텐트 타입을 아래 형식으로 전송. 
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -122,6 +123,17 @@ React.useEffect(() => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center'}}>
+             {imageSrcs.map((imageSrc, index) => (
+            <div key={index}>
+              <img
+                width="200px"
+                height="180px"
+                src={imageSrc}
+                alt={`captured-${index}`}
+                className="w-100"
+              />
+            </div>
+            ))}
           <br />
         </Col>
         <Link to={{pathname: '/image-page', state: { imageSrcs }}}>
