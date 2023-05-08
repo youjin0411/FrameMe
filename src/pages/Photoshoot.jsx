@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react';
-// npm install 
+import React, { useRef, useState } from 'react'
 import ReactDOM from 'react-dom/client';
 // npm install react-webcam
 import Webcam from "react-webcam";
