@@ -33,7 +33,7 @@ const ImageEditor = (props) => {
 }
 
 const WebcamApp = (props) => {
-    const maxCount = 3;
+    const maxCount = 6;
     const [count, setCount] = useState(1);
     const [showResult, setShowResult] = useState(false);
     const [images, setImages] = useState([]);
@@ -69,16 +69,24 @@ const WebcamApp = (props) => {
 
     return (
         <div>
-            <h1>{`${count}/${maxCount}`}</h1>
+            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:100}}>
+            <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 40}}>{`${count}/${maxCount}`}</div>
+            <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 70}}>Hello</div>
+            <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
             <Webcam
-                style={{ width: 320, height: 180, background: "black" }}
+                style={{ 
+                    width: 1001, 
+                    height: 641, 
+                    background: "black",
+                    marginTop: 60}}
                 audio={false}
                 height={720}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 width={1280}
                 videoConstraints={videoConstraints}
-            />
+            /></div>
+            </div>
             <br />
             <button onClick={capture}>Capture photo</button>
         </div>
