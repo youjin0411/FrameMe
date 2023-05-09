@@ -2,20 +2,23 @@ import React, { useRef, useState } from 'react'
 import ReactDOM from 'react-dom/client';
 // npm install react-webcam
 import Webcam from "react-webcam";
+// 필터 
 import { grayscaleFilter, brightnessFilter} from './filters.js';
 
+// 비디오
 const videoConstraints = {
     width: 1280,
     height: 720,
     facingMode: "user"
 };
 
+// 사진 촬영 후 이미지 편집(필터 설정 등 )
 const ImageEditor = (props) => {
     const canvasRef = useRef();
     const applyFilter = (filterFunction) => {
         var canvas = canvasRef.current;
         var ctx = canvas.getContext('2d');
-        var image = new Image(320, 180);
+        var image = new Image(245, 157);
         image.src = props.imageSrc;
         ctx.drawImage(image, 0, 0, image.width, image.height);
         var pixels = ctx.getImageData(0,0, canvas.width, canvas.height);
@@ -23,19 +26,23 @@ const ImageEditor = (props) => {
         ctx.putImageData(filteredData, 0 , 0);
     }
     
-    return <div>
+    return (
+    <div style={{display:'grid', gridTemplateColumns: '245px 245px'}}>
         <img src={props.imageSrc} />
         <canvas ref={canvasRef} width="320" height="180" />
         <br />
         <button onClick={() => { applyFilter(grayscaleFilter) }}>invert</button>
         <button onClick={() => { applyFilter(brightnessFilter) }}>grayscale</button>
     </div>
-}
+)}
 
 const WebcamApp = (props) => {
-    const maxCount = 6;
+    const maxCount = 8;
+    // count는 내가 현재 몇 장 찍었는지 상태 확인 
     const [count, setCount] = useState(1);
+    // 사진을 모두 다 촬영할 때 True
     const [showResult, setShowResult] = useState(false);
+    // 캡쳐한 이미지들을 저장하는 배열 
     const [images, setImages] = useState([]);
     const webcamRef = React.useRef(null);
     const capture = React.useCallback(
