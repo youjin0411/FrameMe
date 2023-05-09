@@ -1,8 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom/client';
-// npm install react-webcam
 import Webcam from "react-webcam";
-// 필터 
 import { grayscaleFilter, brightnessFilter} from './filters.js';
 
 // 비디오
@@ -14,25 +12,63 @@ const videoConstraints = {
 
 // 사진 촬영 후 이미지 편집(필터 설정 등 )
 const ImageEditor = (props) => {
-    const canvasRef = useRef();
-    const applyFilter = (filterFunction) => {
-        var canvas = canvasRef.current;
-        var ctx = canvas.getContext('2d');
-        var image = new Image(245, 157);
-        image.src = props.imageSrc;
-        ctx.drawImage(image, 0, 0, image.width, image.height);
-        var pixels = ctx.getImageData(0,0, canvas.width, canvas.height);
-        var filteredData = filterFunction(pixels);
-        ctx.putImageData(filteredData, 0 , 0);
+// 캔버스 요소에 접근하기 위한 useRef 훅 사용
+  const canvasRef = useRef();
+  // 이전 필터 상태 추가
+  const [originalImage, setOriginalImage] = useState(null); // 원본 이미지 상태 추가
+  useEffect(() => {
+    // 캔버스 요소 가져오기
+    const canvas = canvasRef.current;
+    // 2D 그래픽 컨텍스트 가져오기
+    const ctx = canvas.getContext('2d');
+    // 새로운 이미지 객체 생성
+    const image = new Image();
+    // 이미지가 로드되면 캔버스에 이미지를 그린다
+    image.onload = () => {
+    // 캔버스 너비를 이미지 너비로 설정
+      canvas.width = image.width;
+      // 캔버스 높이를 이미지 높이로 설정
+      canvas.height = image.height;
+      // 이미지를 캔버스에 그리기
+      ctx.drawImage(image, 0, 0);
+      setOriginalImage(image); // 원본 이미지 설정
+      setOriginalImage(image); 
+    };
+    image.src = props.imageSrc; // props로 전달된 이미지 소스를 설정한다
+    // props.imageSrc가 변경될 때마다 useEffect 실행
+  }, [props.imageSrc]);
+
+  const applyFilter = (filterFunction) => {
+    // 캔버스 요소 가져오기
+    const canvas = canvasRef.current;
+    // 2D 그래픽 컨텍스트 가져오기
+    const ctx = canvas.getContext('2d');
+    // 이전 필터가 있으면 초기화하기
+    if (originalImage) {
+        // 원본 이미지로 초기화
+        ctx.drawImage(originalImage, 0, 0);
     }
-    
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    filterFunction(imageData);
+    ctx.putImageData(imageData, 0, 0);
+    };
+
+    const resetFilter = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    if (originalImage) {
+      ctx.drawImage(originalImage, 0, 0);
+    }
+  };
     return (
     <div style={{display:'grid', gridTemplateColumns: '245px 245px'}}>
-        <img src={props.imageSrc} />
+        {/* <img src={props.imageSrc} /> */}
         <canvas ref={canvasRef} width="320" height="180" />
         <br />
-        <button onClick={() => { applyFilter(grayscaleFilter) }}>invert</button>
-        <button onClick={() => { applyFilter(brightnessFilter) }}>grayscale</button>
+        <button onClick={() => { applyFilter(grayscaleFilter) }}>흑백</button>
+        <button onClick={() => { applyFilter(brightnessFilter) }}>밝게</button>
+        <button onClick={resetFilter}>원본</button> {/* 원본으로 되돌리는 버튼 */}
     </div>
 )}
 
@@ -48,8 +84,6 @@ const WebcamApp = (props) => {
     const capture = React.useCallback(
         () => {
             const imageSrc = webcamRef.current.getScreenshot();
-            // console.log(imageSrc)
-            // console.log(typeof(imageSrc))
             // https://dev-momo.tistory.com/entry/Javascript-Image-Filter-%EB%A7%8C%EB%93%A4%EA%B8%B0
             setImages(imgs => imgs.concat(imageSrc))
             setCount(c => {
@@ -62,7 +96,6 @@ const WebcamApp = (props) => {
         return (
             <>
                 <div>
-                    {/* images.map(i => <div><img style={{ width: 320, height: 180 }} src={i} /></div>) */}
                     { images.map(i => <ImageEditor imageSrc={i} /> )}
                 </div>
                 <button onClick={() => {
