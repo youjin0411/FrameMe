@@ -26,13 +26,12 @@ const ImageEditor = (props) => {
     // 이미지가 로드되면 캔버스에 이미지를 그린다
     image.onload = () => {
     // 캔버스 너비를 이미지 너비로 설정
-      canvas.width = image.width;
+      canvas.width = 245;
       // 캔버스 높이를 이미지 높이로 설정
-      canvas.height = image.height;
+      canvas.height = 158;
       // 이미지를 캔버스에 그리기
-      ctx.drawImage(image, 0, 0);
+      ctx.drawImage(image, 0, 0, 245, 158);
       setOriginalImage(image); // 원본 이미지 설정
-      setOriginalImage(image); 
     };
     image.src = props.imageSrc; // props로 전달된 이미지 소스를 설정한다
     // props.imageSrc가 변경될 때마다 useEffect 실행
@@ -46,7 +45,7 @@ const ImageEditor = (props) => {
     // 이전 필터가 있으면 초기화하기
     if (originalImage) {
         // 원본 이미지로 초기화
-        ctx.drawImage(originalImage, 0, 0);
+        ctx.drawImage(originalImage, 0, 0, 245, 158);
     }
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     filterFunction(imageData);
@@ -54,22 +53,23 @@ const ImageEditor = (props) => {
     };
 
     const resetFilter = () => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
 
-    if (originalImage) {
-      ctx.drawImage(originalImage, 0, 0);
-    }
+        if (originalImage) {
+            ctx.drawImage(originalImage, 0, 0, 245, 158);
+        }
   };
     return (
-    <div style={{display:'grid', gridTemplateColumns: '245px 245px'}}>
-        {/* <img src={props.imageSrc} /> */}
-        <canvas ref={canvasRef} width="320" height="180" />
-        <br />
-        <button onClick={() => { applyFilter(grayscaleFilter) }}>흑백</button>
-        <button onClick={() => { applyFilter(brightnessFilter) }}>밝게</button>
-        <button onClick={resetFilter}>원본</button> {/* 원본으로 되돌리는 버튼 */}
-    </div>
+        <div>
+            <canvas ref={canvasRef} width="245" height="158" />
+            <br />
+            <div style={{display:'grid', gridTemplateColumns:'45px 45px 45px'}}>
+                <button onClick={() => { applyFilter(grayscaleFilter) }}>흑백</button>
+                <button onClick={() => { applyFilter(brightnessFilter) }}>밝게</button>
+                <button onClick={resetFilter}>원본</button> {/* 원본으로 되돌리는 버튼 */}
+            </div>
+        </div>  
 )}
 
 const WebcamApp = (props) => {
@@ -95,7 +95,8 @@ const WebcamApp = (props) => {
     if(showResult) {
         return (
             <>
-                <div>
+            <div style={{fontSize:24, textAlign:'center',fontWeight:600, marginTop:40}}>사진을 선택해주세요</div>
+                <div style={{display:'grid', gridTemplateColumns:'245px 245px', marginLeft:328, marginTop:100}}>
                     { images.map(i => <ImageEditor imageSrc={i} /> )}
                 </div>
                 <button onClick={() => {
