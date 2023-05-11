@@ -27,6 +27,7 @@ const Wrapper = styled.div`
 `;
 
 const Link = styled.a`
+font-family: 'Noto Serif';
   font-weight: medium;
   text-decoration: none;
   color: black;
@@ -35,7 +36,7 @@ const Link = styled.a`
   display: block;
   text-align: center;
   border-radius: 24px;
-  box-shadow: 1px 1px 1px 1px #E5E5E5;
+  box-shadow: 1px 1px 1px 1px #BDBDBD;
   &:hover {
     transition: all .3s;
     border: 1px solid #ABBF98;
