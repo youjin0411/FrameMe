@@ -15,7 +15,6 @@ function Mainstart(){
 		</div>
 	);
 }
-export default Mainstart;
 */
 
 import React from 'react';
@@ -25,13 +24,14 @@ import { NavLink as Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 // import image from '../img/framelogo'
 import image2 from '../img/frameloginsmall.png'
+import mainimg from '../img/Mainbg.png'
 
 function Mainstart(){
    
    return (
 	  // 사진도 가윤이가 추가했을 것 같아서 !! backgroundColor로 일단 대처해서 코드 작성했어 ! 여기에 이제 backgroundColor대신 backgrondImage 사용하면 돼 ! ex) backgroundImage: `url(${Imagepage})` 
 	  // 여기서 Imagepage => 위에서 import Imagepage from "경로"
-	  <body style={{height: '100%', width: '100%',position: 'absolute', backgroundSize: 'cover', backgroundColor: 'pink'}}>
+	  <body style={{height: '100%', width: '100%',position: 'absolute', backgroundSize: 'cover', backgroundImage: `url(${mainimg})`}}>
 		 <Container>
 		 <Nav>
 			<Bars />
