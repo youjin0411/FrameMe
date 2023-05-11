@@ -64,11 +64,13 @@ const ImageEditor = (props) => {
         <div>
             <canvas ref={canvasRef} width="245" height="158" />
             <br />
+            {/*  
             <div style={{display:'grid', gridTemplateColumns:'45px 45px 45px'}}>
                 <button onClick={() => { applyFilter(grayscaleFilter) }}>흑백</button>
                 <button onClick={() => { applyFilter(brightnessFilter) }}>밝게</button>
-                <button onClick={resetFilter}>원본</button> {/* 원본으로 되돌리는 버튼 */}
+                <button onClick={resetFilter}>원본</button> 
             </div>
+            */}
         </div>  
 )}
 
@@ -101,11 +103,13 @@ const WebcamApp = (props) => {
                     {images.map((i, index) => <ImageEditor key={index} imageSrc={i} />)}
                 </div>
                 {/* 9.39 */}
-                <div style={{display:'grid', gridTemplateColumns:'219.98px', gridGap:'9.39', position:'absolute', width:583, height:683, left:105, top:284, background:'#000000',marginLeft:900, marginTop:60,}}>
-                    <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginTop:20, marginLeft:38.56}}></div>
-                    <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
-                    <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
-                    <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
+                <div style={{position:'absolute', width:583, height:683, left:105, top:284, background:'#000000',marginLeft:900, marginTop:60,}}>
+                    <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop:-5}}>
+                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginTop:20, marginLeft:38.56}}></div>
+                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
+                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
+                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
+                    </div>
                 </div>
             </div>
                 <button onClick={() => {
