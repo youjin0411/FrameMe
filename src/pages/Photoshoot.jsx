@@ -100,11 +100,11 @@ const WebcamApp = (props) => {
             <div style={{fontSize:24, textAlign:'center',fontWeight:600, marginTop:40}}>사진을 선택해주세요</div>
             <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:70}}>
                 <div style={{position:'absolute', width:196, height:60, left:1633,top:249, borderRadius: 30, background:'#white',backgroundBlendMode: 'overlay', boxShadow:'0px 0px 2px 2px #F5F5F5'}}></div>
-                <div style={{display:'grid', gridTemplateColumns:'245px 245px', marginLeft:328, marginTop:100, position:'absolute'}}>
+                <div style={{display:'grid', gridTemplateColumns:'245px 245px', marginLeft:328, marginTop:100, position:'absolute', gridColumnGap: 10}}>
                     {images.map((i, index) => <ImageEditor key={index} imageSrc={i} />)}
                 </div>
                 {/* 9.39 */}
-                <div style={{position:'absolute', width:583, height:683, left:105, top:284, background:'#000000',marginLeft:900, marginTop:60,}}>
+                <div style={{position:'absolute', width:583, height:683, left:105, top:259, background:'#000000',marginLeft:900, marginTop:60,}}>
                     <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop:-5}}>
                         <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginTop:20, marginLeft:38.56}}></div>
                         <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
