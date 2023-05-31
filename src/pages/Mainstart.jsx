@@ -19,7 +19,7 @@ function Mainstart(){
 			   </Logo>
 			   <Blank/>
 			   		<Wrapper>
-							<Links href="/filming">PHOTO</Links>
+							<Links href="/photoshoot">PHOTO</Links>
 							<Links href="/">네컷갤러리</Links>
 		</Wrapper>
 			</NavMenu>

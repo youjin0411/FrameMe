@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
     import ReactDOM from 'react-dom/client';
 import Webcam from "react-webcam";
+// https://dev-momo.tistory.com/entry/Javascript-Image-Filter-%EB%A7%8C%EB%93%A4%EA%B8%B0
 import { grayscaleFilter, brightnessFilter} from './filters.js';
 
 // 비디오
@@ -82,17 +83,50 @@ const WebcamApp = (props) => {
     const [showResult, setShowResult] = useState(false);
     // 캡쳐한 이미지들을 저장하는 배열 
     const [images, setImages] = useState([]);
+    // timeLeft: 6초 간격으로 캡쳐하기 위한 변수
+    const [timeLeft, setTimeLeft] = useState(6);
+    // timeRef: 6초 간격으로 캡쳐하기 위한 변수
+    const timeRef = React.useRef(Date.now());
     const webcamRef = React.useRef(null);
-    const capture = React.useCallback(
-        () => {
-            const imageSrc = webcamRef.current.getScreenshot();
-            // https://dev-momo.tistory.com/entry/Javascript-Image-Filter-%EB%A7%8C%EB%93%A4%EA%B8%B0
-            setImages(imgs => imgs.concat(imageSrc))
-            setCount(c => {
-                if(c === maxCount) setShowResult(true);
-                return c + 1
-            })
+
+    const capture = useCallback(async () => {
+        const imageSrc = webcamRef.current.getScreenshot();
+        setImages(imgs => imgs.concat(imageSrc))
+        setCount(c => {
+            if(c === maxCount) setShowResult(true);
+            return c + 1
+        })
     }, [webcamRef]);
+  // 8초 간격으로 캡쳐
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      const elapsed = (Date.now() - timeRef.current) / 1000;
+      const newTimeLeft = Math.max(0, 6 - elapsed);
+      // newTimeLeft가 0이면 캡쳐 중지
+      setTimeLeft(newTimeLeft);
+      if (newTimeLeft === 0) {
+        // 캡쳐 중지
+        clearInterval(intervalId);
+        // timeRef.current를 현재 시간으로 초기화
+        timeRef.current = Date.now();
+      }
+    }, 100);
+    return () => clearInterval(intervalId);
+  }, []);
+
+React.useEffect(() => {
+    const timer = setTimeout(() => {
+      // 8초 이상 캡쳐하면 캡쳐 중지
+      if (images.length < 8) {
+        capture();
+        // 8초 간격으로 캡쳐
+        setTimeLeft(6);
+        timeRef.current = Date.now();
+      }
+      // 8초 이상 캡쳐하면 캡쳐 중지
+    }, timeLeft * 1000);
+    return () => clearTimeout(timer);
+  }, [images, capture, timeLeft]);
 
     if(showResult) {
         return (
@@ -113,20 +147,20 @@ const WebcamApp = (props) => {
                     </div>
                 </div>
             </div>
-                <button onClick={() => {
+                {/* <button onClick={() => {
                     setCount(1);
                     setShowResult(false);
                     setImages([]);  
-                }}>다시 찍기</button>
+                }}>다시 찍기</button> */}
             </>
         )
     }
 
     return (
         <div>
-            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:100}}>
+            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:70}}>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 40}}>{`${count}/${maxCount}`}</div>
-            <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 70}}>Hello</div>
+            <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 70}}>{Math.round(timeLeft)}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
             <Webcam
                 style={{ 
@@ -143,11 +177,9 @@ const WebcamApp = (props) => {
             /></div>
             </div>
             <br />
-            <button onClick={capture}>Capture photo</button>
         </div>
     );
 }
-
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<WebcamApp />)
 
