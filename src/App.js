@@ -5,6 +5,10 @@ import Main from "./pages/Mainstart";
 import Wepcam from "./pages/Filming";
 import ChoiceImg from "./pages/ChoiceImg"
 import Photoshoot from "./pages/Photoshoot"
+import Frame from "./pages/Frame"
+import ChoiceFrame from "./pages/Choiceframe"
+import Write from "./pages/Write"
+
 
 function App() {
   return (
@@ -29,6 +33,25 @@ function App() {
             </div>
           }
         />
+        <Route path="/frame" element={
+          <div>
+          <Navbar />
+          <Frame /> {/* Main 페이지 */}
+        </div>
+        } />
+        <Route path="/ChoiceFrame" element={
+          <div>
+          <Navbar />
+          <ChoiceFrame /> {/* Main 페이지 */}
+        </div>
+        } />
+        <Route path="/Write" element={
+          <div>
+          <Navbar />
+          <Write /> {/* Main 페이지 */}
+        </div>
+        } />
+
         <Route path="/filming" element={<Wepcam />} />
       </Routes>
     </Router>
