@@ -87,19 +87,19 @@ const WebcamApp = (props) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      const elapsed = (Date.now() - timeRef.current) / 1000;
-      const newTimeLeft = Math.max(0, 6 - elapsed);
-      setTimeLeft(newTimeLeft);
-
-      if (newTimeLeft === 0) {
-        clearInterval(intervalId);
-        timeRef.current = Date.now();
-      }
+      setTimeLeft((prevTimeLeft) => {
+        const newTimeLeft = Math.max(0, prevTimeLeft - 0.1);
+        if (newTimeLeft === 0) {
+          clearInterval(intervalId);
+          capture();
+          setCount(1);
+          setShowResult(true);
+        }
+        return newTimeLeft;
+      });
     }, 100);
-
     return () => clearInterval(intervalId);
-  }, []);
-
+  }, [capture]);
   useEffect(() => {
     const timer = setTimeout(() => {
       if (images.length < 8) {
@@ -111,7 +111,13 @@ const WebcamApp = (props) => {
 
     return () => clearTimeout(timer);
   }, [images, capture, timeLeft]);
-
+  const pathname = window.location.pathname;
+  if (pathname.includes('/photoshoot')) {
+    // '/photoshoot' 경로 또는 '/photoshoot'을 포함한 경로에서 실행하는 코드 작성
+  } else {
+    return null; // 다른 경로에서는 실행하지 않음
+  }
+  
     if(showResult) {
         return (
             <>
@@ -164,6 +170,7 @@ const WebcamApp = (props) => {
         </div>
     );
 }
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<WebcamApp />);
 
