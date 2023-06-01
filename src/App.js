@@ -8,6 +8,7 @@ import Photoshoot from "./pages/Photoshoot"
 import Frame from "./pages/Frame"
 import ChoiceFrame from "./pages/Choiceframe"
 import Write from "./pages/Write"
+import Test from "./pages/Test"
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
         } />
 
         <Route path="/filming" element={<Wepcam />} />
+        <Route path="/Test" element={<Test />} />
       </Routes>
     </Router>
   );
