@@ -1,133 +1,123 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
-    import ReactDOM from 'react-dom/client';
-import Webcam from "react-webcam";
-// https://dev-momo.tistory.com/entry/Javascript-Image-Filter-%EB%A7%8C%EB%93%A4%EA%B8%B0
-import { grayscaleFilter, brightnessFilter} from './filters.js';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import ReactDOM from 'react-dom/client';
+import Webcam from 'react-webcam';
+import { grayscaleFilter, brightnessFilter } from './filters.js';
 
-// 비디오
 const videoConstraints = {
-    width: 1280,
-    height: 720,
-    facingMode: "user"
+  width: 1280,
+  height: 720,
+  facingMode: 'user',
 };
 
-// 사진 촬영 후 이미지 편집(필터 설정 등 )
 const ImageEditor = (props) => {
-// 캔버스 요소에 접근하기 위한 useRef 훅 사용
   const canvasRef = useRef();
-  // 이전 필터 상태 추가
-  const [originalImage, setOriginalImage] = useState(null); // 원본 이미지 상태 추가
+  const [originalImage, setOriginalImage] = useState(null);
+
   useEffect(() => {
-    // 캔버스 요소 가져오기
     const canvas = canvasRef.current;
-    // 2D 그래픽 컨텍스트 가져오기
     const ctx = canvas.getContext('2d');
-    // 새로운 이미지 객체 생성
     const image = new Image();
-    // 이미지가 로드되면 캔버스에 이미지를 그린다
+
     image.onload = () => {
-    // 캔버스 너비를 이미지 너비로 설정
       canvas.width = 245;
-      // 캔버스 높이를 이미지 높이로 설정
       canvas.height = 158;
-      // 이미지를 캔버스에 그리기
       ctx.drawImage(image, 0, 0, 245, 158);
-      setOriginalImage(image); // 원본 이미지 설정
+      setOriginalImage(image);
     };
-    image.src = props.imageSrc; // props로 전달된 이미지 소스를 설정한다
-    // props.imageSrc가 변경될 때마다 useEffect 실행
+
+    image.src = props.imageSrc;
   }, [props.imageSrc]);
 
   const applyFilter = (filterFunction) => {
-    // 캔버스 요소 가져오기
     const canvas = canvasRef.current;
-    // 2D 그래픽 컨텍스트 가져오기
     const ctx = canvas.getContext('2d');
-    // 이전 필터가 있으면 초기화하기
+
     if (originalImage) {
-        // 원본 이미지로 초기화
-        ctx.drawImage(originalImage, 0, 0, 245, 158);
+      ctx.drawImage(originalImage, 0, 0, 245, 158);
     }
+
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     filterFunction(imageData);
     ctx.putImageData(imageData, 0, 0);
-    };
-
-    const resetFilter = () => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-
-        if (originalImage) {
-            ctx.drawImage(originalImage, 0, 0, 245, 158);
-        }
   };
-    return (
-        <div>
-            <canvas ref={canvasRef} width="245" height="158" />
-            <br />
-            {/*  
-            <div style={{display:'grid', gridTemplateColumns:'45px 45px 45px'}}>
-                <button onClick={() => { applyFilter(grayscaleFilter) }}>흑백</button>
-                <button onClick={() => { applyFilter(brightnessFilter) }}>밝게</button>
-                <button onClick={resetFilter}>원본</button> 
-            </div>
-            */}
-        </div>  
-)}
+
+  const resetFilter = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    if (originalImage) {
+      ctx.drawImage(originalImage, 0, 0, 245, 158);
+    }
+  };
+
+  return (
+    <div>
+      <canvas 
+      ref={canvasRef} 
+      width="245" height="158" />
+      <br />
+      {/*  
+        <div style={{display:'grid', gridTemplateColumns:'45px 45px 45px'}}>
+            <button onClick={() => { applyFilter(grayscaleFilter) }}>흑백</button>
+            <button onClick={() => { applyFilter(brightnessFilter) }}>밝게</button>
+            <button onClick={resetFilter}>원본</button> 
+        </div>
+      */}
+    </div>
+  );
+};
 
 const WebcamApp = (props) => {
-    const maxCount = 8;
-    // count는 내가 현재 몇 장 찍었는지 상태 확인 
-    const [count, setCount] = useState(1);
-    // 사진을 모두 다 촬영할 때 True
-    const [showResult, setShowResult] = useState(false);
-    // 캡쳐한 이미지들을 저장하는 배열 
-    const [images, setImages] = useState([]);
-    // timeLeft: 6초 간격으로 캡쳐하기 위한 변수
-    const [timeLeft, setTimeLeft] = useState(6);
-    // timeRef: 6초 간격으로 캡쳐하기 위한 변수
-    const timeRef = React.useRef(Date.now());
-    const webcamRef = React.useRef(null);
+  const maxCount = 8;
+  const [count, setCount] = useState(1);
+  const [showResult, setShowResult] = useState(false);
+  const [images, setImages] = useState([]);
+  const [timeLeft, setTimeLeft] = useState(6);
+  const timeRef = useRef(Date.now());
+  const webcamRef = useRef(null);
 
-    const capture = useCallback(async () => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        setImages(imgs => imgs.concat(imageSrc))
-        setCount(c => {
-            if(c === maxCount) setShowResult(true);
-            return c + 1
-        })
-    }, [webcamRef]);
-  // 8초 간격으로 캡쳐
-  React.useEffect(() => {
+  const capture = useCallback(async () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImages((imgs) => imgs.concat(imageSrc));
+    setCount((c) => {
+      if (c === maxCount) setShowResult(true);
+      return c + 1;
+    });
+  }, [webcamRef, maxCount]);
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
-      const elapsed = (Date.now() - timeRef.current) / 1000;
-      const newTimeLeft = Math.max(0, 6 - elapsed);
-      // newTimeLeft가 0이면 캡쳐 중지
-      setTimeLeft(newTimeLeft);
-      if (newTimeLeft === 0) {
-        // 캡쳐 중지
-        clearInterval(intervalId);
-        // timeRef.current를 현재 시간으로 초기화
-        timeRef.current = Date.now();
-      }
+      setTimeLeft((prevTimeLeft) => {
+        const newTimeLeft = Math.max(0, prevTimeLeft - 0.1);
+        if (newTimeLeft === 0) {
+          clearInterval(intervalId);
+          capture();
+          setCount(1);
+          setShowResult(true);
+        }
+        return newTimeLeft;
+      });
     }, 100);
     return () => clearInterval(intervalId);
-  }, []);
-
-React.useEffect(() => {
+  }, [capture]);
+  useEffect(() => {
     const timer = setTimeout(() => {
-      // 8초 이상 캡쳐하면 캡쳐 중지
       if (images.length < 8) {
         capture();
-        // 8초 간격으로 캡쳐
         setTimeLeft(6);
         timeRef.current = Date.now();
       }
-      // 8초 이상 캡쳐하면 캡쳐 중지
     }, timeLeft * 1000);
+
     return () => clearTimeout(timer);
   }, [images, capture, timeLeft]);
-
+  const pathname = window.location.pathname;
+  if (pathname.includes('/photoshoot')) {
+    // '/photoshoot' 경로 또는 '/photoshoot'을 포함한 경로에서 실행하는 코드 작성
+  } else {
+    return null; // 다른 경로에서는 실행하지 않음
+  }
+  
     if(showResult) {
         return (
             <>
@@ -180,7 +170,8 @@ React.useEffect(() => {
         </div>
     );
 }
-const root = ReactDOM.createRoot(document.getElementById("root"))
-root.render(<WebcamApp />)
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<WebcamApp />);
 
 export default WebcamApp;
