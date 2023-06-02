@@ -131,6 +131,7 @@ const WebcamApp = (props) => {
   }
 
   const handleImageClick = (image) => {
+    console.log("클릭")
     let updatedSelectedImages;
     if (selectedImages.length < 4) {
       updatedSelectedImages = [...selectedImages, image];
@@ -138,6 +139,9 @@ const WebcamApp = (props) => {
       updatedSelectedImages = [...selectedImages.slice(1), image];
     }
     setSelectedImages(updatedSelectedImages);
+
+    // 클릭한 이미지를 localStorage에 저장
+    localStorage.setItem('selectedImages', JSON.stringify(updatedSelectedImages));
   };
 
   const renderDivBoxes = () => {
