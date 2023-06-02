@@ -150,11 +150,10 @@ const WebcamApp = (props) => {
         <div
           key={i}
           style={{
-            width: '200px',
-            height: '200px',
-            border: '1px solid black',
             backgroundImage,
             backgroundSize: 'cover',
+            width:219.98, 
+            height:140.77, left:1043.56, top:300.68,background:'#ffffff', marginTop:20, marginLeft:38.56
           }}
         />
       );
