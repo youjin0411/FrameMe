@@ -50,36 +50,30 @@ function Gallery() {
   };
 
   useEffect(() => {
-    const slideInterval = setInterval(() => {
-      setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % clonedFrames.length);
-    }, 3000);
-
     function random(min, max) {
       return parseFloat((Math.random() * (max - min) + min).toFixed(2));
     }    
   
-    function UpDown(selector, delay, size) {
-      gsap.fromTo(
-        selector,
-        { y: 0 },
-        {
-          y: size,
-          repeat: -1,
-          yoyo: true,
-          ease: Power1.easeInOut,
-          delay: random(0, delay),
-          duration: 1,
-        }
-      );
+    function UpDown(selector, delay, size){
+      gsap.to(selector, random(1.5, 2.5), {
+        y: size,
+        repeat: -1,
+        yoyo: true,
+        ease: Power1.easeInOut,
+        delay: random(0, delay)
+      })
     }
-  
-    // floatingObject 사용 예시
-    UpDown('.frame', 1, 15);
-    UpDown('.frame', 0.5, 15);
-    UpDown('.frame', 1.5, 20);
-    UpDown('.frame', 1, 15);
-    UpDown('.frame', 0.5, 15);
-    UpDown('.frame', 1.5, 20);
+
+    const slideInterval = setInterval(() => {
+      setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % clonedFrames.length);
+    }, 3000);
+
+    UpDown('.frame.position-1', 1, 15);
+    UpDown('.frame.position-2', 0.5, 15);
+    UpDown('.frame.position-3', 1.5, 20);
+    UpDown('.frame.position-4', 0.5, 15);
+    UpDown('.frame.position-5', 1.5, 20);
+    UpDown('.frame.position-6', 0.5, 15);
 
     return () => {
       clearInterval(slideInterval);
@@ -127,7 +121,7 @@ function Gallery() {
             <button className="close-button" onClick={closePopup}><img src={Xicon} width="15" height="15" alt="close"></img></button>
             <div className='comment'>{selectedFrame.comment}</div>
             <div className='day'>{getCurrentDateTime().date}</div>
-            <div className='time'>{getCurrentDateTime().time}</div>
+            <div className='time' style={{ marginLeft: '50px' }}>{getCurrentDateTime().time}</div>
           </div>
           <div className='QR'></div>
         </div>

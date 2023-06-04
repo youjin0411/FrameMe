@@ -72,7 +72,7 @@ function SearchSave() {
             <button className="close-button" onClick={closePopup}><img src={Xicon} width="15" height="15" alt="close"></img></button>
             <div className='comment'>{selectedFrame.comment}</div>
             <div className='day'>{getCurrentDateTime().date}</div>
-            <div className='time'>{getCurrentDateTime().time}</div>
+            <div className='time' style={{ marginLeft: '50px' }}>{getCurrentDateTime().time}</div>
           </div>
           <div className='QR'></div>
         </div>

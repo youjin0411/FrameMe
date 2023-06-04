@@ -45,19 +45,19 @@ input {
   background-repeat: no-repeat;
   background-size: 1920px 996px;
   overflow: hidden;
-}  
+}
 
 .background1 {
   width: 1920px;
-  height: 1010px;
+  height: 909px;
   border-radius: 30px 30px 0px 0px;
   box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
   margin-top: 0px;
   background-image: url(/src/img/backgroundImage.png);
   background-repeat: no-repeat;
   background-size: 1920px 996px;
-  overflow: hidden;
-}  
+  overflow: auto;
+}
 
 .container{
   position: relative;
@@ -82,21 +82,6 @@ input {
   width: 4262px;
 }
 
-@keyframes slideAndShake {
-  0% {
-    transform: translate(-500%);
-  }
-  100% {
-    transform: translate(500%);
-  }
-}
-
-.frame {
-  display: flex;
-  flex-direction: row;
-  animation: slideAndShake 20s linear infinite;
-  /*animation: slideAndShake 2s linear 0s infinite normal forwards running;*/
-}
 
 .frame.position-1 {
   margin: 93px 0px 425px 40px;
@@ -215,11 +200,10 @@ input {
   display: flex;
   width: 100%;
   height: 100%;
-  align-content: space-around;
   flex-wrap: wrap;
   align-items: center;
 }
 
 .frame1{
-  margin: -50px 10px 0px 120px;
+  margin: 20px 10px 0px 120px;
 }

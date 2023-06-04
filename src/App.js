@@ -8,8 +8,9 @@ import Photoshoot from "./pages/Photoshoot"
 import Frame from "./pages/Frame"
 import ChoiceFrame from "./pages/Choiceframe"
 import Write from "./pages/Write"
-import Gallery from './pages/Gallery';
-import SearchSave from './pages/SearchSave';
+import Test from "./pages/Test"
+import Gallery from "./pages/Gallery"
+import SearchSave from "./pages/SearchSave"
 
 
 function App() {
@@ -53,21 +54,23 @@ function App() {
           <Write /> {/* Main 페이지 */}
         </div>
         } />
-        
+
         <Route path="/Gallery" element={
           <div>
-            <Navbar />
-            <Gallery /> {/* Main 페이지 */}
-          </div>
+          <Navbar />
+          <Gallery /> {/* Main 페이지 */}
+        </div>
         } />
-          <Route path="/SearchSave" element={
-            <div>
-              <Navbar />
-              <SearchSave /> {/* Main 페이지 */}
-            </div>
-          } />
+
+        <Route path="/SearchSave" element={
+          <div>
+          <Navbar />
+          <SearchSave /> {/* Main 페이지 */}
+        </div>
+        } />
 
         <Route path="/filming" element={<Wepcam />} />
+        <Route path="/Test" element={<Test />} />
       </Routes>
     </Router>
   );
