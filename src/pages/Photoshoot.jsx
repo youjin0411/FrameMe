@@ -19,9 +19,9 @@ const ImageEditor = (props) => {
     const image = new Image();
 
     image.onload = () => {
-      canvas.width = 245;
-      canvas.height = 158;
-      ctx.drawImage(image, 0, 0, 245, 158);
+      canvas.width = 220;
+      canvas.height = 140;
+      ctx.drawImage(image, 0, 0, 220, 140);
       setOriginalImage(image);
     };
 
@@ -33,7 +33,7 @@ const ImageEditor = (props) => {
     const ctx = canvas.getContext('2d');
 
     if (originalImage) {
-      ctx.drawImage(originalImage, 0, 0, 245, 158);
+      ctx.drawImage(originalImage, 0, 0, 220, 140);
     }
 
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -46,7 +46,7 @@ const ImageEditor = (props) => {
     const ctx = canvas.getContext('2d');
 
     if (originalImage) {
-      ctx.drawImage(originalImage, 0, 0, 245, 158);
+      ctx.drawImage(originalImage, 0, 0, 220, 140);
     }
   };
 
@@ -65,6 +65,7 @@ const ImageEditor = (props) => {
   }, [selectedImages]);
 
   const handleImageClick = (image) => {
+    console.log(1); 
     let updatedSelectedImages;
     if (selectedImages.length < 4) {
       updatedSelectedImages = [...selectedImages, image];
@@ -73,8 +74,7 @@ const ImageEditor = (props) => {
     }
     setSelectedImages(updatedSelectedImages);
   };
-
-  const renderDivBoxes = () => {
+  const renderDivBoxes = useCallback(() => {
     const divBoxes = [];
     for (let i = 0; i < 4; i++) {
       const selectedImage = selectedImages[i % selectedImages.length];
@@ -84,9 +84,7 @@ const ImageEditor = (props) => {
         <div
           key={i}
           style={{
-            width: '200px',
-            height: '200px',
-            border: '1px solid black',
+            width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56,
             backgroundImage,
             backgroundSize: 'cover',
           }}
@@ -94,13 +92,13 @@ const ImageEditor = (props) => {
       );
     }
     return divBoxes;
-  };
+  }, [selectedImages]);
 
   return (
     <div>
       <canvas 
       ref={canvasRef} 
-      width="245" height="158" onClick={() => handleImageClick(canvasRef)}/>
+      width="219.98" height="140.77" onClick={() => handleImageClick(props.imageSrc)}/>
       {/* <br /> 
         <div style={{display:'grid', gridTemplateColumns:'45px 45px 45px'}}>
             <button onClick={() => { applyFilter(grayscaleFilter) }}>흑백</button>
@@ -113,18 +111,38 @@ const ImageEditor = (props) => {
 
 const WebcamApp = (props) => {
   const maxCount = 8;
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [images, setImages] = useState([]);
   const [timeLeft, setTimeLeft] = useState(6);
   const timeRef = useRef(Date.now());
   const webcamRef = useRef(null);
 
+  const renderDivBoxes = useCallback(() => {
+    const divBoxes = [];
+    for (let i = 0; i < 4; i++) {
+      const selectedImage = images[i % images.length];
+      const backgroundImage = selectedImage ? `url(${selectedImage})` : 'none';
+
+      divBoxes.push(
+        <div
+          key={i}
+          style={{
+            width: 219.98, height: 140.77, left: 1043.56, top: 300.68, background: '#ffffff', marginLeft: 38.56,
+            backgroundImage,
+            backgroundSize: 'cover',
+          }}
+        />
+      );
+    }
+    return divBoxes;
+  }, [images]);
+
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImages((imgs) => imgs.concat(imageSrc));
     setCount((c) => {
-      if (c === maxCount) setShowResult(true);
+      if (c === maxCount - 1) setShowResult(true);
       return c + 1;
     });
   }, [webcamRef, maxCount]);
@@ -160,39 +178,69 @@ const WebcamApp = (props) => {
   const pathname = window.location.pathname;
   if (pathname.includes('/photoshoot')) {
     // '/photoshoot' 경로 또는 '/photoshoot'을 포함한 경로에서 실행하는 코드 작성
-  } else {
-    return null; // 다른 경로에서는 실행하지 않음
-  }
-  if (showResult) {
-        return (
-            <>
-            <div style={{fontSize:24, textAlign:'center',fontWeight:600, marginTop:40}}>사진을 선택해주세요</div>
-            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:65}}>
-                <div style={{position:'absolute', width:196, height:60, left:1633,top:249, borderRadius: 30, background:'#white',backgroundBlendMode: 'overlay', boxShadow:'0px 0px 2px 2px #F5F5F5'}}></div>
-                <div style={{display:'grid', gridTemplateColumns:'245px 245px', marginLeft:328, marginTop:100, position:'absolute', gridColumnGap: 10}}>
-                    {images.map((i, index) => <ImageEditor key={index} imageSrc={i} style={{background:'#000000'}} />)}
-                </div>
-                {/* 9.39 */}
-                <div style={{position:'absolute', width:583, height:683, left:105, top:259, background:'#000000',marginLeft:900, marginTop:60,}}>
-                    {/* <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop:-5}}>
-                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginTop:20, marginLeft:38.56}}></div>
-                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
-                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
-                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
-                    </div> */}
-                    {/* <div >
-                      {renderDivBoxes()}
-                    </div> */}
+    if (showResult) {
+      return (
+        <>
+          <div style={{ fontSize: 24, textAlign: 'center', fontWeight: 600, marginTop: 40 }}>
+            사진을 선택해주세요
+          </div>
+          <div
+            style={{
+              margin: '0 auto',
+              background: 'white',
+              width: 1820,
+              height: 900,
+              left: 50,
+              top: 180,
+              backgroundBlendMode: 'overlay',
+              borderRadius: '30px 30px 0px 0px',
+              boxShadow: '0px 0px 2px 2px #F5F5F5',
+              marginTop: 65,
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                width: 196,
+                height: 60,
+                left: 1633,
+                top: 249,
+                borderRadius: 30,
+                background: '#white',
+                backgroundBlendMode: 'overlay',
+                boxShadow: '0px 0px 2px 2px #F5F5F5',
+              }}
+            ></div>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '245px 245px',
+                marginLeft: '262px',
+                marginTop: '94px',
+                position: 'absolute',
+                columnGap: '10px',
+                gridColumnGap: '45px',
+                gridRowGap: '35px',
+              }}
+            >
+              {images.map((i, index) => (
+                <ImageEditor key={index} imageSrc={i} style={{ background: '#000000' }} />
+              ))}
+            </div>
+            {/* 9.39 */}
+            <div
+              style={{
+                position: 'absolute',
+                width: 583, height:683, left:105, top:259, background:'#000000',marginLeft:900, marginTop:60,}}>
+                    <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop: 17}}>
+                    {renderDivBoxes()}
+                    </div>
                 </div>
             </div>
-                {/* <button onClick={() => {
-                    setCount(1);
-                    setShowResult(false);
-                    setImages([]);  
-                }}>다시 찍기</button> */}
             </>
         )
     }
+  }
 
     return (
         <div>
