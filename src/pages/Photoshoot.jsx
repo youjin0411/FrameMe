@@ -65,7 +65,6 @@ const ImageEditor = (props) => {
   }, [selectedImages]);
 
   const handleImageClick = (image) => {
-    console.log(1); 
     let updatedSelectedImages;
     if (selectedImages.length < 4) {
       updatedSelectedImages = [...selectedImages, image];
@@ -74,25 +73,7 @@ const ImageEditor = (props) => {
     }
     setSelectedImages(updatedSelectedImages);
   };
-  const renderDivBoxes = useCallback(() => {
-    const divBoxes = [];
-    for (let i = 0; i < 4; i++) {
-      const selectedImage = selectedImages[i % selectedImages.length];
-      const backgroundImage = selectedImage ? `url(${selectedImage})` : 'none';
-
-      divBoxes.push(
-        <div
-          key={i}
-          style={{
-            width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56,
-            backgroundImage,
-            backgroundSize: 'cover',
-          }}
-        />
-      );
-    }
-    return divBoxes;
-  }, [selectedImages]);
+  
 
   return (
     <div>
