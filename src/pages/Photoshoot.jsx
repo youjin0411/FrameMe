@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
 import Webcam from 'react-webcam';
-import { grayscaleFilter, brightnessFilter } from './filters.js';
 
 const videoConstraints = {
   width: 1280,
@@ -9,48 +8,17 @@ const videoConstraints = {
   facingMode: 'user',
 };
 
-const ImageEditor = (props) => {
+const WebcamApp = (props) => {
+  const maxCount = 8;
+  const [count, setCount] = useState(0);
+  const [showResult, setShowResult] = useState(false);
+  const [images, setImages] = useState([]);
+  const [timeLeft, setTimeLeft] = useState(6);
+  const timeRef = useRef(Date.now());
+  const webcamRef = useRef(null);
   const canvasRef = useRef();
   const [originalImage, setOriginalImage] = useState(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    const image = new Image();
-
-    image.onload = () => {
-      canvas.width = 220;
-      canvas.height = 140;
-      ctx.drawImage(image, 0, 0, 220, 140);
-      setOriginalImage(image);
-    };
-
-    image.src = props.imageSrc;
-  }, [props.imageSrc]);
-
-  const applyFilter = (filterFunction) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    if (originalImage) {
-      ctx.drawImage(originalImage, 0, 0, 220, 140);
-    }
-
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    filterFunction(imageData);
-    ctx.putImageData(imageData, 0, 0);
-  };
-
-  const resetFilter = () => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    if (originalImage) {
-      ctx.drawImage(originalImage, 0, 0, 220, 140);
-    }
-  };
-
-  // Image Choice
   const [selectedImages, setSelectedImages] = useState([]);
 
   useEffect(() => {
@@ -64,6 +32,7 @@ const ImageEditor = (props) => {
     localStorage.setItem('selectedImages', JSON.stringify(selectedImages));
   }, [selectedImages]);
 
+
   const handleImageClick = (image) => {
     let updatedSelectedImages;
     if (selectedImages.length < 4) {
@@ -73,43 +42,22 @@ const ImageEditor = (props) => {
     }
     setSelectedImages(updatedSelectedImages);
   };
-  
-
-  return (
-    <div>
-      <canvas 
-      ref={canvasRef} 
-      width="219.98" height="140.77" onClick={() => handleImageClick(props.imageSrc)}/>
-      {/* <br /> 
-        <div style={{display:'grid', gridTemplateColumns:'45px 45px 45px'}}>
-            <button onClick={() => { applyFilter(grayscaleFilter) }}>흑백</button>
-            <button onClick={() => { applyFilter(brightnessFilter) }}>밝게</button>
-            <button onClick={resetFilter}>원본</button> 
-        </div> */}
-    </div>
-  );
-};
-
-const WebcamApp = (props) => {
-  const maxCount = 8;
-  const [count, setCount] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-  const [images, setImages] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(6);
-  const timeRef = useRef(Date.now());
-  const webcamRef = useRef(null);
-
-  const renderDivBoxes = useCallback(() => {
+ 
+  const renderDivBoxes = () => {
     const divBoxes = [];
     for (let i = 0; i < 4; i++) {
-      const selectedImage = images[i % images.length];
+      const selectedImage = selectedImages[i % selectedImages.length];
       const backgroundImage = selectedImage ? `url(${selectedImage})` : 'none';
-
       divBoxes.push(
         <div
           key={i}
           style={{
-            width: 219.98, height: 140.77, left: 1043.56, top: 300.68, background: '#ffffff', marginLeft: 38.56,
+            width: 219.98,
+            height: 140.77,
+            left: 1043.56,
+            top: 300.68,
+            background: '#ffffff',
+            marginLeft: 38.56,
             backgroundImage,
             backgroundSize: 'cover',
           }}
@@ -117,7 +65,7 @@ const WebcamApp = (props) => {
       );
     }
     return divBoxes;
-  }, [images]);
+  };  
 
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -181,19 +129,6 @@ const WebcamApp = (props) => {
           >
             <div
               style={{
-                position: 'absolute',
-                width: 196,
-                height: 60,
-                left: 1633,
-                top: 249,
-                borderRadius: 30,
-                background: '#white',
-                backgroundBlendMode: 'overlay',
-                boxShadow: '0px 0px 2px 2px #F5F5F5',
-              }}
-            ></div>
-            <div
-              style={{
                 display: 'grid',
                 gridTemplateColumns: '245px 245px',
                 marginLeft: '262px',
@@ -205,7 +140,7 @@ const WebcamApp = (props) => {
               }}
             >
               {images.map((i, index) => (
-                <ImageEditor key={index} imageSrc={i} style={{ background: '#000000' }} />
+                <img src={i} onClick={() => handleImageClick(i)} style={{width: 219.98, height:140.77 }} />
               ))}
             </div>
             {/* 9.39 */}
