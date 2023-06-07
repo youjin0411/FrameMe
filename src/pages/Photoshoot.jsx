@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import Webcam from 'react-webcam';
 
 const videoConstraints = {
-  width: 1280,
-  height: 720,
+  width: 1001,
+  height: 641,
   facingMode: 'user',
 };
 
@@ -108,7 +108,7 @@ const WebcamApp = () => {
               backgroundBlendMode: 'overlay',
               borderRadius: '30px 30px 0px 0px',
               boxShadow: '0px 0px 2px 2px #F5F5F5',
-              marginTop: 65,
+              marginTop: 80,
             }}
           >
             <div
@@ -144,7 +144,7 @@ const WebcamApp = () => {
 
     return (
         <div>
-            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:70}}>
+            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:85}}>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 40}}>{`${count}/${maxCount}`}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 70}}>{Math.round(timeLeft)}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
