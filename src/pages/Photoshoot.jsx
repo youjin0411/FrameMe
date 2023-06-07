@@ -8,7 +8,7 @@ const videoConstraints = {
   facingMode: 'user',
 };
 
-const WebcamApp = (props) => {
+const WebcamApp = () => {
   const maxCount = 8;
   const [count, setCount] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -16,22 +16,7 @@ const WebcamApp = (props) => {
   const [timeLeft, setTimeLeft] = useState(6);
   const timeRef = useRef(Date.now());
   const webcamRef = useRef(null);
-  const canvasRef = useRef();
-  const [originalImage, setOriginalImage] = useState(null);
-
   const [selectedImages, setSelectedImages] = useState([]);
-
-  useEffect(() => {
-    const storedImages = localStorage.getItem('selectedImages');
-    if (storedImages) {
-      setSelectedImages(JSON.parse(storedImages));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('selectedImages', JSON.stringify(selectedImages));
-  }, [selectedImages]);
-
 
   const handleImageClick = (image) => {
     let updatedSelectedImages;
@@ -42,7 +27,7 @@ const WebcamApp = (props) => {
     }
     setSelectedImages(updatedSelectedImages);
   };
- 
+  
   const renderDivBoxes = () => {
     const divBoxes = [];
     for (let i = 0; i < 4; i++) {
@@ -56,7 +41,6 @@ const WebcamApp = (props) => {
             height: 140.77,
             left: 1043.56,
             top: 300.68,
-            background: '#ffffff',
             marginLeft: 38.56,
             backgroundImage,
             backgroundSize: 'cover',
