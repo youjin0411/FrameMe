@@ -14,33 +14,6 @@ import Mainframe9 from "../img/Mainframe9.png";
 import Mainframe10 from "../img/Mainframe10.png";
 
 function Choiceframe() {
-  // const [selectedFrames, setSelectedFrames] = useState({
-  //   f1: false,
-  //   f2: false,
-  //   f3: false,
-  //   f4: false,
-  //   f5: false,
-  //   f6: false,
-  //   f7: false,
-  //   f8: false,
-  //   f9: false,
-  //   f10: false,
-  // });
-
-  // const handleFrameClick = (frameId) => {
-  //   setSelectedFrames((prevSelectedFrames) => {
-  //     const updatedFrames = { ...prevSelectedFrames };
-  //     Object.keys(updatedFrames).forEach((key) => {
-  //       updatedFrames[key] = key === frameId;
-  //     });
-  //     return updatedFrames;
-  //   });
-  // };
-
-  // const getDisplayStyle = (frameId) => {
-  //   return selectedFrames[frameId] ? 'block' : 'none';
-  // };
-
   const [selectedFrame, setSelectedFrame] = useState(null);
 
   const handleFrameClick = (frameId) => {
@@ -88,10 +61,23 @@ function Choiceframe() {
     backgroundImage: getBackgroundImage(),
   };
 
+  const style2 = {
+    width: 219.98, 
+    height: 140.77,
+    backgroundSize: 'cover'
+  }
+  const storedImages = JSON.parse(localStorage.getItem('selectedImages')) || [];
+
   return (
     <div>
       <h1>프레임을 선택해주세요</h1>
       <div id="frameimg" style={frameImgStyle}></div>
+      <div style={{position: 'absolute', display: 'grid',left: 268, top: 290, gridRowGap: 10, rowGap: 10}}>
+      <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
+      <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
+      <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
+      <div style={{ ...style2, backgroundImage: `url(${storedImages[3]})` }} />
+      </div>
       <div id="fragr">
         <div className="fragr" id="f1" onClick={() => handleFrameClick('f1')}>
           <img
@@ -165,8 +151,6 @@ function Choiceframe() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
-              width: "100%",
-              height: "100%"
             }}
           />
         </div>
@@ -245,6 +229,19 @@ function Choiceframe() {
             }}
           />
         </div>
+        <button id="button" style={{
+          position: 'absolute',
+          borderRadius: '30px',
+          width: '196px',
+          height: '60px',
+          left: '1633px',
+          top: '980px',
+          backgroundBlendMode: 'overlay',
+          background: 'white'
+        }}
+        >
+        다음&nbsp;&nbsp;&nbsp;〉
+        </button>
       </div>
     </div>
   );

@@ -1,58 +1,33 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
 import Webcam from 'react-webcam';
-import { grayscaleFilter, brightnessFilter } from './filters.js';
 
+// 비디오 콘테이너
 const videoConstraints = {
-  width: 1280,
-  height: 720,
+  width: 1001,
+  height: 641,
   facingMode: 'user',
 };
 
-const ImageEditor = (props) => {
-  const canvasRef = useRef();
-  const [originalImage, setOriginalImage] = useState(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    const image = new Image();
+const WebcamApp = () => {
+  const maxCount = 8;
+  const [count, setCount] = useState(0);
+  // 촬영 후 이미지를 보여주는지 여부 
+  const [showResult, setShowResult] = useState(false);
+  // 촬영한 사진 배열
+  const [images, setImages] = useState([]);
+  // 6초 촬영 타이머
+  const [timeLeft, setTimeLeft] = useState(6);
+  // 6초 감소 시킬 timeRef
+  const timeRef = useRef(Date.now());
+  // webcam 
+  const webcamRef = useRef(null);
 
-    image.onload = () => {
-      canvas.width = 245;
-      canvas.height = 158;
-      ctx.drawImage(image, 0, 0, 245, 158);
-      setOriginalImage(image);
-    };
-
-    image.src = props.imageSrc;
-  }, [props.imageSrc]);
-
-  const applyFilter = (filterFunction) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    if (originalImage) {
-      ctx.drawImage(originalImage, 0, 0, 245, 158);
-    }
-
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    filterFunction(imageData);
-    ctx.putImageData(imageData, 0, 0);
-  };
-
-  const resetFilter = () => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    if (originalImage) {
-      ctx.drawImage(originalImage, 0, 0, 245, 158);
-    }
-  };
-
-  // Image Choice
+  // localstorage에 넣을 이미지 배열을 담을 변수
   const [selectedImages, setSelectedImages] = useState([]);
 
+  //localStorage에서 "selectedImages"라는 키로 저장된 데이터를 가져오기
   useEffect(() => {
     const storedImages = localStorage.getItem('selectedImages');
     if (storedImages) {
@@ -60,12 +35,15 @@ const ImageEditor = (props) => {
     }
   }, []);
 
+  // selectedImages 배열이 변경될 때마다 실행
   useEffect(() => {
     localStorage.setItem('selectedImages', JSON.stringify(selectedImages));
   }, [selectedImages]);
 
+  // 촬영한 사진 클릭 시 localstorage에 넣기
   const handleImageClick = (image) => {
     let updatedSelectedImages;
+    // localstorage에 넣을 배열 추가
     if (selectedImages.length < 4) {
       updatedSelectedImages = [...selectedImages, image];
     } else {
@@ -73,20 +51,23 @@ const ImageEditor = (props) => {
     }
     setSelectedImages(updatedSelectedImages);
   };
-
+  
+  // 프레임 위의 박스 이미지 출력 코드 
   const renderDivBoxes = () => {
     const divBoxes = [];
     for (let i = 0; i < 4; i++) {
+      // selectedImages의 배열들을 순차대로 이미지 넣기 
       const selectedImage = selectedImages[i % selectedImages.length];
       const backgroundImage = selectedImage ? `url(${selectedImage})` : 'none';
-
       divBoxes.push(
         <div
           key={i}
           style={{
-            width: '200px',
-            height: '200px',
-            border: '1px solid black',
+            width: 219.98,
+            height: 140.77,
+            left: 1043.56,
+            top: 300.68,
+            marginLeft: 38.56,
             backgroundImage,
             backgroundSize: 'cover',
           }}
@@ -94,41 +75,20 @@ const ImageEditor = (props) => {
       );
     }
     return divBoxes;
-  };
+  };  
 
-  return (
-    <div>
-      <canvas 
-      ref={canvasRef} 
-      width="245" height="158" onClick={() => handleImageClick(canvasRef)}/>
-      {/* <br /> 
-        <div style={{display:'grid', gridTemplateColumns:'45px 45px 45px'}}>
-            <button onClick={() => { applyFilter(grayscaleFilter) }}>흑백</button>
-            <button onClick={() => { applyFilter(brightnessFilter) }}>밝게</button>
-            <button onClick={resetFilter}>원본</button> 
-        </div> */}
-    </div>
-  );
-};
-
-const WebcamApp = (props) => {
-  const maxCount = 8;
-  const [count, setCount] = useState(1);
-  const [showResult, setShowResult] = useState(false);
-  const [images, setImages] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(6);
-  const timeRef = useRef(Date.now());
-  const webcamRef = useRef(null);
-
+  // 캡쳐 함수 
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImages((imgs) => imgs.concat(imageSrc));
     setCount((c) => {
-      if (c === maxCount) setShowResult(true);
+      // 0부터 8이 되기 전까지 돌아보기 
+      if (c === maxCount - 1) setShowResult(true);
       return c + 1;
     });
   }, [webcamRef, maxCount]);
 
+  // 타임에 맞추어 타이머 돌리기 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTimeLeft((prevTimeLeft) => {
@@ -145,6 +105,7 @@ const WebcamApp = (props) => {
     return () => clearInterval(intervalId);
   }, [capture]);
 
+  // 8장 이하로 촬영하기 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (images.length < 8) {
@@ -157,46 +118,64 @@ const WebcamApp = (props) => {
     return () => clearTimeout(timer);
   }, [images, capture, timeLeft]);
 
+  // photoshoot 경로에서만 실행되게 하기 
   const pathname = window.location.pathname;
   if (pathname.includes('/photoshoot')) {
     // '/photoshoot' 경로 또는 '/photoshoot'을 포함한 경로에서 실행하는 코드 작성
-  } else {
-    return null; // 다른 경로에서는 실행하지 않음
-  }
-  if (showResult) {
-        return (
-            <>
-            <div style={{fontSize:24, textAlign:'center',fontWeight:600, marginTop:40}}>사진을 선택해주세요</div>
-            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:65}}>
-                <div style={{position:'absolute', width:196, height:60, left:1633,top:249, borderRadius: 30, background:'#white',backgroundBlendMode: 'overlay', boxShadow:'0px 0px 2px 2px #F5F5F5'}}></div>
-                <div style={{display:'grid', gridTemplateColumns:'245px 245px', marginLeft:328, marginTop:100, position:'absolute', gridColumnGap: 10}}>
-                    {images.map((i, index) => <ImageEditor key={index} imageSrc={i} style={{background:'#000000'}} />)}
-                </div>
-                {/* 9.39 */}
-                <div style={{position:'absolute', width:583, height:683, left:105, top:259, background:'#000000',marginLeft:900, marginTop:60,}}>
-                    {/* <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop:-5}}>
-                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginTop:20, marginLeft:38.56}}></div>
-                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
-                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
-                        <div style={{width:219.98, height:140.77, left:1043.56, top:300.68, background:'#ffffff', marginLeft:38.56}}></div>
-                    </div> */}
-                    {/* <div >
-                      {renderDivBoxes()}
-                    </div> */}
+    if (showResult) {
+      return (
+        <>
+          <div style={{ fontSize: 24, textAlign: 'center', fontWeight: 600, marginTop: 40 }}>
+            사진을 선택해주세요
+          </div>
+          <div
+            style={{
+              margin: '0 auto',
+              background: 'white',
+              width: 1820,
+              height: 900,
+              left: 50,
+              top: 180,
+              backgroundBlendMode: 'overlay',
+              borderRadius: '30px 30px 0px 0px',
+              boxShadow: '0px 0px 2px 2px #F5F5F5',
+              marginTop: 80,
+            }}
+          >
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '245px 245px',
+                marginLeft: '262px',
+                marginTop: '94px',
+                position: 'absolute',
+                columnGap: '10px',
+                gridColumnGap: '45px',
+                gridRowGap: '35px',
+              }}
+            >
+              {images.map((i, index) => (
+                <img src={i} onClick={() => handleImageClick(i)} style={{width: 219.98, height:140.77 }} />
+              ))}
+            </div>
+            {/* 9.39 */}
+            <div
+              style={{
+                position: 'absolute',
+                width: 583, height:683, left:105, top:259, background:'#000000',marginLeft:900, marginTop:60,}}>
+                    <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop: 17}}>
+                    {renderDivBoxes()}
+                    </div>
                 </div>
             </div>
-                {/* <button onClick={() => {
-                    setCount(1);
-                    setShowResult(false);
-                    setImages([]);  
-                }}>다시 찍기</button> */}
             </>
         )
     }
+  }
 
     return (
         <div>
-            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:70}}>
+            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:85}}>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 40}}>{`${count}/${maxCount}`}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 70}}>{Math.round(timeLeft)}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
