@@ -82,53 +82,87 @@ input {
   width: 4262px;
 }
 
+/* .frame{
+  animation: 3s linear 0s infinite normal forwards running move1;
+  animation-fill-mode: backwards;
+}
+.clone{
+  animation: 3s linear 0s infinite normal none running move2;
+  animation-fill-mode: backwards;
+}
 
+@keyframes move1 {
+  0% {
+      transform: translateX(0);
+  }
+  50% {
+      transform: translateX(-100%);
+  }
+  50.01%{
+      transform: translateX(100%);
+  }
+  100%{
+      transform: translateX(0);
+  }
+}
+
+@keyframes move2 {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(-200%);
+  }
+} */
+
+/* 원본 */
 .frame.position-1 {
-  margin: 93px 0px 425px 40px;
+  margin: 83px 0px 425px 40px;
 }
 
 .frame.position-2 {
-  margin: 424px 0px 94px 40px;
+  margin: 414px 0px 94px 40px;
 }
 
 .frame.position-3 {
-  margin: 141px 0 376px 40px;
+  margin: 131px 0 376px 40px;
 }
 
 .frame.position-4 {
-  margin: 352px 0 166px 40px;
+  margin: 342px 0 166px 40px;
 }
 
 .frame.position-5 {
-  margin: 93px 0 425px 40px;
+  margin: 83px 0 425px 40px;
 }
 
 .frame.position-6 {
-  margin: 419px 0 99px 40px;
+  margin: 409px 0 99px 40px;
 }
 
-.frame.position-7 {
-  margin: 93px 0px 425px 40px;
+/* 클론 */
+.clone.position-1 {
+  margin: 83px 0px 425px 40px;
 }
 
-.frame.position-8 {
-  margin: 424px 0px 94px 40px;
+.clone.position-2 {
+  margin: 414px 0px 94px 40px;
 }
 
-.frame.position-9 {
-  margin: 141px 0 376px 40px;
+.clone.position-3 {
+  margin: 131px 0 376px 40px;
 }
 
-.frame.position-10 {
-  margin: 352px 0 166px 40px;
+.clone.position-4 {
+  margin: 342px 0 166px 40px;
 }
 
-.frame.position-11 {
-  margin: 93px 0 425px 40px;
+.clone.position-5 {
+  margin: 83px 0 425px 40px;
 }
 
-.frame.position-12 {
-  margin: 419px 0 99px 40px;
+.clone.position-6 {
+  margin: 409px 0 99px 40px;
 }
 
 .comment{

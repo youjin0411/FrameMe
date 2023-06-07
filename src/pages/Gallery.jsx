@@ -49,36 +49,53 @@ function Gallery() {
     return { date: formattedDate, time: formattedTime };
   };
 
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+    swipeToSlide: true
+  };
+  
   useEffect(() => {
     function random(min, max) {
       return parseFloat((Math.random() * (max - min) + min).toFixed(2));
-    }    
+    }
   
-    function UpDown(selector, delay, size){
-      gsap.to(selector, random(1.5, 2.5), {
+    function UpDown(selector, delay, size) {
+      gsap.to(selector, random(2, 3), {
         y: size,
         repeat: -1,
         yoyo: true,
         ease: Power1.easeInOut,
         delay: random(0, delay)
-      })
+      });
     }
-
+  
     const slideInterval = setInterval(() => {
       setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % clonedFrames.length);
     }, 3000);
-
-    UpDown('.frame.position-1', 1, 15);
-    UpDown('.frame.position-2', 0.5, 15);
-    UpDown('.frame.position-3', 1.5, 20);
-    UpDown('.frame.position-4', 0.5, 15);
-    UpDown('.frame.position-5', 1.5, 20);
-    UpDown('.frame.position-6', 0.5, 15);
-
+  
+    // 원본 요소용
+    const originalFrames = document.querySelectorAll('.frame');
+    originalFrames.forEach((frame, index) => {
+      UpDown(frame, 1 + index * 0.5, 10 + index * 5);
+    });
+  
+    // 복제 요소용
+    const clonedFrames = document.querySelectorAll('.clone');
+    clonedFrames.forEach((frame, index) => {
+      UpDown(frame, 1 + index * 0.5, 10 + index * 5);
+    });
+  
     return () => {
       clearInterval(slideInterval);
     };
-  }, []);
+  }, []);  
 
   return (
     <div className='gallery'>
@@ -103,7 +120,7 @@ function Gallery() {
           ))}
           {clonedFrames.map((frame, index) => (
             <div className={`container${index % 2 === 0 ? '' : '2'}`} key={index}>
-              <div className={`frame position-${index + 1}`} onClick={() => openPopup(frame)}>
+              <div className={`clone position-${index + 1}`} onClick={() => openPopup(frame)}>
                 <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
                 <div className='comment'>{frame.comment}</div>
                 <div className='day'>{getCurrentDateTime().date}</div>

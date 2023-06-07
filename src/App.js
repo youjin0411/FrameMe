@@ -9,9 +9,9 @@ import Frame from "./pages/Frame"
 import ChoiceFrame from "./pages/Choiceframe"
 import Write from "./pages/Write"
 import Test from "./pages/Test"
+import Test2 from "./pages/Test2"
 import Gallery from "./pages/Gallery"
 import SearchSave from "./pages/SearchSave"
-
 
 function App() {
   return (
@@ -71,6 +71,7 @@ function App() {
 
         <Route path="/filming" element={<Wepcam />} />
         <Route path="/Test" element={<Test />} />
+        <Route path="/Test2" element={<Test2 />} />
       </Routes>
     </Router>
   );
