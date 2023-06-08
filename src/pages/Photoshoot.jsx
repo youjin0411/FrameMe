@@ -8,7 +8,15 @@ const videoConstraints = {
   height: 641,
   facingMode: 'user',
 };
-
+const style2 = {
+  width: 219.98,
+  height: 140.77,
+  left: 1043.56,
+  top: 300.68,
+  background: 'white',
+  marginLeft: 38.56,
+  backgroundSize: 'cover',
+}
 
 const WebcamApp = () => {
   const maxCount = 8;
@@ -18,66 +26,72 @@ const WebcamApp = () => {
   // 촬영한 사진 배열
   const [images, setImages] = useState([]);
   // 6초 촬영 타이머
-  const [timeLeft, setTimeLeft] = useState(6);
+  const [timeLeft, setTimeLeft] = useState(1);
   // 6초 감소 시킬 timeRef
   const timeRef = useRef(Date.now());
   // webcam 
   const webcamRef = useRef(null);
+  // let newQ = Array(4).fill(null);
+  const [newQ, setNewQ] = useState(Array(4).fill(null));
 
-  // localstorage에 넣을 이미지 배열을 담을 변수
-  const [selectedImages, setSelectedImages] = useState([]);
+  // useCallback을 활용한 훅 
+  //queue 매개변수를 받아 해당 큐의 각 요소에 대한 div 엘리먼트 배열을 반환
+  const renderQueue = useCallback(
+    (queue) => {
+      return queue.map((selectedImage, index) => {
+        const key = `${selectedImage}_${index}`;
+        const bg = selectedImage ? 'pink' : 'white';
+        console.log(bg)
+        return (
+          <div
+            key={key}
+            style={{
+              ...style2,
+              // backgroundColor: bg,
+              backgroundImage: selectedImage ? `url("${selectedImage}")` : null
+            }}
+          ></div>
+        );
+      });
+    },
+    [newQ]
+  );
 
-  //localStorage에서 "selectedImages"라는 키로 저장된 데이터를 가져오기
+  function HandleImageClick(size, renderCallback) {
+    this.q = Array(size).fill(null);
+    this.currentIdx = 0;
+    this.push = function (data) {
+      let newQ = [...this.q]; // 현재 큐를 기반으로 새로운 배열 생성
+      if (this.currentIdx === size) {
+        for (let i = 0; i < size - 1; i++) {
+          newQ[i] = this.q[i + 1];
+        }
+        newQ[size - 1] = data;
+      } else {
+        newQ[this.currentIdx] = data;
+        this.currentIdx++;
+      }
+
+      if (newQ.length === size + 1) {
+        newQ.shift(); // 가장 처음에 넣은 데이터 제거
+      }
+
+      localStorage.setItem('selectedImages', JSON.stringify(newQ)); // 데이터를 로컬스토리지에 저장
+      this.q = newQ; // 현재 큐를 업데이트
+      renderCallback(newQ); // 업데이트된 큐를 전달하여 콜백 함수 호출
+    };
+  }
+
+  const q = new HandleImageClick(4, setNewQ);
+
+  // 로컬 스토리지에서 저장된 이미지를 가져와 newQ 상태를 업데이트
   useEffect(() => {
-    const storedImages = localStorage.getItem('selectedImages');
+    const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
     if (storedImages) {
-      setSelectedImages(JSON.parse(storedImages));
+      setNewQ(storedImages);
     }
   }, []);
 
-  // selectedImages 배열이 변경될 때마다 실행
-  useEffect(() => {
-    localStorage.setItem('selectedImages', JSON.stringify(selectedImages));
-  }, [selectedImages]);
-
-  // 촬영한 사진 클릭 시 localstorage에 넣기
-  const handleImageClick = (image) => {
-    let updatedSelectedImages;
-    // localstorage에 넣을 배열 추가
-    if (selectedImages.length < 4) {
-      updatedSelectedImages = [...selectedImages, image];
-    } else {
-      updatedSelectedImages = [...selectedImages.slice(1), image];
-    }
-    setSelectedImages(updatedSelectedImages);
-  };
-  
-  // 프레임 위의 박스 이미지 출력 코드 
-  const renderDivBoxes = () => {
-    const divBoxes = [];
-    for (let i = 0; i < 4; i++) {
-      // selectedImages의 배열들을 순차대로 이미지 넣기 
-      const selectedImage = selectedImages[i % selectedImages.length];
-      const backgroundImage = selectedImage ? `url(${selectedImage})` : 'none';
-      divBoxes.push(
-        <div
-          key={i}
-          style={{
-            width: 219.98,
-            height: 140.77,
-            left: 1043.56,
-            top: 300.68,
-            marginLeft: 38.56,
-            backgroundImage,
-            backgroundSize: 'cover',
-          }}
-        />
-      );
-    }
-    return divBoxes;
-  };  
-
-  // 캡쳐 함수 
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImages((imgs) => imgs.concat(imageSrc));
@@ -86,7 +100,7 @@ const WebcamApp = () => {
       if (c === maxCount - 1) setShowResult(true);
       return c + 1;
     });
-  }, [webcamRef, maxCount]);
+}, [webcamRef, maxCount]);
 
   // 타임에 맞추어 타이머 돌리기 
   useEffect(() => {
@@ -110,7 +124,7 @@ const WebcamApp = () => {
     const timer = setTimeout(() => {
       if (images.length < 8) {
         capture();
-        setTimeLeft(6);
+        setTimeLeft(1);
         timeRef.current = Date.now();
       }
     }, timeLeft * 1000);
@@ -120,8 +134,8 @@ const WebcamApp = () => {
 
   // photoshoot 경로에서만 실행되게 하기 
   const pathname = window.location.pathname;
+
   if (pathname.includes('/photoshoot')) {
-    // '/photoshoot' 경로 또는 '/photoshoot'을 포함한 경로에서 실행하는 코드 작성
     if (showResult) {
       return (
         <>
@@ -139,7 +153,7 @@ const WebcamApp = () => {
               backgroundBlendMode: 'overlay',
               borderRadius: '30px 30px 0px 0px',
               boxShadow: '0px 0px 2px 2px #F5F5F5',
-              marginTop: 80,
+              marginTop: 65,
             }}
           >
             <div
@@ -155,18 +169,16 @@ const WebcamApp = () => {
               }}
             >
               {images.map((i, index) => (
-                <img src={i} onClick={() => handleImageClick(i)} style={{width: 219.98, height:140.77 }} />
+                <img key={index} src={i} onClick={() => {
+                  q.push(i)
+                }} style={{width: 219.98, height:140.77 }} />
               ))}
             </div>
-            {/* 9.39 */}
-            <div
-              style={{
-                position: 'absolute',
-                width: 583, height:683, left:105, top:259, background:'#000000',marginLeft:900, marginTop:60,}}>
-                    <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop: 17}}>
-                    {renderDivBoxes()}
-                    </div>
+            <div style={{ position: 'absolute', width: 583, height:683, left:105, top:259, background:'#000000',marginLeft:900, marginTop:60,}}>
+                <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop: 17}} id='print'>
+                {renderQueue(newQ)}
                 </div>
+              </div>
             </div>
             </>
         )
@@ -175,7 +187,7 @@ const WebcamApp = () => {
 
     return (
         <div>
-            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:85}}>
+            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:70}}>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 40}}>{`${count}/${maxCount}`}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 70}}>{Math.round(timeLeft)}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
