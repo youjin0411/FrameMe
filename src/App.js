@@ -4,7 +4,7 @@ import Navbar from './navbar/index';
 import Main from "./pages/Mainstart";
 import Wepcam from "./pages/Filming";
 import ChoiceImg from "./pages/ChoiceImg"
-import Photoshoot from "./pages/Photoshoot"
+import WebcamApp from "./pages/WebcamApp"
 import Frame from "./pages/Frame"
 import ChoiceFrame from "./pages/Choiceframe"
 import Write from "./pages/Write"
@@ -12,6 +12,7 @@ import Test from "./pages/Test"
 import Test2 from "./pages/Test2"
 import Gallery from "./pages/Gallery"
 import SearchSave from "./pages/SearchSave"
+import Loding from "./pages/Loding"
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           element={
             <div>
               <Navbar />
-              <Photoshoot /> {/* Main 페이지 */}
+              <WebcamApp /> {/* Main 페이지 */}
             </div>
           }
         />
@@ -66,6 +67,12 @@ function App() {
           <div>
           <Navbar />
           <SearchSave /> {/* Main 페이지 */}
+        </div>
+        } />
+      <Route path="/Loding" element={
+          <div>
+          <Navbar />
+          <Loding /> {/* Main 페이지 */}
         </div>
         } />
 
