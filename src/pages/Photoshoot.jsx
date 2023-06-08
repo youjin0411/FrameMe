@@ -31,8 +31,37 @@ const WebcamApp = () => {
   const timeRef = useRef(Date.now());
   // webcam 
   const webcamRef = useRef(null);
-  // let newQ = Array(4).fill(null);
   const [newQ, setNewQ] = useState(Array(4).fill(null));
+  //useEffect 실행 체크
+  let check = Array(4).fill(null);
+  let Qnew = Array(4).fill(null);
+
+  function HandleImageClick(size, renderCallback) {
+    const [q, setQ] = useState(Array(size).fill(null));
+    const [currentIdx, setCurentIdx] = useState(0); 
+    this.push = function (data) {
+      Qnew = [...q]; // 현재 큐를 기반으로 새로운 배열 생성
+      console.log(Qnew)
+      if (currentIdx === size) { // 4 == 4일 경우 
+        // for (let i = 0; i < size - 1; i++) {
+        //   console.log(currentIdx)
+        //   Qnew[currentIdx] = q[i + 1];
+        // }
+        Qnew[0] = data;
+        setCurentIdx(1)
+      } else {
+        Qnew[currentIdx] = data;
+        setCurentIdx(idx => idx+1)
+      }
+      if (Qnew.length === size + 1) {
+        Qnew.shift(); // 가장 처음에 넣은 데이터 제거
+      }
+      localStorage.setItem('selectedImages', JSON.stringify(Qnew)); // 데이터를 로컬스토리지에 저장
+      setQ(Qnew);; // 현재 큐를 업데이트
+      check.push(Qnew)
+      renderCallback([...Qnew]); // 업데이트된 큐를 전달하여 콜백 함수 호출
+    };
+  }
 
   // useCallback을 활용한 훅 
   //queue 매개변수를 받아 해당 큐의 각 요소에 대한 div 엘리먼트 배열을 반환
@@ -40,8 +69,6 @@ const WebcamApp = () => {
     (queue) => {
       return queue.map((selectedImage, index) => {
         const key = `${selectedImage}_${index}`;
-        const bg = selectedImage ? 'pink' : 'white';
-        console.log(bg)
         return (
           <div
             key={key}
@@ -57,31 +84,6 @@ const WebcamApp = () => {
     [newQ]
   );
 
-  function HandleImageClick(size, renderCallback) {
-    this.q = Array(size).fill(null);
-    this.currentIdx = 0;
-    this.push = function (data) {
-      let newQ = [...this.q]; // 현재 큐를 기반으로 새로운 배열 생성
-      if (this.currentIdx === size) {
-        for (let i = 0; i < size - 1; i++) {
-          newQ[i] = this.q[i + 1];
-        }
-        newQ[size - 1] = data;
-      } else {
-        newQ[this.currentIdx] = data;
-        this.currentIdx++;
-      }
-
-      if (newQ.length === size + 1) {
-        newQ.shift(); // 가장 처음에 넣은 데이터 제거
-      }
-
-      localStorage.setItem('selectedImages', JSON.stringify(newQ)); // 데이터를 로컬스토리지에 저장
-      this.q = newQ; // 현재 큐를 업데이트
-      renderCallback(newQ); // 업데이트된 큐를 전달하여 콜백 함수 호출
-    };
-  }
-
   const q = new HandleImageClick(4, setNewQ);
 
   // 로컬 스토리지에서 저장된 이미지를 가져와 newQ 상태를 업데이트
@@ -90,7 +92,7 @@ const WebcamApp = () => {
     if (storedImages) {
       setNewQ(storedImages);
     }
-  }, []);
+  }, [check]);
 
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -184,7 +186,6 @@ const WebcamApp = () => {
         )
     }
   }
-
     return (
         <div>
             <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:70}}>
