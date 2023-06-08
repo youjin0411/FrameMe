@@ -1,0 +1,243 @@
+.bar {
+  position: relative;
+  width: 1920px;
+  padding: 20px 0px 20px 0px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+.text {
+  padding: 0 1% 0 6.5%;
+  font-size: 24px;
+  display: inline;
+}
+
+.barcomment {
+  position: relative;
+  font-size: 15px;
+  color: darkgrey;
+  display: inline;
+}
+
+.search {
+  position: relative;
+  width: 10%;
+  float: right;
+  padding-right: 9%;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 30px;    
+  padding: 5% 5% 5% 20%;
+  color: #bbb;
+  outline: none;
+}
+
+.background {
+  width: 1920px;
+  height: 909px;
+  border-radius: 30px 30px 0px 0px;
+  box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
+  margin-top: 0px;
+  background-image: url(/src/img/backgroundImage.png);
+  background-repeat: no-repeat;
+  background-size: 1920px 996px;
+  overflow: hidden;
+}
+
+.background1 {
+  width: 1920px;
+  height: 909px;
+  border-radius: 30px 30px 0px 0px;
+  box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
+  margin-top: 0px;
+  background-image: url(/src/img/backgroundImage.png);
+  background-repeat: no-repeat;
+  background-size: 1920px 996px;
+  overflow: auto;
+}
+
+.container{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.container2{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.frames {
+  position: relative;
+  overflow: hidden;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100%;
+  width: 4262px;
+}
+
+/* .frame{
+  animation: 3s linear 0s infinite normal forwards running move1;
+  animation-fill-mode: backwards;
+}
+.clone{
+  animation: 3s linear 0s infinite normal none running move2;
+  animation-fill-mode: backwards;
+}
+
+@keyframes move1 {
+  0% {
+      transform: translateX(0);
+  }
+  50% {
+      transform: translateX(-100%);
+  }
+  50.01%{
+      transform: translateX(100%);
+  }
+  100%{
+      transform: translateX(0);
+  }
+}
+
+@keyframes move2 {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(-200%);
+  }
+} */
+
+/* 원본 */
+.frame.position-1 {
+  margin: 83px 0px 425px 40px;
+}
+
+.frame.position-2 {
+  margin: 414px 0px 94px 40px;
+}
+
+.frame.position-3 {
+  margin: 131px 0 376px 40px;
+}
+
+.frame.position-4 {
+  margin: 342px 0 166px 40px;
+}
+
+.frame.position-5 {
+  margin: 83px 0 425px 40px;
+}
+
+.frame.position-6 {
+  margin: 409px 0 99px 40px;
+}
+
+/* 클론 */
+.clone.position-1 {
+  margin: 83px 0px 425px 40px;
+}
+
+.clone.position-2 {
+  margin: 414px 0px 94px 40px;
+}
+
+.clone.position-3 {
+  margin: 131px 0 376px 40px;
+}
+
+.clone.position-4 {
+  margin: 342px 0 166px 40px;
+}
+
+.clone.position-5 {
+  margin: 83px 0 425px 40px;
+}
+
+.clone.position-6 {
+  margin: 409px 0 99px 40px;
+}
+
+.comment{
+  position: absolute;
+  font-size: 16px;
+  color: #3C3C3C;
+  bottom: -28px;
+}
+.day{
+  position: absolute;
+  font: 13px;
+  color:#B9B9B9;
+  bottom: -51px;
+}
+
+.time{
+  position: absolute;
+  font: 13px;
+  color: #B9B9B9;
+  bottom: -51px;
+  left: 87%;
+}
+
+.popup {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 1920px;
+  height: 100%;
+  /* background-color: rgba(255, 255, 255, 0.7); */
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  position: relative;
+  padding: 20px 0px 0px 185px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.QR{
+  background-color: rgb(220, 220, 220);
+  width: 164px;
+  height: 164px;
+  margin: 536px 0px 0px 25px;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  background-color: transparent;
+  border: none;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+
+/*SearchSave css*/
+
+.container1{
+  position: relative;
+}
+
+.frames1 {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.frame1{
+  margin: 20px 10px 0px 120px;
+}

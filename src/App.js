@@ -10,6 +10,8 @@ import ChoiceFrame from "./pages/Choiceframe"
 import Write from "./pages/Write"
 import Test from "./pages/Test"
 import Test2 from "./pages/Test2"
+import Gallery from "./pages/Gallery"
+import SearchSave from "./pages/SearchSave"
 
 function App() {
   return (
@@ -50,6 +52,20 @@ function App() {
           <div>
           <Navbar />
           <Write /> {/* Main 페이지 */}
+        </div>
+        } />
+
+        <Route path="/Gallery" element={
+          <div>
+          <Navbar />
+          <Gallery /> {/* Main 페이지 */}
+        </div>
+        } />
+
+        <Route path="/SearchSave" element={
+          <div>
+          <Navbar />
+          <SearchSave /> {/* Main 페이지 */}
         </div>
         } />
 
