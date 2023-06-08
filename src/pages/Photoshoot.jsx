@@ -157,7 +157,7 @@ const WebcamApp = () => {
               top: 180,
               backgroundBlendMode: 'overlay',
               borderRadius: '30px 30px 0px 0px',
-              boxShadow: '0px 0px 49px 3px #F5F5F5',
+              boxShadow: '0px 0px 2px 3px #F5F5F5',
             }}
           >
             <div
@@ -204,7 +204,7 @@ const WebcamApp = () => {
   }
     return (
         <div>
-            <div style={{margin:'0 auto', background:'white', width: 1820, height:967, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5', marginTop:70}}>
+            <div style={{margin:'0 auto', background:'white', width: 1820, height:967, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 2px 3px #F5F5F5', marginTop:70}}>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 40}}>{`${count}/${maxCount}`}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 70}}>{Math.round(timeLeft)}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
