@@ -99,10 +99,13 @@ const WebcamApp = () => {
     setImages((imgs) => imgs.concat(imageSrc));
     setCount((c) => {
       // 0부터 8이 되기 전까지 돌아보기 
-      if (c === maxCount - 1) setShowResult(true);
+      if (c === maxCount - 1) {
+        setShowResult(true);
+      }
       return c + 1;
     });
-}, [webcamRef, maxCount]);
+  }, [webcamRef, maxCount]);
+  
 
   // 타임에 맞추어 타이머 돌리기 
   useEffect(() => {
@@ -146,16 +149,15 @@ const WebcamApp = () => {
           </div>
           <div
             style={{
-              margin: '0 auto',
+              marginTop: 23,
               background: 'white',
               width: 1820,
-              height: 900,
+              height: 967,
               left: 50,
               top: 180,
               backgroundBlendMode: 'overlay',
               borderRadius: '30px 30px 0px 0px',
-              boxShadow: '0px 0px 2px 2px #F5F5F5',
-              marginTop: 65,
+              boxShadow: '0px 0px 49px 3px #F5F5F5',
             }}
           >
             <div
@@ -176,19 +178,33 @@ const WebcamApp = () => {
                 }} style={{width: 219.98, height:140.77 }} />
               ))}
             </div>
-            <div style={{ position: 'absolute', width: 583, height:683, left:105, top:259, background:'#000000',marginLeft:900, marginTop:60,}}>
+            <div style={{ position: 'absolute', width: 583, height:683, left:105, top:206, background:'#000000',marginLeft:900, marginTop:60,}}>
                 <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop: 17}} id='print'>
                 {renderQueue(newQ)}
                 </div>
               </div>
             </div>
+            <button id="button" style={{
+                  position: 'absolute',
+                  borderRadius: '30px',
+                  width: '196px',
+                  height: '60px',
+                  left: '1633px',
+                  top: '980px',
+                  backgroundBlendMode: 'overlay',
+                  background: 'white',
+                  boxShadow: '0px 0px 2px 2px #F5F5F5',
+                }}
+                >
+                다음&nbsp;&nbsp;&nbsp;〉
+            </button>
             </>
         )
     }
   }
     return (
         <div>
-            <div style={{margin:'0 auto', background:'white', width: 1820, height:900, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow:'0px 0px 2px 2px #F5F5F5', marginTop:70}}>
+            <div style={{margin:'0 auto', background:'white', width: 1820, height:967, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5', marginTop:70}}>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 40}}>{`${count}/${maxCount}`}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 70}}>{Math.round(timeLeft)}</div>
             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
