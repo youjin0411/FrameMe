@@ -8,7 +8,7 @@ const DropdownMenu = () => {
     <>
 		<Wrapper>
 			<Link href="/photoshoot">PHOTO</Link>
-			<Link href="/">네컷갤러리</Link>
+			<Link href="/Gallery">네컷갤러리</Link>
 		</Wrapper>
     </>
 	);

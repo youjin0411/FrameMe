@@ -20,7 +20,7 @@ function Mainstart(){
 			   <Blank/>
 			   		<Wrapper>
 							<Links href="/photoshoot">PHOTO</Links>
-							<Links href="/">네컷갤러리</Links>
+							<Links href="/Gallery">네컷갤러리</Links>
 		</Wrapper>
 			</NavMenu>
 		 </Nav>
