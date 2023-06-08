@@ -1,30 +1,29 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import LoadingPage from './Loding';
 
 // 비디오 콘테이너
 const videoConstraints = {
-  width: 1001,
-  height: 641,
+  width: 1164,
+  height: 327,
   facingMode: 'user',
 };
 const style2 = {
-  width: 219.98,
-  height: 140.77,
-  left: 1043.56,
-  top: 300.68,
+  width: 495,
+  height: 140,
   background: 'white',
-  marginLeft: 38.56,
   backgroundSize: 'cover',
+  display: 'grid',
+  alignItems: 'center'
 }
 
-const WebcamApp = () => {
-  const maxCount = 8;
+const WebcamApp2 = () => {
+  const maxCount = 6;
   const [count, setCount] = useState(0);
   // 촬영 후 이미지를 보여주는지 여부
-  const [showResult, setShowResult] = useState(false);
+  const [showResult2, setShowResult2] = useState(false);
   // 촬영한 사진 배열
   const [images, setImages] = useState([]);
   // 6초 촬영 타이머
@@ -33,10 +32,10 @@ const WebcamApp = () => {
   const timeRef = useRef(Date.now());
   // webcam 
   const webcamRef = useRef(null);
-  const [newQ, setNewQ] = useState(Array(4).fill(null));
+  const [newQ, setNewQ] = useState(Array(3).fill(null));
   //useEffect 실행 체크
-  let check = Array(4).fill(null);
-  let Qnew = Array(4).fill(null);
+  let check = Array(3).fill(null);
+  let Qnew = Array(3).fill(null);
 
   const [showLoadingPage, setShowLoadingPage] = useState(false);
   const [showWebcam, setShowWebcam] = useState(false);
@@ -55,14 +54,13 @@ const WebcamApp = () => {
     return () => clearTimeout(webcamTimeout);
   }, []);
 
-
   function HandleImageClick(size, renderCallback) {
     const [q, setQ] = useState(Array(size).fill(null));
     const [currentIdx, setCurentIdx] = useState(0); 
     this.push = function (data) {
       Qnew = [...q]; // 현재 큐를 기반으로 새로운 배열 생성
       console.log(Qnew)
-      if (currentIdx === size) { // 4 == 4일 경우 
+      if (currentIdx === size) { // 3 == 3 경우 
         Qnew[0] = data;
         setCurentIdx(1)
       } else {
@@ -72,13 +70,13 @@ const WebcamApp = () => {
       if (Qnew.length === size + 1) {
         Qnew.shift(); // 가장 처음에 넣은 데이터 제거
       }
-      localStorage.setItem('selectedImages', JSON.stringify(Qnew)); // 데이터를 로컬스토리지에 저장
+      localStorage.setItem('selectedImages2', JSON.stringify(Qnew)); // 데이터를 로컬스토리지에 저장
       setQ(Qnew);; // 현재 큐를 업데이트
       check.push(Qnew)
       renderCallback([...Qnew]); // 업데이트된 큐를 전달하여 콜백 함수 호출
     };
   }
-  const renderQueue = useCallback(
+  const renderQueue2 = useCallback(
     (queue) => {
       return queue.map((selectedImage, index) => {
         const key = `${selectedImage}_${index}`;
@@ -96,11 +94,11 @@ const WebcamApp = () => {
     [newQ]
   );
 
-  const q = new HandleImageClick(4, setNewQ);
+  const q = new HandleImageClick(3, setNewQ);
 
   // 로컬 스토리지에서 저장된 이미지를 가져와 newQ 상태를 업데이트
   useEffect(() => {
-    const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
+    const storedImages = JSON.parse(localStorage.getItem('selectedImages2'));
     if (storedImages) {
       setNewQ(storedImages);
     }
@@ -112,7 +110,7 @@ const WebcamApp = () => {
     setCount((c) => {
       // 0부터 8이 되기 전까지 돌아보기 
       if (c === maxCount - 1) {
-        setShowResult(true);
+        setShowResult2(true);
       }
       return c + 1;
     });
@@ -160,7 +158,7 @@ const WebcamApp = () => {
   const [imagescount, setImagesCount] = useState([]);
 
   const handleClick = (image) => {
-    if (imagescount.length >= 4) {
+    if (imagescount.length >= 3) {
       setImagesCount((prevImages) => prevImages.slice(1));
     }
     setImagesCount((prevImages) => [...prevImages, image]);
@@ -168,18 +166,18 @@ const WebcamApp = () => {
 
   // imagescount의 배열길이가 4라면 다음 버튼 활성화 시키기
   useEffect(() => {
-    if (imagescount.length === 4) {
+    if (imagescount.length === 3) {
       document.documentElement.style.setProperty('--links-color', 'black');
     } else {
       document.documentElement.style.setProperty('--links-color', '#BDBDBD');
     }
   }, [imagescount]);
 
-  if (pathname.includes('/photoshoot')) {
-    if (showResult) {
+  if (pathname.includes('/photoshoot2')) {
+    if (showResult2) {
       return (
         <>
-          <div style={{ fontSize: 24, textAlign: 'center', fontWeight: 600, marginTop: 40, fontFamily: 'Noto Serif'}}>
+          <div style={{ fontSize: 24, textAlign: 'center', fontWeight: 600, marginTop: 90, fontFamily: 'Noto Serif'}}>
             사진을 선택해주세요
           </div>
           <Frames>
@@ -187,13 +185,13 @@ const WebcamApp = () => {
               {images.map((i, index) => (
                 <div>
                 <Img src="Vector1.png" alt="Thumbnail 1" onClick={() => handleClick(i)} style={{ display: imagescount.includes(i) ? "block" : "none" }}/>
-                <img key={index} src={i} onClick={() => { q.push(i); handleClick(i)}} style={{width: 219.98, height:140.77 }} />
+                <img key={index} src={i} onClick={() => {q.push(i); handleClick(i)}} style={{width: 495, height:140 }} />
                 </div>
               ))}
             </Choice>
             <div style={{ position: 'absolute', width: 583, height:683, left:105, top:206, background:'#000000',marginLeft:900, marginTop:60,}}>
-                <div style={{display:'grid', gridTemplateColumns:'219.98px', gridRowGap:9, marginTop: 17}} id='print'>
-                {renderQueue(newQ)}
+                <div style={{display:'grid', gridTemplateColumns:'495px', gridRowGap:9, marginTop: 17, alignItems: 'center'}}>
+                {renderQueue2(newQ)}
                 </div>
               </div>
             </Frames>
@@ -217,12 +215,12 @@ const WebcamApp = () => {
                 {showWebcam && (
                   <>
                     <Webcam
-                      style={{width: 1001,height: 641,background: 'black',marginTop: 60,}}
+                      style={{width: 1164,height: 327,background: 'black',marginTop: 200,}}
                       audio={false}
-                      height={720}
+                      height={327}
                       ref={webcamRef}
                       screenshotFormat="image/jpeg"
-                      width={1280}
+                      width={1164}
                       videoConstraints={videoConstraints}/>
                   </>
                 )}
@@ -235,7 +233,7 @@ const WebcamApp = () => {
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<WebcamApp />);
+root.render(<WebcamApp2 />);
 
 const Links = styled.a`
   font-size: 20px;
@@ -279,13 +277,14 @@ const Frames = styled.div`
 `;
 const Choice = styled.div`
     display: grid;
-    grid-template-columns: 245px 245px;
-    margin-left: 262px;
-    margin-top: 94px;
+    grid-template-columns: 342px 342px;
     position: absolute;
-    column-gap: 10px;
-    grid-column-gap: 45px;
-    grid-row-gap:35px;
+    width: 723px;
+    height: 336.73px;
+    left: 154px;
+    top: 453px;
+    grid-column-gap: 39px;
+    grid-row-gap:24px;
     `;
     const Img = styled.img`
       position: absolute;
@@ -297,4 +296,4 @@ const Choice = styled.div`
       margin : 0 auto;
       margin: 66px 95px 30px 84px;
 `;
-export default WebcamApp;
+export default WebcamApp2;

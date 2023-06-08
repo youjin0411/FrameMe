@@ -5,6 +5,7 @@ import Main from "./pages/Mainstart";
 import Wepcam from "./pages/Filming";
 import ChoiceImg from "./pages/ChoiceImg"
 import WebcamApp from "./pages/WebcamApp"
+import WebcamApp2 from "./pages/WebcamApp2"
 import Frame from "./pages/Frame"
 import ChoiceFrame from "./pages/Choiceframe"
 import Write from "./pages/Write"
@@ -25,6 +26,15 @@ function App() {
             <div>
               <Navbar />
               <WebcamApp /> {/* Main 페이지 */}
+            </div>
+          }
+        />
+        <Route
+          path="/photoshoot2"
+          element={
+            <div>
+              <Navbar />
+              <WebcamApp2 /> {/* Main 페이지 */}
             </div>
           }
         />

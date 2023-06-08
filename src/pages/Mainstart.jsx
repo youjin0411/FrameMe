@@ -12,7 +12,7 @@ function Mainstart(){
    const navigate = useNavigate();
   
    function handleClick() {
-      navigate("/Loding");
+      navigate("/frame");
       
    }
    return (
@@ -26,7 +26,7 @@ function Mainstart(){
 			   </Logo>
 			   <Blank/>
 			   		<Wrapper>
-							<Links href="/photoshoot">PHOTO</Links>
+							<Links href="/frame">PHOTO</Links>
 							<Links href="/Gallery">네컷갤러리</Links>
 		</Wrapper>
 			</NavMenu>
