@@ -12,8 +12,15 @@ import Mainframe7 from "../img/Mainframe7.png";
 import Mainframe8 from "../img/Mainframe8.png";
 import Mainframe9 from "../img/Mainframe9.png";
 import Mainframe10 from "../img/Mainframe10.png";
+import { useNavigate } from "react-router-dom";
 
 function Choiceframe() {
+  const navigate = useNavigate();
+  
+  function handleClick() {
+     navigate("/write");
+     
+  }
   const [selectedFrame, setSelectedFrame] = useState(null);
 
   const handleFrameClick = (frameId) => {
@@ -238,7 +245,7 @@ function Choiceframe() {
           top: '980px',
           backgroundBlendMode: 'overlay',
           background: 'white'
-        }}
+        }} onClick={handleClick}
         >
         다음&nbsp;&nbsp;&nbsp;〉
         </button>

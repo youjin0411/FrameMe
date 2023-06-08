@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Webcam from 'react-webcam';
 import LoadingPage from './Loding';
 
@@ -157,6 +157,24 @@ const WebcamApp = () => {
   // photoshoot 경로에서만 실행되게 하기 
   const pathname = window.location.pathname;
 
+  const [imagescount, setImagesCount] = useState([]);
+
+  const handleClick = (image) => {
+    if (imagescount.length >= 4) {
+      setImagesCount((prevImages) => prevImages.slice(1));
+    }
+    setImagesCount((prevImages) => [...prevImages, image]);
+  };
+
+  // imagescount의 배열길이가 4라면 다음 버튼 활성화 시키기
+  useEffect(() => {
+    if (imagescount.length === 4) {
+      document.documentElement.style.setProperty('--links-color', 'black');
+    } else {
+      document.documentElement.style.setProperty('--links-color', '#BDBDBD');
+    }
+  }, [imagescount]);
+
   if (pathname.includes('/photoshoot')) {
     if (showResult) {
       return (
@@ -167,9 +185,10 @@ const WebcamApp = () => {
           <Frames>
             <Choice>
               {images.map((i, index) => (
-                <img key={index} src={i} onClick={() => {
-                  q.push(i)
-                }} style={{width: 219.98, height:140.77 }} />
+                <div>
+                <Img src="Vector1.png" alt="Thumbnail 1" onClick={() => handleClick(i)} style={{ display: imagescount.includes(i) ? "block" : "none" }}/>
+                <img key={index} src={i} onClick={() => { q.push(i); handleClick(i)}} style={{width: 219.98, height:140.77 }} />
+                </div>
               ))}
             </Choice>
             <div style={{ position: 'absolute', width: 583, height:683, left:105, top:206, background:'#000000',marginLeft:900, marginTop:60,}}>
@@ -178,7 +197,10 @@ const WebcamApp = () => {
                 </div>
               </div>
             </Frames>
-            <Btn><Links href="/ChoiceFrame">다음&nbsp;&nbsp;&nbsp;〉</Links></Btn>
+            <Btn>
+            <Links href="/ChoiceFrame">다음&nbsp;&nbsp;&nbsp;〉</Links>
+            </Btn>
+
             </>
         )
     }
@@ -221,7 +243,7 @@ const Links = styled.a`
   font-weight: 700;
   font-size: 20px;
   line-height: 27px;
-  color: #BDBDBD;
+  color: var(--links-color, #BDBDBD);
   width: 196px;
   height: 60px;
   text-decoration: none;
@@ -239,7 +261,8 @@ const Btn = styled.button`
   box-shadow: 0px 0px 2px 2px #F5F5F5;
   border: none;
   padding: 10px 10px 10px 10px;
-`
+
+`;
 const Frames = styled.div`
     margin: 0 auto;
     marginTop: 23px;
@@ -252,7 +275,7 @@ const Frames = styled.div`
     border-radius: 30px 30px 0px 0px;
     box-shadow: 0px 0px 49px 3px #F5F5F5;
     margin-top: 15px;
-`
+`;
 const Choice = styled.div`
     display: grid;
     grid-template-columns: 245px 245px;
@@ -262,5 +285,15 @@ const Choice = styled.div`
     column-gap: 10px;
     grid-column-gap: 45px;
     grid-row-gap:35px;
-    `
+    `;
+    const Img = styled.img`
+      position: absolute;
+      width: 45px; 
+      height:45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin : 0 auto;
+      margin: 66px 95px 30px 84px;
+`;
 export default WebcamApp;
