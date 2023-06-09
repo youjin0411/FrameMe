@@ -91,7 +91,7 @@ const WebcamApp = () => {
             }}
           ></div>
         );
-      });
+      });      
     },
     [newQ]
   );
@@ -105,8 +105,13 @@ const WebcamApp = () => {
       setNewQ(storedImages);
     }
   }, [check]);
-
+  
+  useEffect(() => {
+    webcamRef.current = document.createElement('video');
+  }, []);
+  
   const capture = useCallback(async () => {
+    if (webcamRef.current) {
     const imageSrc = webcamRef.current.getScreenshot();
     setImages((imgs) => imgs.concat(imageSrc));
     setCount((c) => {
@@ -116,6 +121,7 @@ const WebcamApp = () => {
       }
       return c + 1;
     });
+  }
   }, [webcamRef, maxCount]);
   
   // 타임에 맞추어 타이머 돌리기 
@@ -154,9 +160,6 @@ const WebcamApp = () => {
     return () => clearTimeout(timer);
   }, [images, capture, timeLeft]);
 
-  // photoshoot 경로에서만 실행되게 하기 
-  const pathname = window.location.pathname;
-
   const [imagescount, setImagesCount] = useState([]);
 
   const handleClick = (image) => {
@@ -175,6 +178,8 @@ const WebcamApp = () => {
     }
   }, [imagescount]);
 
+  // photoshoot 경로에서만 실행되게 하기 
+  const pathname = window.location.pathname;
   if (pathname.includes('/photoshoot')) {
     if (showResult) {
       return (
@@ -200,7 +205,6 @@ const WebcamApp = () => {
             <Btn>
             <Links href="/ChoiceFrame">다음&nbsp;&nbsp;&nbsp;〉</Links>
             </Btn>
-
             </>
         )
     }
@@ -234,8 +238,8 @@ const WebcamApp = () => {
     );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<WebcamApp />);
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(<WebcamApp />);
 
 const Links = styled.a`
   font-size: 20px;
