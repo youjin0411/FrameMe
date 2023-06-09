@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import ReactDOM from 'react-dom/client';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import LoadingPage from './Loding';
+
 // 비디오 콘테이너
 const videoConstraints = {
   width: 1164,
@@ -32,9 +32,6 @@ const WebcamApp2 = () => {
   // webcam 
   const webcamRef = useRef(null);
   const [newQ, setNewQ] = useState(Array(3).fill(null));
-  //useEffect 실행 체크
-  let check = Array(3).fill(null);
-  let Qnew = Array(3).fill(null);
 
   const [showLoadingPage, setShowLoadingPage] = useState(false);
   const [showWebcam, setShowWebcam] = useState(false);
@@ -43,39 +40,37 @@ const WebcamApp2 = () => {
   useEffect(() => {
     setShowWebcam(true);
     setShowLoadingPage(true);
-    setTimerStarted(true)
+    setTimerStarted(true);
 
     const webcamTimeout = setTimeout(() => {
       setShowLoadingPage(false);
-
     }, 3000);
 
     return () => clearTimeout(webcamTimeout);
   }, []);
 
+  const q = useCallback(
+    (data) => {
+      setNewQ((prevQ) => {
+        let newQ = [...prevQ];
+        if(newQ.every((item) => item === null)){
+          newQ[0] = data;
+        }else if(newQ[1] == null) {
+          newQ[1] = data;
+        }else if(newQ[2] == null){
+          newQ[2] = data;
+        }
+        else if (newQ.length === 3 && !newQ.every((item) => item === null)) {
+          newQ.shift();
+          newQ.push(data);
+        }
+        localStorage.setItem('selectedImages2', JSON.stringify(newQ));
+        return newQ;
+      });
+    },
+    []
+  );
 
-  function HandleImageClick(size, renderCallback) {
-    const [q, setQ] = useState(Array(size).fill(null));
-    const [currentIdx, setCurentIdx] = useState(0); 
-    this.push = function (data) {
-      Qnew = [...q]; // 현재 큐를 기반으로 새로운 배열 생성
-      console.log(Qnew)
-      if (currentIdx === size) { // 4 == 4일 경우 
-        Qnew[0] = data;
-        setCurentIdx(1)
-      } else {
-        Qnew[currentIdx] = data;
-        setCurentIdx(idx => idx+1)
-      }
-      if (Qnew.length === size + 1) {
-        Qnew.shift(); // 가장 처음에 넣은 데이터 제거
-      }
-      localStorage.setItem('selectedImages2', JSON.stringify(Qnew)); // 데이터를 로컬스토리지에 저장
-      setQ(Qnew);; // 현재 큐를 업데이트
-      check.push(Qnew)
-      renderCallback([...Qnew]); // 업데이트된 큐를 전달하여 콜백 함수 호출
-    };
-  }
   const renderQueue = useCallback(
     (queue) => {
       return queue.map((selectedImage, index) => {
@@ -85,39 +80,35 @@ const WebcamApp2 = () => {
             key={key}
             style={{
               ...style2,
-              backgroundImage: selectedImage ? `url("${selectedImage}")` : null
+              backgroundImage: selectedImage ? `url("${selectedImage}")` : null,
             }}
           ></div>
         );
-      });      
+      });
     },
     [newQ]
   );
 
-  const q = new HandleImageClick(4, setNewQ);
-
-  // 로컬 스토리지에서 저장된 이미지를 가져와 newQ 상태를 업데이트
   useEffect(() => {
     const storedImages = JSON.parse(localStorage.getItem('selectedImages2'));
     if (storedImages) {
       setNewQ(storedImages);
     }
-  }, [check]);
-  
+  }, []);
+
   useEffect(() => {
     webcamRef.current = document.createElement('video');
   }, []);
-  
+
   const capture = useCallback(async () => {
     if (webcamRef.current) {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImages((imgs) => imgs.concat(imageSrc));
-    setCount((c) => {
-      // 0부터 8이 되기 전까지 돌아보기 
-      if (c === maxCount - 1) {
-        setShowResult(true);
-      }
-      return c + 1;
+      const imageSrc = webcamRef.current.getScreenshot();
+      setImages((imgs) => [...imgs, imageSrc]);
+      setCount((c) => {
+        if (c === maxCount - 1) {
+          setShowResult(true);
+        }
+        return c + 1;
     });
   }
   }, [webcamRef, maxCount]);
@@ -188,7 +179,7 @@ const WebcamApp2 = () => {
               {images.map((i, index) => (
                 <div>
                   <Img src="Vector1.png" alt="Thumbnail 1" onClick={() => handleClick(i)} style={{ display: imagescount.includes(i) ? "block" : "none" }}/>
-                  <img key={index} src={i} onClick={() => {q.push(i); handleClick(i)}} style={{width: 342, height:96.73 }} />
+                <img key={index} src={i} onClick={() => { q(i); handleClick(i)}} style={{width: 342, height:96.73 }} />
                 </div>
               ))}
             </Choice>
