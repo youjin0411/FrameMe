@@ -8,6 +8,7 @@ import WebcamApp from "./pages/WebcamApp"
 import WebcamApp2 from "./pages/WebcamApp2"
 import Frame from "./pages/Frame"
 import ChoiceFrame from "./pages/Choiceframe"
+import ChoiceFrame2 from "./pages/Choiceframe2"
 import Write from "./pages/Write"
 import Test from "./pages/Test"
 import Test2 from "./pages/Test2"
@@ -57,6 +58,7 @@ function App() {
           <div>
           <Navbar />
           <ChoiceFrame /> {/* Main 페이지 */}
+          <ChoiceFrame2 /> {/* Main 페이지 */}
         </div>
         } />
         <Route path="/Write" element={

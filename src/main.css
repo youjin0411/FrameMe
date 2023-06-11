@@ -22,8 +22,8 @@ code {
 }
 
 #backdrop {
-    width: 1000px;
-    height: 600px;
+    width: 1176px;
+    height: 699px;
     border-radius: 30px;
     background-color: rgba(255,255,192,0.1);
     backdrop-filter: blur(10px);
@@ -32,8 +32,8 @@ code {
     margin : 0 auto;
     position: absolute;
     top: 55%;
-    left: 55%;
-    transform: translate(-55%, -55%);
+    left: 50%;
+    transform: translate(-50%, -55%);
 }
 
 #logo {
@@ -74,20 +74,22 @@ h1 {
 }
 
 #fra1 {
-    width : 384px;
-    height : 440px;
-    background-color: #D9D9D9;
-    float : left;
-    position : relative;
-    margin: 219px 188px 241px 430px;
+    position: absolute;
+    width: 384px;
+    height: 440px;
+    left: 480px;
+    top: 399px;
+    background-image: url("img/frame_height.png");
+    background-size: cover;
 }
 #fra2 {
-    width : 384px;
-    height : 440px;
-    background-color: #D9D9D9;
-    float : left;
-    position : relative;
-    margin : 219px 434px 241px 0px;
+    position: absolute;
+    width: 384px;
+    height: 440px;
+    left: 1052px;
+    top: 399px;
+    background-image: url("img/frame_width.png");
+    background-size: cover;
 }
 
 #frameimg {
@@ -98,6 +100,76 @@ h1 {
     float : left;
     margin : 100px 1101.61px 111px 231px;
     background-size: cover;
+}
+
+#photoboxw1 {
+    float : left;
+    position: absolute;
+    width: 219.98px;
+    height: 140.77px;
+    left: 38.56px;
+    top: 16.68px;
+    background-color: white;
+}
+
+#photoboxw2 {
+    float : left;
+    position: absolute;
+    width: 219.98px;
+    height: 140.77px;
+    left: 38.56px;
+    top: 166.84px;
+    background-color: white;
+}
+
+#photoboxw3 {
+    float : left;
+    position: absolute;
+    width: 219.98px;
+    height: 140.77px;
+    left: 38.56px;
+    top: 317px;
+    background-color: white;
+}
+
+#photoboxw4 {
+    float : left;
+    position: absolute;
+    width: 219.98px;
+    height: 140.77px;
+    left: 38.56px;
+    top: 467.16px;
+    background-color: white;
+}
+
+#photoboxh1 {
+    float : left;
+    position: absolute;
+    width: 495px;
+    height: 140px;
+    left: 46.27px;
+    top: 64px;
+    background-color: white;
+}
+
+#photoboxh2 {
+    float : left;
+    position: absolute;
+    width: 495px;
+    height: 140px;
+    left: 46.27px;
+    top: 213.11px;
+    background-color: white;
+}
+
+#photoboxh3 {
+    float : left;
+    position: absolute;
+    width: 495px;
+    height: 140px;
+    left: 46.27px;
+    top: 363.27px;
+    background-color: white;
 }
 
 .fragr {
@@ -175,4 +247,111 @@ h1 {
     line-height : 60px;
     margin-left : 100px;
     font-size: 20px;
+}
+#framee {
+    position: absolute;
+    width: 588px;
+    height: 683px;
+    left: 238px;
+    top: 310px;
+    background-color: #232323;
+    background-size: cover;
+}
+
+#htext1 {
+    position: absolute;
+    left: 50%;
+    right: 45.05%;
+    top: 25.37%;
+    bottom: 71.57%;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+    color: #444444;
+}
+
+#htext2 {
+    position: absolute;
+    left: 50%;
+    right: 45.05%;
+    top: 43.7%;
+    bottom: 53.24%;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+    color: #444444;
+}
+
+#Namep {
+    position: absolute;
+    margin: 0 auto;
+    width : 475px;
+    height : 0.025%;
+    top : 511px;
+    background-blend-mode: overlay;
+    border-radius: 30px;
+    outline: none;
+    border : none;
+    box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
+}
+
+#Impressionp {
+    position: absolute;
+    margin: 0 auto;
+    width : 475px;
+    height : 221px;
+    top : 511px;
+    background-blend-mode: overlay;
+    border-radius: 30px;
+    outline: none;
+    border : none;
+    box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
+}
+
+#checktx1 {
+    position: absolute;
+    left: 50%;
+    right: 43.91%;
+    top: 77%;
+    bottom: 18.24%;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 33px;
+    color: #444444;
+}
+
+#check1 {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 1100px;
+    top: 836px;
+}
+
+#checktx2 {
+    position: absolute;
+    left: 50%;
+    right: 43.91%;
+    top: 81%;
+    bottom: 27.78%;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 33px;
+    color: #444444;
+}
+
+#check2 {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 1100px;
+    top: 880px;
+}
+
+#button {
+    outline: none;
+    border : none;
+    box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
 }
