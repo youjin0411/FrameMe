@@ -10,11 +10,14 @@ import Frame from "./pages/Frame"
 import ChoiceFrame from "./pages/Choiceframe"
 import ChoiceFrame2 from "./pages/Choiceframe2"
 import Write from "./pages/Write"
+import Write2 from "./pages/Write2"
 import Test from "./pages/Test"
 import Test2 from "./pages/Test2"
 import Gallery from "./pages/Gallery"
 import SearchSave from "./pages/SearchSave"
 import Loding from "./pages/Loding"
+import Result from "./pages/Result"
+import Result2 from "./pages/Result2"
 
 function App() {
   return (
@@ -42,6 +45,9 @@ function App() {
         <Route path="/Write" element={ 
             <div> <Navbar /> <Write /></div>
           }/>
+        <Route path="/Write2" element={ 
+            <div> <Navbar /> <Write2 /></div>
+          }/>
         <Route path="/Gallery" element={ 
             <div> <Navbar /> <Gallery /></div>
           }/>
@@ -50,6 +56,12 @@ function App() {
           }/>
         <Route path="/Loding" element={ 
             <div> <Navbar /> <Loding /></div>
+          }/>
+        <Route path="/Result" element={ 
+            <div> <Navbar /> <Result /></div>
+          }/>
+        <Route path="/Result2" element={ 
+            <div> <Navbar /> <Result2 /></div>
           }/>
         <Route path="/filming" element={<Wepcam />} />
         <Route path="/Test" element={<Test />} />

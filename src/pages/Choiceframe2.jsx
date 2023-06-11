@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../main.css';
 import choose2 from '../img/Vector1.png';
 import Framew1 from "../img/framew1.png";
@@ -12,13 +12,55 @@ import Framew8 from "../img/framew8.png";
 import Framew9 from "../img/framew9.png";
 import Framew10 from "../img/framew10.png";
 import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+import { grayscaleFilter, brightnessFilter,originalFilter } from './filters.js';
+
+function useCanvasRefs(count) {
+  const [canvasRefs, setCanvasRefs] = useState([]);
+
+  useEffect(() => {
+    setCanvasRefs(Array.from({ length: count }, () => React.createRef()));
+  }, [count]);
+
+  return canvasRefs;
+}
 
 function Choiceframe2() {
   const navigate = useNavigate();
-
-  function handleClick() {
-    navigate("/write");
-  }
+  const [isHovering, setIsHovering] = useState(false);
+  const [isHovering2, setIsHovering2] = useState(false);
+  const [isHovering3, setIsHovering3] = useState(false);
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+  const handleMouseOver2 = () => {
+    setIsHovering2(true);
+  };
+  const handleMouseOut2 = () => {
+    setIsHovering2(false);
+  };
+  const handleMouseOver3 = () => {
+    setIsHovering3(true);
+  };
+  const handleMouseOut3 = () => {
+    setIsHovering3(false);
+  };
+  
+  const handleClick = () => {
+    const updatedStoredImages = [...storedImages];
+  
+    canvasRefs.forEach((canvasRef, index) => {
+      const canvas = canvasRef.current;
+      const filteredImageSrc = canvas.toDataURL();
+      updatedStoredImages[index] = filteredImageSrc;
+    });
+  
+    localStorage.setItem('selectedImages2', JSON.stringify(updatedStoredImages));
+    navigate("/write2", { state: frameimage});
+  };
 
   const [selectedFrame, setSelectedFrame] = useState(null);
 
@@ -32,43 +74,34 @@ function Choiceframe2() {
 
   const getFrameImage = () => {
     if (selectedFrame === 'f1') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew1));
       return Framew1;
     }
     if (selectedFrame === 'f2') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew2));
       return Framew2;
     }
     if (selectedFrame === 'f3') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew3));
       return Framew3;
     }
     if (selectedFrame === 'f4') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew4));
       return Framew4;
     }
     if (selectedFrame === 'f5') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew5));
       return Framew5;
     }
     if (selectedFrame === 'f6') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew6));
       return Framew6;
     }
     if (selectedFrame === 'f7') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew7));
       return Framew7;
     }
     if (selectedFrame === 'f8') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew8));
       return Framew8;
     }
     if (selectedFrame === 'f9') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew9));
       return Framew9;
     }
     if (selectedFrame === 'f10') {
-      localStorage.setItem('selectedFrame', JSON.stringify(Framew10));
+
       return Framew10;
     }
   };
@@ -77,23 +110,60 @@ function Choiceframe2() {
     backgroundImage: `url(${getFrameImage()})`,
   };
 
+  const frameimage = getFrameImage()
+  console.log(frameimage)
+
   const style2 = {
-    width: 219.98,
-    height: 140.77,
+    width: 500,
+    height: 143,
     backgroundSize: 'cover',
   };
+  const storedImages = JSON.parse(localStorage.getItem('selectedImages2')) || [];
+  const canvasRefs = useCanvasRefs(storedImages.length);
 
-  const storedFrame = JSON.parse(localStorage.getItem('selectedFrame')) || [];
+
+  const applyFilter = (filterFunction) => {
+    const updatedStoredImages = [...storedImages];
+  
+    canvasRefs.forEach((canvasRef, index) => {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+  
+      const image = new Image();
+      image.onload = () => {
+        canvas.width = 219.38;
+        canvas.height = 140.36;
+        ctx.drawImage(image, 0, 0, 219.38, 140.36);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  
+        const imageCopy = new ImageData(imageData.width, imageData.height);
+        imageCopy.data.set(imageData.data);
+  
+        filterFunction(imageCopy);
+  
+        ctx.putImageData(imageCopy, 0, 0);
+  
+        const filteredImageSrc = canvas.toDataURL();
+        updatedStoredImages[index] = filteredImageSrc;
+      };
+      image.src = storedImages[index];
+    });
+    localStorage.setItem('selectedImages2', JSON.stringify(storedImages));
+  };
+  
+  // 필터 버튼 클릭 시 적용할 필터 함수
+  const handleFilterButtonClick = (filterFunction) => {
+    applyFilter(filterFunction);
+  };
 
   return (
     <div>
       <h1>프레임을 선택해주세요</h1>
       <div id="frameimg" style={frameImgStyle}></div>
-      <div style={{ position: 'absolute', display: 'grid', left: 268, top: 290, gridRowGap: 10, rowGap: 10 }}>
-        <div style={{ ...style2, backgroundImage: `url(${storedFrame[0]})` }} />
-        <div style={{ ...style2, backgroundImage: `url(${storedFrame[1]})` }} />
-        <div style={{ ...style2, backgroundImage: `url(${storedFrame[2]})` }} />
-        <div style={{ ...style2, backgroundImage: `url(${storedFrame[3]})` }} />
+      <div style={{ position: 'absolute', display: 'grid', left: 273, top: 339, gridRowGap: 5, rowGap: 5 }}>
+      {storedImages.map((imageSrc, index) => (
+        <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
+      ))}
       </div>
       <div id="fragr">
         <div className="fragr" id="f1" onClick={() => handleFrameClick('f1')}>
@@ -246,6 +316,23 @@ function Choiceframe2() {
             }}
           />
         </div>
+        <Btn style={{left: 938, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+          brightnessFilter
+          onClick={() => { handleFilterButtonClick(brightnessFilter)}}
+      >밝게</Btn>
+      <Btn style={{left: 1230, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
+          onMouseOver={handleMouseOver2}
+          onMouseOut={handleMouseOut2}
+          onClick={() => { handleFilterButtonClick(grayscaleFilter) }}
+      >흑백</Btn>
+      <Btn style={{left: 1525, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
+          onMouseOver={handleMouseOver3}
+          onMouseOut={handleMouseOut3}
+          onClick={() => handleFilterButtonClick(originalFilter)}
+      >원본</Btn>
+
         <button id="button" style={{
           position: 'absolute',
           borderRadius: '30px',
@@ -258,10 +345,22 @@ function Choiceframe2() {
         }} onClick={handleClick}
         >
         다음&nbsp;&nbsp;&nbsp;〉
-        </button>
+        </button> 
       </div>
     </div>
   );
 }
-
+const Btn = styled.button`
+  position: absolute;
+  width: 196px;
+  height: 60px;
+  top: 719px;
+  background: white;
+  background-blend-mode: overlay;
+  border-radius: 30px;
+  background: white;
+  outline: none;
+  border: none;
+  box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
+`
 export default Choiceframe2;

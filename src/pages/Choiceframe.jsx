@@ -160,7 +160,7 @@ const handleFilterButtonClick = (filterFunction) => {
       <h1>프레임을 선택해주세요</h1>
       <div id="frameimg" style={frameImgStyle}>
       </div>
-      <div style={{ position: 'absolute', display: 'grid', left: 268, top: 290, gridRowGap: 10, rowGap: 10 }}>
+      <div style={{ position: 'absolute', display: 'grid', left: 269.8, top: 290, gridRowGap: 10, rowGap: 10 }}>
       {storedImages.map((imageSrc, index) => (
         <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
       ))}

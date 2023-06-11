@@ -1,29 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
+import { toPng } from 'html-to-image';
+import Mainframe1 from "../img/Mainframe1.png";
 
-const ImageList = () => {
-  const [imageUrls, setImageUrls] = useState([]);
+function App() {
+  const divRef = useRef(null);
+  const [scannedImage, setScannedImage] = useState(null);
 
-  useEffect(() => {
-    // 서버로부터 이미지 경로 데이터를 가져오는 요청을 보냄
-    fetch('http://localhost:3001/images')
-      .then(response => response.json())
-      .then(data => {
-        // 이미지 URL들을 배열로 저장
-        const urls = data.flatMap(imageObj => Object.values(imageObj));
-        setImageUrls(urls);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
+  const handleScan = () => {
+    if (divRef.current) {
+      toPng(divRef.current)
+        .then(function (dataUrl) {
+          setScannedImage(dataUrl);
+        });
+    }
+  };
 
   return (
-    <div style={{display: 'grid', gridTemplateColumns: '20px'}}>
-      {imageUrls.map((imageUrl, index) => (
-        <img key={index} src={imageUrl} alt={`Image ${index}`}/>
-      ))}
+    <div>
+      <button onClick={handleScan}>Generate QR Code</button>
+      <div ref={divRef}>
+        <div className="target-div" style={{ backgroundImage: `url("${Mainframe1}")`, width: 100, height: 100 }}></div>
+      </div>
+      {scannedImage && (
+        <div>
+          <img src={scannedImage} alt="Scanned Image" />
+          <a href={scannedImage} download>Download Image</a>
+        </div>
+      )}
     </div>
   );
-};
+}
 
-export default ImageList;
+export default App;
