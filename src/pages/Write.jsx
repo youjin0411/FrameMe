@@ -71,7 +71,6 @@ function Write() {
             id="Namep"
             placeholder="사진 이름을 작성해주세요"
             type="text"
-            autoComplete="off"
             value={nameValue}
             onChange={(e) => {
               setName(e.target.value);
