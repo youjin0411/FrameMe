@@ -5,7 +5,7 @@ import { NavLink as Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 // import image from '../img/framelogo'
 import image2 from '../img/whitelogo.png'
-import mainimg from '../img/Mainbg.png'
+import mainimg from '../img/backimg.png'
 import { useNavigate } from "react-router-dom";
 
 function Mainstart(){
@@ -73,8 +73,8 @@ const Links = styled.a`
   }
 `;
 const Nav = styled.nav`	
-	background-blend-mode: overlay;
-	background-color: rgba( 0, 0, 0, 0.5 );
+	// background-blend-mode: overlay;
+	// background-color: rgba( 0, 0, 0, 0.5 );
    position: fixed;
    top: 0;
    left: 0;
