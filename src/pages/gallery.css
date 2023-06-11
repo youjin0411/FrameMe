@@ -58,6 +58,10 @@ input {
   background-size: 1920px 996px;
   overflow: auto;
 }
+.background1::-webkit-scrollbar{
+  display: none;
+}
+
 
 .container{
   position: relative;
@@ -79,90 +83,58 @@ input {
   justify-content: center; 
   align-items: center; 
   height: 100%;
-  width: 4262px;
+  width: 100%;
+  transition-timing-function: linear;
 }
-
-/* .frame{
-  animation: 3s linear 0s infinite normal forwards running move1;
-  animation-fill-mode: backwards;
-}
-.clone{
-  animation: 3s linear 0s infinite normal none running move2;
-  animation-fill-mode: backwards;
-}
-
-@keyframes move1 {
-  0% {
-      transform: translateX(0);
-  }
-  50% {
-      transform: translateX(-100%);
-  }
-  50.01%{
-      transform: translateX(100%);
-  }
-  100%{
-      transform: translateX(0);
-  }
-}
-
-@keyframes move2 {
-  0% {
-      transform: translateX(0);
-  }
-  100% {
-      transform: translateX(-200%);
-  }
-} */
 
 /* 원본 */
 .frame.position-1 {
-  margin: 83px 0px 425px 40px;
+  margin: 23px 0px 425px 40px;
 }
 
 .frame.position-2 {
-  margin: 414px 0px 94px 40px;
+  margin: 354px 0px 94px 40px;
 }
 
 .frame.position-3 {
-  margin: 131px 0 376px 40px;
+  margin: 71px 0px 376px 40px;
 }
 
 .frame.position-4 {
-  margin: 342px 0 166px 40px;
+  margin: 292px 0px 166px 40px;
 }
 
 .frame.position-5 {
-  margin: 83px 0 425px 40px;
+  margin: 23px 0px 425px 40px;
 }
 
 .frame.position-6 {
-  margin: 409px 0 99px 40px;
+  margin: 349px 0px 99px 40px;
 }
 
 /* 클론 */
 .clone.position-1 {
-  margin: 83px 0px 425px 40px;
+  margin: 23px 0px 425px 40px;
 }
 
 .clone.position-2 {
-  margin: 414px 0px 94px 40px;
+  margin: 354px 0px 94px 40px;
 }
 
 .clone.position-3 {
-  margin: 131px 0 376px 40px;
+  margin: 71px 0px 376px 40px;
 }
 
 .clone.position-4 {
-  margin: 342px 0 166px 40px;
+  margin: 292px 0px 166px 40px;
 }
 
 .clone.position-5 {
-  margin: 83px 0 425px 40px;
+  margin: 23px 0px 425px 40px;
 }
 
 .clone.position-6 {
-  margin: 409px 0 99px 40px;
+  margin: 349px 0px 99px 40px;
 }
 
 .comment{
@@ -183,7 +155,7 @@ input {
   font: 13px;
   color: #B9B9B9;
   bottom: -51px;
-  left: 87%;
+  left: 85%;
 }
 
 .popup {
@@ -204,6 +176,7 @@ input {
   padding: 20px 0px 0px 185px;
   max-width: 100%;
   max-height: 100%;
+  z-index: 1;
 }
 
 .QR{
@@ -240,4 +213,9 @@ input {
 
 .frame1{
   margin: 20px 10px 0px 120px;
+}
+
+
+.gallery.swiper-wrapper{
+	transition-timing-function: linear;
 }

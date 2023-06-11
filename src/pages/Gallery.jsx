@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { gsap, Power1 } from "gsap";
 import './gallery.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
+
+import 'swiper/css';
+import 'swiper/css/bundle';
+
 import pinkframe from '../img/pinkframe.png';
 import charcoalframe from '../img/charcoalframe.png';
 import skyblueframe from '../img/skyblueframe.png';
@@ -13,6 +19,8 @@ import frame5_1 from '../img/frame5-1.png';
 import frame6_1 from '../img/frame6-1.png';
 import Xicon from '../img/Xicon.png';
 import backgroundImage from '../img/backgroundImage.png';
+
+
 
 function Gallery() {
   const frames = [
@@ -35,10 +43,6 @@ function Gallery() {
   const closePopup = () => {
     setSelectedFrame(null);
   };
-  
-  const getClonedFrames = () => {
-    return clonedFrames;
-  };  
 
   const getCurrentDateTime = () => {
     const currentDateTime = new Date();
@@ -47,18 +51,6 @@ function Gallery() {
     const formattedDate = currentDate.replace('.', '');
     const formattedTime = currentTime.replace('오후', '').replace('오전', '');
     return { date: formattedDate, time: formattedTime };
-  };
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    pauseOnHover: true,
-    swipeToSlide: true
   };
   
   useEffect(() => {
@@ -80,13 +72,11 @@ function Gallery() {
       setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % clonedFrames.length);
     }, 3000);
   
-    // 원본 요소용
     const originalFrames = document.querySelectorAll('.frame');
     originalFrames.forEach((frame, index) => {
       UpDown(frame, 1 + index * 0.5, 10 + index * 5);
     });
   
-    // 복제 요소용
     const clonedFrames = document.querySelectorAll('.clone');
     clonedFrames.forEach((frame, index) => {
       UpDown(frame, 1 + index * 0.5, 10 + index * 5);
@@ -108,26 +98,46 @@ function Gallery() {
       </div>
       <div className="background">
         <div className="frames">
+        <Swiper
+          modules={[Autoplay]}
+          loop={true}
+          speed={1000}
+          autoplay={{
+            delay: 0,
+            disableOnInteraction: false
+          }}
+          slidesPerView={5.2}
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
           {frames.map((frame, index) => (
-            <div className={`container${index % 2 === 0 ? '' : '2'}`} key={index}>
-              <div className={`frame position-${index + 1}`} onClick={() => openPopup(frame)}>
-                <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
-                <div className='comment'>{frame.comment}</div>
-                <div className='day'>{getCurrentDateTime().date}</div>
-                <div className='time'>{getCurrentDateTime().time}</div>
+            <SwiperSlide key={index}>
+              <div className={`container`}>
+                <div className={`frame position-${index + 1}`} onClick={() => openPopup(frame)}>
+                  <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
+                  <div className='comment'>{frame.comment}</div>
+                  <div className='day'>{getCurrentDateTime().date}</div>
+                  <div className='time'>{getCurrentDateTime().time}</div>
+                </div>
               </div>
-            </div>
+            </SwiperSlide>
           ))}
-          {clonedFrames.map((frame, index) => (
-            <div className={`container${index % 2 === 0 ? '' : '2'}`} key={index}>
-              <div className={`clone position-${index + 1}`} onClick={() => openPopup(frame)}>
-                <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
-                <div className='comment'>{frame.comment}</div>
-                <div className='day'>{getCurrentDateTime().date}</div>
-                <div className='time'>{getCurrentDateTime().time}</div>
+           {clonedFrames.map((frame, index) => (
+            <SwiperSlide key={index}>
+              <div className={`container`}>
+                <div className={`frame position-${(index % frames.length) + 1}`} onClick={() => openPopup(frame)}>
+                  <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
+                  <div className='comment'>{frame.comment}</div>
+                  <div className='day'>{getCurrentDateTime().date}</div>
+                  <div className='time'>{getCurrentDateTime().time}</div>
+                </div>
               </div>
-            </div>
+            </SwiperSlide>
           ))}
+
+        </Swiper>
+
+          
         </div>
       </div>
 
