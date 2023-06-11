@@ -21,3 +21,8 @@ export function brightnessFilter(pixels, value = 50) {
     }
     return pixels;
 }
+
+export function originalFilter(pixels) {
+    // 이미지를 변경하지 않고 그대로 반환
+    return pixels;
+}

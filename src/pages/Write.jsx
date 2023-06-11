@@ -35,7 +35,7 @@ function Write() {
       <h1>추억을 기록해보세요</h1>
       <div style={{ margin: '0 auto', background: 'white', width: 1820, height: 900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow: '0px 0px 2px 2px #F5F5F5', marginTop: 70 }}>
         <div id="framee" style={{
-         backgroundImage: `url(${(storedImages)})`,
+         backgroundImage: `url(${(storedImages[3])})`,
       }}>
       </div>
         <form onSubmit={handleSubmit}>
