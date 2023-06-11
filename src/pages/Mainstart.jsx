@@ -6,8 +6,15 @@ import { FaBars } from 'react-icons/fa';
 // import image from '../img/framelogo'
 import image2 from '../img/whitelogo.png'
 import mainimg from '../img/Mainbg.png'
+import { useNavigate } from "react-router-dom";
 
 function Mainstart(){
+   const navigate = useNavigate();
+  
+   function handleClick() {
+      navigate("/frame");
+      
+   }
    return (
 	  <body style={{height: '100%', width: '100%',position: 'absolute', backgroundSize: 'cover', backgroundImage: `url(${mainimg})`}}>
 		 <Container>
@@ -19,8 +26,8 @@ function Mainstart(){
 			   </Logo>
 			   <Blank/>
 			   		<Wrapper>
-							<Links href="/photoshoot">PHOTO</Links>
-							<Links href="/">네컷갤러리</Links>
+							<Links href="/frame">PHOTO</Links>
+							<Links href="/Gallery">네컷갤러리</Links>
 		</Wrapper>
 			</NavMenu>
 		 </Nav>
@@ -29,7 +36,7 @@ function Mainstart(){
 				<div id="logo">
 					<img src={image2} width="275" height="125" alt="logo"/>
 				</div>
-				<div id="btnSt">사진 촬영하기</div>
+				<div id="btnSt" onClick={handleClick}>사진 촬영하기</div>
 			</div>
 	  </body>
    );
