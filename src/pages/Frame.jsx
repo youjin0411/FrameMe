@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
 import '../main.css';
 import choose from '../img/Vector.png';
+import { useNavigate } from "react-router-dom";
 
 function Frame() {
   const [selectedFrame, setSelectedFrame] = useState(null);
+  const [intent, setIntent] = useState(-1);
 
+  const navigate = useNavigate();
+  
+  function photoshootintent() {
+    if(intent === 1){
+      navigate("/photoshoot");
+    }else if(intent === 2){
+      navigate("/photoshoot2")
+    }else{
+      
+    }
+  }
   const handleClick = (frameId) => {
     setSelectedFrame(frameId);
   };
@@ -33,10 +46,13 @@ function Frame() {
       <div id="frame">
         <div
           id="fra1"
-          onClick={() => handleClick('c1')}
+          onClick={() => {
+            handleClick('c1')
+            setIntent(1)
+          }}
           style={{
             // opacity: selectedFrame === 'c1' ? '100%' : undefined,
-            opacity: isImageVisible('c1') ? '100%' : '50%'
+            opacity: intent===-1 ? '100%' : isImageVisible('c1') ? '100%' : '50%'
           }}
         >
           {isImageVisible('c1') && (
@@ -55,10 +71,13 @@ function Frame() {
         </div>
         <div
           id="fra2"
-          onClick={() => handleClick('c2')}
+          onClick={() => {
+            handleClick('c2')
+            setIntent(2)
+          }}
           style={{
             //opacity: selectedFrame === 'c2' ? '100%' : undefined,
-            opacity: isImageVisible('c2') ? '100%' : '50%'
+            opacity: intent===-1 ? '100%' : isImageVisible('c2') ? '100%' : '50%'
           }}
         >
           {isImageVisible('c2') && (
@@ -86,7 +105,7 @@ function Frame() {
             top: '980px',
             backgroundBlendMode: 'overlay',
             background: 'white',
-          }}
+          }} onClick={photoshootintent}
         >
         다음&nbsp;&nbsp;&nbsp;〉
         </button>
