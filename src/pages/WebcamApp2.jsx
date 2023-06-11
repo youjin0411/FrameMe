@@ -209,7 +209,7 @@ const WebcamApp2 = () => {
             </div>
             </Frames>
             <Btn>
-            <Links href="/ChoiceFrame">다음&nbsp;&nbsp;&nbsp;〉</Links>
+            <Links href="/ChoiceFrame2">다음&nbsp;&nbsp;&nbsp;〉</Links>
             </Btn>
             </>
         )

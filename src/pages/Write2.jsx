@@ -22,7 +22,7 @@ function Write() {
   };
   
   function handleClick() {
-    navigate("/result2", { 
+    navigate("/Result2", { 
       state: {
         frameimage: state,
         name: nameValue,
@@ -32,12 +32,11 @@ function Write() {
       },
     });
   }
-  console.log(state)
   const style2 = {
     width: 500,
     height: 143,
     backgroundSize: 'cover',
-  }
+  };
 
   const isButtonDisabled = !nameValue || !impressionValue;
 
@@ -51,7 +50,7 @@ function Write() {
          backgroundImage: `url(${state})`,
       }}>
       </div>
-      <div style={{ position: 'absolute', display: 'grid', left: 273, top: 339, gridRowGap: 5, rowGap: 5 }}>
+      <div style={{ position: 'absolute', display: 'grid', left: 287, top: 373, gridRowGap: 5, rowGap: 5 }}>
       <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
