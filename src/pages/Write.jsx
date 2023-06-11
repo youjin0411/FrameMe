@@ -1,30 +1,46 @@
 import React, { useState } from 'react';
+import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom"
 
 function Write() {
+  const navigate = useNavigate(); 
   const [nameValue, setNameValue] = useState('');
   const [impressionValue, setImpressionValue] = useState('');
   const [isChecked1, setIsChecked1] = useState(false);
   const [isChecked2, setIsChecked2] = useState(false);
+  const { state } = useLocation();
+  const [name, setName] = useState("");
+  const [review, setReview] = useState("");
+  const [gallery, setGallery] = useState(false);
+  const [qr, setQr] = useState(false);
 
-  const handleCheckbox1Change = (event) => {
-    setIsChecked1(event.target.checked);
+  const handleCheckboxChange = (event) => {
+    setGallery(event.target.checked);
   };
-
-  const handleCheckbox2Change = (event) => {
-    setIsChecked2(event.target.checked);
-  };
-
-  const handleNameChange = (event) => {
-    setNameValue(event.target.value);
-  };
-
-  const handleImpressionChange = (event) => {
-    setImpressionValue(event.target.value);
+  const handleCheckboxChange2 = (event) => {
+    setQr(event.target.checked);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+  
+  function handleClick() {
+    navigate("/사진저장경로", { 
+      state: {
+      frameimage: state,
+      name:name,
+      review:review,
+      gallery:gallery,
+      qr:qr,
+      }
+    });
+  }
+  const style2 = {
+    width: 219.98, 
+    height: 140.77,
+    backgroundSize: 'cover'
+  }
 
   const isButtonDisabled = !nameValue || !impressionValue;
 
@@ -35,8 +51,14 @@ function Write() {
       <h1>추억을 기록해보세요</h1>
       <div style={{ margin: '0 auto', background: 'white', width: 1820, height: 900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow: '0px 0px 2px 2px #F5F5F5', marginTop: 70 }}>
         <div id="framee" style={{
-         backgroundImage: `url(${(storedImages[3])})`,
+         backgroundImage: state,
       }}>
+      </div>
+      <div style={{position: 'absolute', display: 'grid',left: 278, top: 326, gridRowGap: 10, rowGap: 9}}>
+      <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
+      <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
+      <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
+      <div style={{ ...style2, backgroundImage: `url(${storedImages[3]})` }} />
       </div>
         <form onSubmit={handleSubmit}>
           <h2 id="htext1" style={{
@@ -51,7 +73,9 @@ function Write() {
             type="text"
             autoComplete="off"
             value={nameValue}
-            onChange={handleNameChange}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}    
             style={{
               lineHeight: '20px',
               padding: '30px',
@@ -77,7 +101,9 @@ function Write() {
             id="Impressionp"
             placeholder="전시 소감을 작성해주세요. &#13;&#10;사진에 함께 들어갑니다."
             value={impressionValue}
-            onChange={handleImpressionChange}
+            onChange={(e) => {
+              setReview(e.target.value);
+            }}    
             style={{
               padding: '30px',
               position: 'absolute',
@@ -100,7 +126,7 @@ function Write() {
               type="checkbox"
               id="check1"
               checked={isChecked1}
-              onChange={handleCheckbox1Change}
+              onChange={handleCheckboxChange}
               style={{
                 margin: '0 auto'
               }}
@@ -115,7 +141,7 @@ function Write() {
               type="checkbox"
               id="check2"
               checked={isChecked2}
-              onChange={handleCheckbox2Change}
+              onChange={handleCheckboxChange2}
               style={{
                 margin: '0 auto'
               }}
@@ -136,6 +162,7 @@ function Write() {
               color: isButtonDisabled ? 'gray' : 'black',
             }}
             disabled={isButtonDisabled} 
+            onClick={handleClick}
           >
           사진 받기 &nbsp;&nbsp;&nbsp;〉
           </button>
