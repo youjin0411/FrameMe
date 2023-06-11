@@ -21,73 +21,36 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route
-          path="/photoshoot"
-          element={
-            <div>
-              <Navbar />
-              <WebcamApp /> {/* Main 페이지 */}
-            </div>
-          }
-        />
-        <Route
-          path="/photoshoot2"
-          element={
-            <div>
-              <Navbar />
-              <WebcamApp2 /> {/* Main 페이지 */}
-            </div>
-          }
-        />
-        <Route
-          path="/choiceimg"
-          element={
-            <div>
-              <Navbar />
-              <ChoiceImg /> {/* Main 페이지 */}
-            </div>
-          }
-        />
-        <Route path="/frame" element={
-          <div>
-          <Navbar />
-          <Frame /> {/* Main 페이지 */}
-        </div>
-        } />
-        <Route path="/ChoiceFrame" element={
-          <div>
-          <Navbar />
-          <ChoiceFrame /> {/* Main 페이지 */}
-          <ChoiceFrame2 /> {/* Main 페이지 */}
-        </div>
-        } />
-        <Route path="/Write" element={
-          <div>
-          <Navbar />
-          <Write /> {/* Main 페이지 */}
-        </div>
-        } />
-
-        <Route path="/Gallery" element={
-          <div>
-          <Navbar />
-          <Gallery /> {/* Main 페이지 */}
-        </div>
-        } />
-
-        <Route path="/SearchSave" element={
-          <div>
-          <Navbar />
-          <SearchSave /> {/* Main 페이지 */}
-        </div>
-        } />
-      <Route path="/Loding" element={
-          <div>
-          <Navbar />
-          <Loding /> {/* Main 페이지 */}
-        </div>
-        } />
-
+        <Route path="/photoshoot" element={
+            <div> <Navbar /> <WebcamApp /></div>
+          }/>
+        <Route path="/photoshoot2" element={ 
+            <div> <Navbar /> <WebcamApp2 /></div>
+          }/>
+        <Route path="/choiceimg" element={ 
+            <div> <Navbar /> <ChoiceImg /></div>
+          }/>
+        <Route path="/frame" element={ 
+            <div> <Navbar /> <Frame /></div>
+          }/>
+        <Route path="/ChoiceFrame" element={ 
+            <div> <Navbar /> <ChoiceFrame /></div>
+          }/>
+        <Route path="/ChoiceFrame2" element={ 
+            <div> <Navbar /> <ChoiceFrame2 /></div>
+          }/>
+        <Route path="/Write" element={ 
+            <div> <Navbar /> <Write /></div>
+          }/>
+        <Route path="/Gallery" element={ 
+            <div> <Navbar /> <Gallery /></div>
+          }/>
+        <Route path="/SearchSave" element={ 
+            <div> <Navbar /> <SearchSave /></div>
+          }/>
+        <Route path="/Loding" element={ 
+            <div> <Navbar /> <Loding /></div>
+          }/>
         <Route path="/filming" element={<Wepcam />} />
         <Route path="/Test" element={<Test />} />
         <Route path="/Test2" element={<Test2 />} />
