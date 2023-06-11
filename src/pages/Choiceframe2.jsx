@@ -107,7 +107,7 @@ function Choiceframe2() {
   };
 
   const frameImgStyle = {
-    backgroundImage: `url(${getFrameImage()})`,
+    backgroundImage: getFrameImage() ? `url(${getFrameImage()})` : null,
   };
 
   const frameimage = getFrameImage()
@@ -131,9 +131,9 @@ function Choiceframe2() {
   
       const image = new Image();
       image.onload = () => {
-        canvas.width = 219.38;
-        canvas.height = 140.36;
-        ctx.drawImage(image, 0, 0, 219.38, 140.36);
+        canvas.width = 500;
+        canvas.height = 143;
+        ctx.drawImage(image, 0, 0, 500, 143);
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   
         const imageCopy = new ImageData(imageData.width, imageData.height);

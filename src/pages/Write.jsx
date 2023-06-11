@@ -42,8 +42,6 @@ function Write() {
 
   const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
 
-  console.log(localStorage.clear());
-
   return (
     <div>
       <h1>추억을 기록해보세요</h1>
@@ -52,7 +50,7 @@ function Write() {
          backgroundImage: state,
       }}>
       </div>
-      <div style={{position: 'absolute', display: 'grid',left: 278, top: 326, gridRowGap: 10, rowGap: 9}}>
+      <div style={{position: 'absolute', display: 'grid',left: 276.5, top: 326, gridRowGap: 10, rowGap: 9}}>
       <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />

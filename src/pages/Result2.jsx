@@ -84,7 +84,7 @@ function Result() {
           <div
             id="framee"
             style={{
-              backgroundImage: frameimage,
+              backgroundImage: `url(${frameimage}`,
 							display: 'flex',
 							justifyCcontent: 'center',
 							top: 175,
@@ -94,7 +94,7 @@ function Result() {
 							marginTop: 36
             }}
           ></div>
-      <div style={{ position: 'absolute', display: 'grid', left: 702, top: 339, gridRowGap: 5, rowGap: 5 }}>
+      <div style={{ position: 'absolute', display: 'grid', left: 711, top: 276, gridRowGap: 5, rowGap: 5 }}>
       <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
