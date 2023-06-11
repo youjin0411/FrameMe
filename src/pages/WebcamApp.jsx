@@ -32,6 +32,7 @@ const WebcamApp = () => {
   const timeRef = useRef(Date.now());
   // webcam
   const webcamRef = useRef(null);
+  
   const [newQ, setNewQ] = useState(Array(4).fill(null));
 
   const [showLoadingPage, setShowLoadingPage] = useState(false);
@@ -42,7 +43,6 @@ const WebcamApp = () => {
 
   useEffect(() => {
     const audioElement = new Audio('sound-effect.mp3');
-    audioElement.play();
     audioRef.current = audioElement;
   
     return () => {

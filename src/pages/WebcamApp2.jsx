@@ -41,7 +41,6 @@ const WebcamApp2 = () => {
 
   useEffect(() => {
     const audioElement = new Audio('sound-effect.mp3');
-    audioElement.play();
     audioRef.current = audioElement;
   
     return () => {
