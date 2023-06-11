@@ -87,6 +87,10 @@ input {
   transition-timing-function: linear;
 }
 
+.frame{
+  position: relative;
+}
+
 /* 원본 */
 .frame.position-1 {
   margin: 23px 0px 425px 40px;
@@ -150,14 +154,6 @@ input {
   bottom: -51px;
 }
 
-.time{
-  position: absolute;
-  font: 13px;
-  color: #B9B9B9;
-  bottom: -51px;
-  left: 85%;
-}
-
 .popup {
   position: fixed;
   top: 0px;
@@ -169,6 +165,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
 
 .popup-content {
@@ -176,7 +173,6 @@ input {
   padding: 20px 0px 0px 185px;
   max-width: 100%;
   max-height: 100%;
-  z-index: 1;
 }
 
 .QR{
@@ -215,7 +211,7 @@ input {
   margin: 20px 10px 0px 120px;
 }
 
-
-.gallery.swiper-wrapper{
+.swiper-wrapper{
 	transition-timing-function: linear;
+  z-index: 1;
 }

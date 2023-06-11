@@ -43,15 +43,6 @@ function Gallery() {
   const closePopup = () => {
     setSelectedFrame(null);
   };
-
-  const getCurrentDateTime = () => {
-    const currentDateTime = new Date();
-    const currentDate = currentDateTime.toLocaleDateString('ko-KR');
-    const currentTime = currentDateTime.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: false });
-    const formattedDate = currentDate.replace('.', '');
-    const formattedTime = currentTime.replace('오후', '').replace('오전', '');
-    return { date: formattedDate, time: formattedTime };
-  };
   
   useEffect(() => {
     function random(min, max) {
@@ -116,8 +107,7 @@ function Gallery() {
                 <div className={`frame position-${index + 1}`} onClick={() => openPopup(frame)}>
                   <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
                   <div className='comment'>{frame.comment}</div>
-                  <div className='day'>{getCurrentDateTime().date}</div>
-                  <div className='time'>{getCurrentDateTime().time}</div>
+                  <div className='day'>2023.6.22~24</div>
                 </div>
               </div>
             </SwiperSlide>
@@ -128,16 +118,13 @@ function Gallery() {
                 <div className={`frame position-${(index % frames.length) + 1}`} onClick={() => openPopup(frame)}>
                   <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
                   <div className='comment'>{frame.comment}</div>
-                  <div className='day'>{getCurrentDateTime().date}</div>
-                  <div className='time'>{getCurrentDateTime().time}</div>
+                  <div className='day'>2023.6.22~24</div>
                 </div>
               </div>
             </SwiperSlide>
           ))}
-
         </Swiper>
-
-          
+        
         </div>
       </div>
 
@@ -147,8 +134,7 @@ function Gallery() {
             <img src={selectedFrame.image} width="590" height="684" alt="selected-frame" />
             <button className="close-button" onClick={closePopup}><img src={Xicon} width="15" height="15" alt="close"></img></button>
             <div className='comment'>{selectedFrame.comment}</div>
-            <div className='day'>{getCurrentDateTime().date}</div>
-            <div className='time' style={{ marginLeft: '50px' }}>{getCurrentDateTime().time}</div>
+            <div className='day'>2023.6.22~24</div>
           </div>
           <div className='QR'></div>
         </div>
