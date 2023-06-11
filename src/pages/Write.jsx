@@ -42,6 +42,8 @@ function Write() {
 
   const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
 
+  console.log(localStorage.clear());
+
   return (
     <div>
       <h1>추억을 기록해보세요</h1>
