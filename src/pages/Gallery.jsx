@@ -23,19 +23,7 @@ import search from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
 
 function Gallery() {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-      try {
-        const response = axios.get("http://localhost:3001/api/select");
-        response.then(response => {
-          console.log("성공")
-          setData(response.data);
-        })
-      } catch (error) {
-        console.error("오류 발생:", error);
-      }
-  }, []);
-  console.log(data)
+  const [data, setData] = useState([])
   const frames = [
     { image: frame1, comment: '유리언니의 전시기록' },
     { image: frame2, comment: '소리언니의 전시기록' },
@@ -48,6 +36,22 @@ function Gallery() {
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const clonedFrames = [...frames, ...frames]; // 원본 요소를 복제하여 새로운 배열 생성
+
+  // 데이터베이스에서 데이터 꺼내오기
+  useEffect(() => {
+    try {
+      const response = axios.get("http://localhost:3001/api/select");
+      response.then(response => {
+        console.log("성공")
+        const arr = response.data.results
+        setData(arr)
+      });
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+}, []);
+
+console.log(data); //첫 로딩 시에는 null -> select 조회 후 배열 생성됨 
 
   const openPopup = (frame) => {
     setSelectedFrame(frame);
@@ -105,6 +109,7 @@ function Gallery() {
       <div className='bar'>
         <h1 className='text'>GALLERY</h1>
         <p className='barcomment'>사진을 눌러 큐알코드로 이미지를 다운받아보세요!</p>
+        {/* <div style={{backgroundImage:`url(${data.results.frame})`}}></div> */}
         <div className='search'>
           <input type="text" placeholder='이름, 날짜, 시간 검색'></input>
           <button className='searchBtn'><img src={search} width={48} height={39}></img></button>
