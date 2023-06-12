@@ -4,6 +4,7 @@ import QRCode from 'qrcode.react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';  
+import Gallery from './Gallery';
 
 function Result() {
   const navigate = useNavigate();
@@ -12,10 +13,10 @@ function Result() {
   const review = state.review;
   const name = state.name;
   const qr = state.qr;
+  const gallery = state.gallery;
   const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
   const qrCodeRef = useRef(null);
   const [qrCodeImage, setQrCodeImageURL] = useState(null);
-
   const divRef = useRef(null);
   const [scannedImage, setScannedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -71,20 +72,24 @@ function Result() {
   }
 
   const handleInsert = async () => {
-    try {
-      const response = await axios.post("http://localhost:3001/api/insert", {
-        name: name, 
-        today: today, 
-        time: time, 
-        qrCodeImage: qrCodeImage, 
-        frameimage : frameimage
-      });
-      if(response) {
-        console.log("성공")
-        navigate('/gallery');
+    if(gallery){
+      try {
+        const response = await axios.post("http://localhost:3001/api/insert", {
+          name: name, 
+          today: today, 
+          time: time, 
+          qrCodeImage: qrCodeImage, 
+          frameimage : frameimage
+        });
+        if(response) {
+          console.log("성공")
+          navigate('/gallery');
+        }
+      } catch (error) {
+        console.error("오류 발생:", error);
       }
-    } catch (error) {
-      console.error("오류 발생:", error);
+    }else{
+      navigate('/gallery');
     }
   };
 
