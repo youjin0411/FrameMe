@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import html2canvas from 'html2canvas';
-import QRCode from 'qrcode';
+import QRCode from 'qrcode.react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';  
 
 function Result() {
   const navigate = useNavigate();
@@ -10,10 +11,10 @@ function Result() {
   const frameimage = state.frameimage;
   const review = state.review;
   const name = state.name;
-  const gallery = state.gallery;
   const qr = state.qr;
-	const [shortUrl, setShortUrl] = useState('');
   const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
+  const qrCodeRef = useRef(null);
+  const [qrCodeImage, setQrCodeImageURL] = useState(null);
 
   const divRef = useRef(null);
   const [scannedImage, setScannedImage] = useState(null);
@@ -39,23 +40,23 @@ function Result() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (divRef.current) {
-  //     setIsLoading(true);
-  //     const { width, height } = divRef.current.getBoundingClientRect();
+  useEffect(() => {
+    const generateQRCodeImage = async () => {
+      if (qrCodeRef.current) {
+        const canvas = await html2canvas(qrCodeRef.current);
+        const image = canvas.toDataURL('image/png');
+        setQrCodeImageURL(image);
+      }
+    };
 
-  //     // QR 코드 생성
-  //     QRCode.toDataURL(JSON.stringify(storedImages), { width, height })
-  //       .then(function (url) {
-  //         setScannedImage(url);
-  //         setIsLoading(false);
-  //       })
-  //       .catch(function (error) {
-  //         console.error('QR Code generation error:', error);
-  //         setIsLoading(false);
-  //       });
-  //   }
-  // }, []);
+    generateQRCodeImage();
+  }, []);
+  useEffect(() => {
+    if (scannedImage != null) {
+      handleUpload();
+    }
+    console.log(scannedImage);
+  }, [scannedImage]);
   const date = {
     currentDate: new Date(),
   };
@@ -72,35 +73,59 @@ function Result() {
     navigate('/write');
   }
 
-  const style2 = {
-    width: 221,
-    height: 141,
-    backgroundSize: 'cover',
+  const handleUpload = async () => {
+    console.log(1)
+    console.log(scannedImage)
+    try {
+      if (!scannedImage) {
+        console.error('No image to upload');
+        return;
+      }
+      const blobImage = await fetch(scannedImage).then((res) => res.blob());
+      const formData = new FormData();
+      formData.append('image', blobImage);
+      const response = await axios.post('http://localhost:3001/upload', formData, {
+        withCredentials: true,
+        crossDomain: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      const qrCodeURL = response.data.downloadLink;
+      console.log('QR code generated:', qrCodeURL);
+      setQrCodeImageURL(qrCodeURL); // Set the QR code URL to state
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
   };
-
+const style2 = {
+  width: 221,
+  height: 141,
+  backgroundSize: 'cover',
+};
   return (
     <div>
       <Mt>사진을 저장하세요</Mt>
-        <Print ref={divRef}>
-          <div
-            id="framee"
-            style={{
-              backgroundImage: frameimage,
-							display: 'flex',
-							justifyCcontent: 'center',
-							top: 175,
-							left: 666,
-							alignItems: 'center',
-							margin: '0 auto',
-							marginTop: 36
-            }}
-          ></div>
-          <div
-            style={{
-              position: 'absolute',
-              display: 'grid',
-              left: 704,
-              top: 227.9,
+      <Print ref={divRef}>
+        <div
+          id="framee"
+          style={{
+            backgroundImage: frameimage,
+            display: 'flex',
+            justifyContent: 'center',
+            top: 175,
+            left: 683,
+            alignItems: 'center',
+            margin: '0 auto',
+            marginTop: 36,
+          }}
+        ></div>
+        <div
+          style={{
+            position: 'absolute',
+            display: 'grid',
+            left: 721,
+              top: 229.9,
               gridRowGap: 8.5,
             }}
           >
@@ -112,14 +137,10 @@ function Result() {
 					<Review>{review}</Review>
 			</Print>
         {isLoading ? (
-          <p>Loading...</p>
-        ) : scannedImage ? (
-          <div>
-            {/* <img src={scannedImage} alt="Scanned Image" /> */}
-            <a href={scannedImage} download>
-              Download Image
-            </a>
-						{/* <QRCode value={scannedImage} /> */}
+          <p style={{marginTop: -17, marginLeft: 1268}}>Loading...</p>
+        ) : qr ? (
+          <div style={{marginTop: -17}}>
+						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1288}}/>
 				</div>
 				) : null}
 

@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import html2canvas from 'html2canvas';
-import QRCode from 'qrcode';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
