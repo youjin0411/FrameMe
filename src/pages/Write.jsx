@@ -33,7 +33,7 @@ function Write() {
     });
   }
   const style2 = {
-    width: 219.98, 
+    width: 221, 
     height: 140.77,
     backgroundSize: 'cover'
   }
@@ -45,12 +45,12 @@ function Write() {
   return (
     <div>
       <h1>추억을 기록해보세요</h1>
-      <div style={{ margin: '0 auto', background: 'white', width: 1820, height: 900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow: '0px 0px 2px 2px #F5F5F5', marginTop: 70 }}>
+      <div style={{ margin: '0 auto', background: 'white', width: 1820, height: 900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow: '0px 0px 2px 2px #F5F5F5', marginTop: 41 }}>
         <div id="framee" style={{
          backgroundImage: state,
       }}>
       </div>
-      <div style={{position: 'absolute', display: 'grid',left: 276.5, top: 326, gridRowGap: 10, rowGap: 9}}>
+      <div style={{position: 'absolute', display: 'grid',left: 277.5, top: 290, gridRowGap: 9.9, rowGap: 9.9}}>
       <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
@@ -77,7 +77,7 @@ function Write() {
               width: '475px',
               height: '50px',
               left: '960px',
-              top: '250px',
+              top: '223px',
               backgroundBlendMode: 'overlay',
               borderRadius: '30px',
               margin: '131px 433px 348px 0px'
@@ -103,7 +103,7 @@ function Write() {
               width: '475px',
               height: '110px',
               left: '960px',
-              top: '250px',
+              top: '230px',
               lineHeight: '20px',
               backgroundBlendMode: 'overlay',
               borderRadius: '30px',

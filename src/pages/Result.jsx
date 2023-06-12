@@ -31,7 +31,6 @@ function Result() {
         .then(function (canvas) {
           const image = canvas.toDataURL('image/png');
           setScannedImage(image);
-          setIsLoading(false);
         })
         .catch(function (error) {
           console.error('Image conversion error:', error);
@@ -84,7 +83,7 @@ function Result() {
       const blobImage = await fetch(scannedImage).then((res) => res.blob());
       const formData = new FormData();
       formData.append('image', blobImage);
-      const response = await axios.post('http://localhost:3001/upload', formData, {
+      const response = await axios.post('https://port-0-framemeserver-7xwyjq992llisq9g9j.sel4.cloudtype.app/upload', formData, {
         withCredentials: true,
         crossDomain: true,
         headers: {
@@ -94,14 +93,15 @@ function Result() {
       const qrCodeURL = response.data.downloadLink;
       console.log('QR code generated:', qrCodeURL);
       setQrCodeImageURL(qrCodeURL); // Set the QR code URL to state
+      setIsLoading(false);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
   };
 const style2 = {
-  width: 221,
-  height: 141,
-  backgroundSize: 'cover',
+  width: 223, 
+  height: 142,
+  backgroundSize: 'cover'
 };
   return (
     <div>
@@ -124,9 +124,9 @@ const style2 = {
           style={{
             position: 'absolute',
             display: 'grid',
-            left: 721,
-              top: 229.9,
-              gridRowGap: 8.5,
+            left: 721.8,
+              top: 227.14,
+              gridRowGap: 8.65,
             }}
           >
             <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
@@ -136,12 +136,10 @@ const style2 = {
           </div>
 					<Review>{review}</Review>
 			</Print>
-        {isLoading ? (
-          <p style={{marginTop: -17, marginLeft: 1268}}>Loading...</p>
-        ) : qr ? (
+        {isLoading ? (<p style={{marginTop: -50, marginLeft: 1295}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
           <div style={{marginTop: -17}}>
 						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1288}}/>
-				</div>
+				  </div>
 				) : null}
 
 			<Name>{name}의 전시기록</Name>

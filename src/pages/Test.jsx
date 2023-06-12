@@ -30,7 +30,7 @@ const UploadPhotos = () => {
 
       // axios를 사용하여 서버에 사진 데이터 전송
       await axios.post(
-        'http://localhost:3001/upload',
+        'https://port-0-framemeserver-7xwyjq992llisq9g9j.sel4.cloudtype.app//upload',
         { photos },
         {
           withCredentials: true,

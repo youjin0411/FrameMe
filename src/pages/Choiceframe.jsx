@@ -114,7 +114,7 @@ function Choiceframe() {
   const frameimage = getBackgroundImage()
 
   const style2 = {
-    width: 219.98, 
+    width: 221, 
     height: 140.77,
     backgroundSize: 'cover'
   }
@@ -131,9 +131,9 @@ const applyFilter = (filterFunction) => {
 
     const image = new Image();
     image.onload = () => {
-      canvas.width = 219.38;
-      canvas.height = 140.36;
-      ctx.drawImage(image, 0, 0, 219.38, 140.36);
+      canvas.width = 219.98;
+      canvas.height = 140.77;
+      ctx.drawImage(image, 0, 0, 219.98, 140.77);
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
       const imageCopy = new ImageData(imageData.width, imageData.height);
@@ -160,7 +160,7 @@ const handleFilterButtonClick = (filterFunction) => {
       <h1>프레임을 선택해주세요</h1>
       <div id="frameimg" style={frameImgStyle}>
       </div>
-      <div style={{ position: 'absolute', display: 'grid', left: 269.8, top: 290, gridRowGap: 10, rowGap: 10 }}>
+      <div style={{ position: 'absolute', display: 'grid', left: 268.8, top: 290.7, gridRowGap: 8.5, rowGap: 8.5 }}>
       {storedImages.map((imageSrc, index) => (
         <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
       ))}
@@ -350,7 +350,6 @@ const handleFilterButtonClick = (filterFunction) => {
         </button> 
     </div>
   );
-
 }
 
 const Btn = styled.button`

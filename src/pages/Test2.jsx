@@ -5,7 +5,7 @@ const ImageList = () => {
 
   useEffect(() => {
     // 서버로부터 이미지 경로 데이터를 가져오는 요청을 보냄
-    fetch('http://localhost:3001/images')
+    fetch('https://port-0-framemeserver-7xwyjq992llisq9g9j.sel4.cloudtype.app/images')
       .then(response => response.json())
       .then(data => {
         // 이미지 URL들을 배열로 저장
