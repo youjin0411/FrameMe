@@ -10,6 +10,8 @@ import frame3 from '../img/frame3.png';
 import frame4 from '../img/frame4.png';
 import frame5 from '../img/frame5.png';
 import frame6 from '../img/frame6.png';
+import frame5_1 from '../img/frame5-1.png';
+import frame6_1 from '../img/frame6-1.png';
 import Xicon from '../img/Xicon.png';
 import search from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
@@ -20,8 +22,8 @@ function SearchSave() {
     { image: frame2, comment: '소리언니의 전시기록' },
     { image: frame3, comment: '유진언니의 전시기록' },
     { image: frame4, comment: '해원이의 전시기록' },
-    { image: frame5, comment: '가윤이의 전시기록' },
-    { image: frame6, comment: '프레임미 최고' }
+    { image: frame5_1, comment: '가윤이의 전시기록' },
+    { image: frame6_1, comment: '프레임미 최고' }
   ];
   const [selectedFrame, setSelectedFrame] = useState(null);
 
@@ -49,7 +51,7 @@ function SearchSave() {
         <p className='barcomment'>사진을 눌러 큐알코드로 이미지를 다운받아보세요!</p>
         <div className='search'>
           <input type="text" placeholder='이름, 날짜, 시간 검색'></input>
-          <button className='searchBtn'><img src={search} width={20} height={20}></img></button>
+          <button className='searchBtn'><img src={search} width={48} height={39}></img></button>
         </div>
       </div>
       <div className="background1">
@@ -74,7 +76,7 @@ function SearchSave() {
             <button className="close-button" onClick={closePopup}><img src={Xicon} width="22" height="22" alt="close"></img></button>
             <div className='comment p1'>{selectedFrame.comment}</div>
             <div className='day p2'>{getCurrentDateTime().date}</div>
-            <div className='time p2' left={35}>{getCurrentDateTime().time}</div>
+            <div className='time p2' style={{ marginLeft: '50%' }}>{getCurrentDateTime().time}</div>
           </div>
           <div className='QR'></div>
         </div>
