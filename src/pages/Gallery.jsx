@@ -18,9 +18,8 @@ import frame4 from '../img/frame4.png';
 import frame5_1 from '../img/frame5-1.png';
 import frame6_1 from '../img/frame6-1.png';
 import Xicon from '../img/Xicon.png';
+import search from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
-
-
 
 function Gallery() {
   const frames = [
@@ -43,6 +42,15 @@ function Gallery() {
   const closePopup = () => {
     setSelectedFrame(null);
   };
+
+  const getCurrentDateTime = () => {
+    const currentDateTime = new Date();
+    const currentDate = currentDateTime.toLocaleDateString('ko-KR');
+    const currentTime = currentDateTime.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: false });
+    const formattedDate = currentDate.replace('.', '');
+    const formattedTime = currentTime.replace('오후', '').replace('오전', '');
+    return { date: formattedDate, time: formattedTime };
+  };
   
   useEffect(() => {
     function random(min, max) {
@@ -50,7 +58,7 @@ function Gallery() {
     }
   
     function UpDown(selector, delay, size) {
-      gsap.to(selector, random(2, 3), {
+      gsap.to(selector, random(3, 4), {
         y: size,
         repeat: -1,
         yoyo: true,
@@ -65,12 +73,12 @@ function Gallery() {
   
     const originalFrames = document.querySelectorAll('.frame');
     originalFrames.forEach((frame, index) => {
-      UpDown(frame, 1 + index * 0.5, 10 + index * 5);
+      UpDown(frame, 1 + index * 0.5, 5 + index * 3);
     });
   
     const clonedFrames = document.querySelectorAll('.clone');
     clonedFrames.forEach((frame, index) => {
-      UpDown(frame, 1 + index * 0.5, 10 + index * 5);
+      UpDown(frame, 1 + index * 0.5, 5 + index * 3);
     });
   
     return () => {
@@ -85,6 +93,7 @@ function Gallery() {
         <p className='barcomment'>사진을 눌러 큐알코드로 이미지를 다운받아보세요!</p>
         <div className='search'>
           <input type="text" placeholder='이름, 날짜, 시간 검색'></input>
+          <button className='searchBtn'><img src={search} width={20} height={20}></img></button>
         </div>
       </div>
       <div className="background">
@@ -92,12 +101,12 @@ function Gallery() {
         <Swiper
           modules={[Autoplay]}
           loop={true}
-          speed={1000}
+          speed={5000}
           autoplay={{
             delay: 0,
             disableOnInteraction: false
           }}
-          slidesPerView={5.2}
+          slidesPerView={5.4}
           onSlideChange={() => console.log('slide change')}
           onSwiper={(swiper) => console.log(swiper)}
         >
@@ -107,7 +116,8 @@ function Gallery() {
                 <div className={`frame position-${index + 1}`} onClick={() => openPopup(frame)}>
                   <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
                   <div className='comment'>{frame.comment}</div>
-                  <div className='day'>2023.6.22~24</div>
+                  <div className='day'>{getCurrentDateTime().date}</div>
+                  <div className='time'>{getCurrentDateTime().time}</div>
                 </div>
               </div>
             </SwiperSlide>
@@ -118,7 +128,8 @@ function Gallery() {
                 <div className={`frame position-${(index % frames.length) + 1}`} onClick={() => openPopup(frame)}>
                   <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
                   <div className='comment'>{frame.comment}</div>
-                  <div className='day'>2023.6.22~24</div>
+                  <div className='day'>{getCurrentDateTime().date}</div>
+                  <div className='time'>{getCurrentDateTime().time}</div>
                 </div>
               </div>
             </SwiperSlide>
@@ -132,9 +143,10 @@ function Gallery() {
         <div className="popup">
           <div className="popup-content">
             <img src={selectedFrame.image} width="590" height="684" alt="selected-frame" />
-            <button className="close-button" onClick={closePopup}><img src={Xicon} width="15" height="15" alt="close"></img></button>
-            <div className='comment'>{selectedFrame.comment}</div>
-            <div className='day'>2023.6.22~24</div>
+            <button className="close-button" onClick={closePopup}><img src={Xicon} width="22" height="22" alt="close"></img></button>
+            <div className='comment p1'>{selectedFrame.comment}</div>
+            <div className='day p2'>{getCurrentDateTime().date}</div>
+            <div className='time p2' left='50px'>{getCurrentDateTime().time}</div>
           </div>
           <div className='QR'></div>
         </div>
