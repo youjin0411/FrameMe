@@ -73,12 +73,13 @@ function SearchSave() {
         <div className="popup">
           <div className="popup-content">
             <img src={selectedFrame.image} width="590" height="684" alt="selected-frame" />
-            <button className="close-button" onClick={closePopup}><img src={Xicon} width="22" height="22" alt="close"></img></button>
+            <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}><img src={Xicon} width="22" height="22" alt="close"></img></button>
             <div className='comment p1'>{selectedFrame.comment}</div>
             <div className='day p2'>{getCurrentDateTime().date}</div>
             <div className='time p2' style={{ marginLeft: '50%' }}>{getCurrentDateTime().time}</div>
           </div>
           <div className='QR'></div>
+          <div className='back' onClick={closePopup}></div>
         </div>
       )}
     </div>
