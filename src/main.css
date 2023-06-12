@@ -22,18 +22,15 @@ code {
 }
 
 #backdrop {
-    width: 1176px;
+    position: absolute;
+    width: 1173px;
     height: 699px;
     border-radius: 30px;
     background-color: rgba(255, 255, 192, 0.1);
-    backdrop-filter: blur(13px);
-    box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 2px 7px 10px 8px rgba(0, 0, 0, 0.3);
     border: solid 0.5px white;
-    margin: 0 auto;
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -55%);
+    transform: translate(373px, 137px);
 }
 
 #logo {
@@ -54,7 +51,6 @@ code {
     border-radius: 50px;
     background-color: rgba(255, 255, 192, 0.1);
     backdrop-filter: blur(10px);
-    box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
     border: solid 0.5px white;
     margin: 0 auto;
     position: absolute;
@@ -353,7 +349,23 @@ h1 {
 }
 
 #button {
+    box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
+    font-family: "Noto Serif";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 27px;
+    color: var(--links-color,#BDBDBD);
+    text-decoration: none;
+    text-align: center;
     outline: none;
     border: none;
-    box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
+}
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+textarea:focus::placeholder {
+    color: transparent;
 }

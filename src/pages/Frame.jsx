@@ -51,8 +51,9 @@ function Frame() {
             setIntent(1)
           }}
           style={{
+            opacity: isImageVisible('c1') ? '100%' : '50%'
             // opacity: selectedFrame === 'c1' ? '100%' : undefined,
-            opacity: intent===-1 ? '100%' : isImageVisible('c1') ? '100%' : '50%'
+            // opacity: intent===-1 ? '100%' : isImageVisible('c1') ? '100%' : '50%'
           }}
         >
           {isImageVisible('c1') && (
@@ -76,8 +77,9 @@ function Frame() {
             setIntent(2)
           }}
           style={{
+            opacity: isImageVisible('c2') ? '100%' : '50%'
             //opacity: selectedFrame === 'c2' ? '100%' : undefined,
-            opacity: intent===-1 ? '100%' : isImageVisible('c2') ? '100%' : '50%'
+            // opacity: intent===-1 ? '100%' : isImageVisible('c2') ? '100%' : '50%'
           }}
         >
           {isImageVisible('c2') && (
