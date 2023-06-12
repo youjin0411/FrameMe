@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import '../main.css';
 import choose2 from '../img/Vector1.png';
-import Frameh1 from "../img/frameh1.png";
-import Frameh2 from "../img/frameh2.png";
-import Frameh3 from "../img/frameh3.png";
-import Frameh4 from "../img/frameh4.png";
-import Frameh5 from "../img/frameh5.png";
-import Frameh6 from "../img/frameh6.png";
-import Frameh7 from "../img/frameh7.png";
-import Frameh8 from "../img/frameh8.png";
-import Frameh9 from "../img/frameh9.png";
-import Frameh10 from "../img/frameh10.png";
+import Framew1 from "../img/framew1.png";
+import Framew2 from "../img/framew2.png";
+import Framew3 from "../img/framew3.png";
+import Framew4 from "../img/framew4.png";
+import Framew5 from "../img/framew5.png";
+import Framew6 from "../img/framew6.png";
+import Framew7 from "../img/framew7.png";
+import Framew8 from "../img/framew8.png";
+import Framew9 from "../img/framew9.png";
+import Framew10 from "../img/framew10.png";
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { grayscaleFilter, brightnessFilter,originalFilter } from './filters.js';
@@ -25,12 +25,11 @@ function useCanvasRefs(count) {
   return canvasRefs;
 }
 
-function Choiceframe() {
+function Choiceframe2() {
   const navigate = useNavigate();
   const [isHovering, setIsHovering] = useState(false);
   const [isHovering2, setIsHovering2] = useState(false);
   const [isHovering3, setIsHovering3] = useState(false);
-
   const handleMouseOver = () => {
     setIsHovering(true);
   };
@@ -50,7 +49,7 @@ function Choiceframe() {
     setIsHovering3(false);
   };
   
-  function handleClick() {
+  const handleClick = () => {
     const updatedStoredImages = [...storedImages];
   
     canvasRefs.forEach((canvasRef, index) => {
@@ -59,10 +58,9 @@ function Choiceframe() {
       updatedStoredImages[index] = filteredImageSrc;
     });
   
-    localStorage.setItem('selectedImages', JSON.stringify(updatedStoredImages));
-    navigate("/write", { state: frameimage});
-  }
-  
+    localStorage.setItem('selectedImages2', JSON.stringify(updatedStoredImages));
+    navigate("/write2", { state: frameimage});
+  };
 
   const [selectedFrame, setSelectedFrame] = useState(null);
 
@@ -74,97 +72,99 @@ function Choiceframe() {
     return selectedFrame === frameId ? 'block' : 'none';
   };
 
-  const getBackgroundImage = () => {
+  const getFrameImage = () => {
     if (selectedFrame === 'f1') {
-      return `url(${Frameh1})`;
+      return Framew1;
     }
     if (selectedFrame === 'f2') {
-      return `url(${Frameh2})`;
+      return Framew2;
     }
     if (selectedFrame === 'f3') {
-      return `url(${Frameh3})`;
+      return Framew3;
     }
     if (selectedFrame === 'f4') {
-      return `url(${Frameh4})`;
+      return Framew4;
     }
     if (selectedFrame === 'f5') {
-      return `url(${Frameh5})`;
+      return Framew5;
     }
     if (selectedFrame === 'f6') {
-      return `url(${Frameh6})`;
+      return Framew6;
     }
     if (selectedFrame === 'f7') {
-      return `url(${Frameh7})`;
+      return Framew7;
     }
     if (selectedFrame === 'f8') {
-      return `url(${Frameh8})`;
+      return Framew8;
     }
     if (selectedFrame === 'f9') {
-      return `url(${Frameh9})`;
+      return Framew9;
     }
     if (selectedFrame === 'f10') {
-      return `url(${Frameh10})`;
+
+      return Framew10;
     }
   };
 
   const frameImgStyle = {
-    backgroundImage: getBackgroundImage(),
+    backgroundImage: getFrameImage() ? `url(${getFrameImage()})` : null,
   };
 
-  const frameimage = getBackgroundImage()
+  const frameimage = getFrameImage()
+  console.log(frameimage)
 
   const style2 = {
-    width: 219.98, 
-    height: 140.77,
-    backgroundSize: 'cover'
-  }
+    width: 500,
+    height: 143,
+    backgroundSize: 'cover',
+  };
+  const storedImages = JSON.parse(localStorage.getItem('selectedImages2')) || [];
+  const canvasRefs = useCanvasRefs(storedImages.length);
 
-  const storedImages = JSON.parse(localStorage.getItem('selectedImages')) || [];
-  const canvasRefs = useCanvasRefs(storedImages.length);  
 
-const applyFilter = (filterFunction) => {
-  const updatedStoredImages = [...storedImages];
+  const applyFilter = (filterFunction) => {
+    const updatedStoredImages = [...storedImages];
+  
+    canvasRefs.forEach((canvasRef, index) => {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+  
+      const image = new Image();
+      image.onload = () => {
+        canvas.width = 500;
+        canvas.height = 143;
+        ctx.drawImage(image, 0, 0, 500, 143);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  
+        const imageCopy = new ImageData(imageData.width, imageData.height);
+        imageCopy.data.set(imageData.data);
+  
+        filterFunction(imageCopy);
+  
+        ctx.putImageData(imageCopy, 0, 0);
+  
+        const filteredImageSrc = canvas.toDataURL();
+        updatedStoredImages[index] = filteredImageSrc;
+      };
+      image.src = storedImages[index];
+    });
+    localStorage.setItem('selectedImages2', JSON.stringify(storedImages));
+  };
+  
+  // 필터 버튼 클릭 시 적용할 필터 함수
+  const handleFilterButtonClick = (filterFunction) => {
+    applyFilter(filterFunction);
+  };
 
-  canvasRefs.forEach((canvasRef, index) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    const image = new Image();
-    image.onload = () => {
-      canvas.width = 219.38;
-      canvas.height = 140.36;
-      ctx.drawImage(image, 0, 0, 219.38, 140.36);
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-      const imageCopy = new ImageData(imageData.width, imageData.height);
-      imageCopy.data.set(imageData.data);
-
-      filterFunction(imageCopy);
-
-      ctx.putImageData(imageCopy, 0, 0);
-
-      const filteredImageSrc = canvas.toDataURL();
-      updatedStoredImages[index] = filteredImageSrc;
-    };
-    image.src = storedImages[index];
-  });
-  localStorage.setItem('selectedImages', JSON.stringify(storedImages));
-};
-
-// 필터 버튼 클릭 시 적용할 필터 함수
-const handleFilterButtonClick = (filterFunction) => {
-  applyFilter(filterFunction);
-};
   return (
     <div>
       <h1>프레임을 선택해주세요</h1>
-      <div id="frameimg" style={frameImgStyle}>
-      </div>
-      <div style={{ position: 'absolute', display: 'grid', left: 269.8, top: 290, gridRowGap: 10, rowGap: 10 }}>
+      <div id="frameimg" style={frameImgStyle}></div>
+      <div style={{ position: 'absolute', display: 'grid', left: 273, top: 339, gridRowGap: 5, rowGap: 5 }}>
       {storedImages.map((imageSrc, index) => (
         <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
       ))}
-    </div>
+      </div>
       <div id="fragr">
         <div className="fragr" id="f1" onClick={() => handleFrameClick('f1')}>
           <img
@@ -176,7 +176,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f1'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
@@ -191,7 +191,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f2'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
@@ -206,7 +206,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f3'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
@@ -221,7 +221,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f4'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
@@ -236,7 +236,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f5'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
@@ -251,7 +251,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f6'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
@@ -266,7 +266,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f7'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
@@ -281,7 +281,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f8'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
@@ -296,7 +296,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f9'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
@@ -311,14 +311,12 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f10'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
             }}
           />
         </div>
-      </div>
-
-      <Btn style={{left: 938, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
+        <Btn style={{left: 938, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           brightnessFilter
@@ -348,11 +346,10 @@ const handleFilterButtonClick = (filterFunction) => {
         >
         다음&nbsp;&nbsp;&nbsp;〉
         </button> 
+      </div>
     </div>
   );
-
 }
-
 const Btn = styled.button`
   position: absolute;
   width: 196px;
@@ -366,4 +363,4 @@ const Btn = styled.button`
   border: none;
   box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
 `
-export default Choiceframe;
+export default Choiceframe2;

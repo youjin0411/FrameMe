@@ -22,7 +22,7 @@ function Write() {
   };
   
   function handleClick() {
-    navigate("/result", { 
+    navigate("/result2", { 
       state: {
         frameimage: state,
         name: nameValue,
@@ -32,29 +32,29 @@ function Write() {
       },
     });
   }
+  console.log(state)
   const style2 = {
-    width: 219.98, 
-    height: 140.77,
-    backgroundSize: 'cover'
+    width: 500,
+    height: 143,
+    backgroundSize: 'cover',
   }
 
   const isButtonDisabled = !nameValue || !impressionValue;
 
-  const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
+  const storedImages = JSON.parse(localStorage.getItem('selectedImages2'));
 
   return (
     <div>
       <h1>추억을 기록해보세요</h1>
       <div style={{ margin: '0 auto', background: 'white', width: 1820, height: 900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow: '0px 0px 2px 2px #F5F5F5', marginTop: 70 }}>
         <div id="framee" style={{
-         backgroundImage: state,
+         backgroundImage: `url(${state})`,
       }}>
       </div>
-      <div style={{position: 'absolute', display: 'grid',left: 276.5, top: 326, gridRowGap: 10, rowGap: 9}}>
+      <div style={{ position: 'absolute', display: 'grid', left: 279, top: 374, gridRowGap: 5, rowGap: 5 }}>
       <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
-      <div style={{ ...style2, backgroundImage: `url(${storedImages[3]})` }} />
       </div>
         <form onSubmit={handleSubmit}>
           <h2 id="htext1" style={{
