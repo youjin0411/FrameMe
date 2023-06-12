@@ -63,14 +63,30 @@ function Result() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
   const day = currentDate.getDate();
+  const time = `${currentDate.getHours()}:${currentDate.getMinutes()}`
+  const today = `${year}.${month}.${day}`
 
   function handleClick() {
-    navigate('/gallery');
-  }
-
-  function handleClick2() {
     navigate('/write');
   }
+
+  const handleInsert = async () => {
+    try {
+      const response = await axios.post("http://localhost:3001/api/insert", {
+        name: name, 
+        today: today, 
+        time: time, 
+        qrCodeImage: qrCodeImage, 
+        frameimage : frameimage
+      });
+      if(response) {
+        console.log("성공")
+        navigate('/gallery');
+      }
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+  };
 
   const handleUpload = async () => {
     console.log(1)
@@ -114,7 +130,7 @@ const style2 = {
             display: 'flex',
             justifyContent: 'center',
             top: 175,
-            left: 683,
+            left: 775,
             alignItems: 'center',
             margin: '0 auto',
             marginTop: 36,
@@ -124,7 +140,7 @@ const style2 = {
           style={{
             position: 'absolute',
             display: 'grid',
-            left: 721.8,
+            left: 813.8,
               top: 227.14,
               gridRowGap: 8.65,
             }}
@@ -136,9 +152,9 @@ const style2 = {
           </div>
 					<Review>{review}</Review>
 			</Print>
-        {isLoading ? (<p style={{marginTop: -50, marginLeft: 1295}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
+        {isLoading ? (<p style={{marginTop: -50, marginLeft: 1395}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
           <div style={{marginTop: -17}}>
-						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1288}}/>
+						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1388}}/>
 				  </div>
 				) : null}
 
@@ -157,11 +173,11 @@ const style2 = {
 					background: 'white',
 					backgroundBlendMode: 'overlay',
 				}}
-				onClick={handleClick}
+				onClick={handleInsert}
 			>
 			갤러리 &nbsp;&nbsp;&nbsp;〉
 			</button>
-			<Button onClick={handleClick2}>&nbsp;&nbsp;&nbsp;이전으로</Button>
+			<Button onClick={handleClick}>&nbsp;&nbsp;&nbsp;이전으로</Button>
       </div>
   );
 }

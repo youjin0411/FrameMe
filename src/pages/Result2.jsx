@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import html2canvas from 'html2canvas';
+import QRCode from 'qrcode.react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';  
 
 function Result() {
   const navigate = useNavigate();
@@ -9,10 +11,10 @@ function Result() {
   const frameimage = state.frameimage;
   const review = state.review;
   const name = state.name;
-  const gallery = state.gallery;
   const qr = state.qr;
-	const [shortUrl, setShortUrl] = useState('');
-  const storedImages = JSON.parse(localStorage.getItem('selectedImages2'));
+  const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
+  const qrCodeRef = useRef(null);
+  const [qrCodeImage, setQrCodeImageURL] = useState(null);
 
   const divRef = useRef(null);
   const [scannedImage, setScannedImage] = useState(null);
@@ -29,7 +31,6 @@ function Result() {
         .then(function (canvas) {
           const image = canvas.toDataURL('image/png');
           setScannedImage(image);
-          setIsLoading(false);
         })
         .catch(function (error) {
           console.error('Image conversion error:', error);
@@ -38,23 +39,22 @@ function Result() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (divRef.current) {
-  //     setIsLoading(true);
-  //     const { width, height } = divRef.current.getBoundingClientRect();
-
-  //     // QR 코드 생성
-  //     QRCode.toDataURL(JSON.stringify(storedImages), { width, height })
-  //       .then(function (url) {
-  //         setScannedImage(url);
-  //         setIsLoading(false);
-  //       })
-  //       .catch(function (error) {
-  //         console.error('QR Code generation error:', error);
-  //         setIsLoading(false);
-  //       });
-  //   }
-  // }, []);
+  useEffect(() => {
+    const generateQRCodeImage = async () => {
+      if (qrCodeRef.current) {
+        const canvas = await html2canvas(qrCodeRef.current);
+        const image = canvas.toDataURL('image/png');
+        setQrCodeImageURL(image);
+      }
+    };
+    generateQRCodeImage();
+  }, []);
+  useEffect(() => {
+    if (scannedImage != null) {
+      handleUpload();
+    }
+    console.log(scannedImage);
+  }, [scannedImage]);
   const date = {
     currentDate: new Date(),
   };
@@ -62,15 +62,56 @@ function Result() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
   const day = currentDate.getDate();
-
-  function handleClick() {
-    navigate('/gallery');
-  }
+  const time = `${currentDate.getHours()}:${currentDate.getMinutes()}`
+  const today = `${year}.${month}.${day}`
 
   function handleClick2() {
-    navigate('/write');
+    navigate('/write2');
   }
 
+  const handleUpload = async () => {
+    console.log(1)
+    console.log(scannedImage)
+    try {
+      if (!scannedImage) {
+        console.error('No image to upload');
+        return;
+      }
+      const blobImage = await fetch(scannedImage).then((res) => res.blob());
+      const formData = new FormData();
+      formData.append('image', blobImage);
+      const response = await axios.post('https://port-0-framemeserver-7xwyjq992llisq9g9j.sel4.cloudtype.app/upload', formData, {
+        withCredentials: true,
+        crossDomain: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      const qrCodeURL = response.data.downloadLink;
+      console.log('QR code generated:', qrCodeURL);
+      setQrCodeImageURL(qrCodeURL); // Set the QR code URL to state
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  };
+  const handleInsert = async () => {
+    try {
+      const response = await axios.post("http://localhost:3001/api/insert", {
+        name: name, 
+        today: today, 
+        time: time, 
+        qrCodeImage: qrCodeImage, 
+        frameimage : frameimage
+      });
+      if(response) {
+        console.log("성공")
+        navigate('/gallery');
+      }
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+  };
   const style2 = {
     width: 500,
     height: 143,
@@ -87,31 +128,24 @@ function Result() {
 							display: 'flex',
 							justifyCcontent: 'center',
 							top: 175,
-							left: 666,
+              left: 774,
 							alignItems: 'center',
 							margin: '0 auto',
 							marginTop: 36
             }}
           ></div>
-      <div style={{ position: 'absolute', display: 'grid', left: 711, top: 276, gridRowGap: 5, rowGap: 5 }}>
+      <div style={{ position: 'absolute', display: 'grid', left: 820, top: 275, gridRowGap: 7, rowGap: 7 }}>
       <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
           </div>
 					<Review>{review}</Review>
 			</Print>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : scannedImage ? (
-          <div>
-            {/* <img src={scannedImage} alt="Scanned Image" /> */}
-            <a href={scannedImage} download>
-              Download Image
-            </a>
-						{/* <QRCode value={scannedImage} /> */}
-				</div>
+      {isLoading ? (<p style={{marginTop: -50, marginLeft: 1400}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
+          <div style={{marginTop: -17}}>
+						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1379}}/>
+				  </div>
 				) : null}
-
 			<Name>{name}의 전시기록</Name>
 			<Names>{year}.{month}.{day}</Names>
 			<button
@@ -127,7 +161,7 @@ function Result() {
 					background: 'white',
 					backgroundBlendMode: 'overlay',
 				}}
-				onClick={handleClick}
+				onClick={handleInsert}
 			>
 			갤러리 &nbsp;&nbsp;&nbsp;〉
 			</button>
@@ -152,9 +186,9 @@ const Review = styled.div`
 `
 const Name = styled.div`
 position: absolute;
-left: 34.24%;
+left: 36.24%;
 right: 53.75%;
-top: 87.15%;
+top: 86.15%;
 bottom: 8.15%;
 
 font-family: 'Noto Serif';
@@ -167,9 +201,9 @@ color: #3C3C3C;
 `
 const Names = styled.div`
 position: absolute;
-left: 34.24%;
+left: 36.24%;
 right: 59.17%;
-top: 91%;
+top: 90%;
 bottom: 4.91%;
 
 font-family: 'Noto Serif';

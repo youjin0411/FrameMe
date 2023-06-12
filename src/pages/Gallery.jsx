@@ -3,6 +3,7 @@ import { gsap, Power1 } from "gsap";
 import './gallery.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
+import axios from 'axios'; 
 
 import 'swiper/css';
 import 'swiper/css/bundle';
@@ -22,6 +23,19 @@ import search from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
 
 function Gallery() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+      try {
+        const response = axios.get("http://localhost:3001/api/select");
+        response.then(response => {
+          console.log("성공")
+          setData(response.data);
+        })
+      } catch (error) {
+        console.error("오류 발생:", error);
+      }
+  }, []);
+  console.log(data)
   const frames = [
     { image: frame1, comment: '유리언니의 전시기록' },
     { image: frame2, comment: '소리언니의 전시기록' },
