@@ -93,7 +93,7 @@ function Gallery() {
         <p className='barcomment'>사진을 눌러 큐알코드로 이미지를 다운받아보세요!</p>
         <div className='search'>
           <input type="text" placeholder='이름, 날짜, 시간 검색'></input>
-          <button className='searchBtn'><img src={search} width={20} height={20}></img></button>
+          <button className='searchBtn'><img src={search} width={48} height={39}></img></button>
         </div>
       </div>
       <div className="background">
@@ -143,12 +143,13 @@ function Gallery() {
         <div className="popup">
           <div className="popup-content">
             <img src={selectedFrame.image} width="590" height="684" alt="selected-frame" />
-            <button className="close-button" onClick={closePopup}><img src={Xicon} width="22" height="22" alt="close"></img></button>
+            <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}><img src={Xicon} width="22" height="22" alt="close"></img></button>
             <div className='comment p1'>{selectedFrame.comment}</div>
             <div className='day p2'>{getCurrentDateTime().date}</div>
-            <div className='time p2' left='50px'>{getCurrentDateTime().time}</div>
-          </div>
+            <div className='time p2' style={{ marginLeft: '50%' }}>{getCurrentDateTime().time}</div>
+          </div>          
           <div className='QR'></div>
+          <div className='back' onClick={closePopup}></div>
         </div>
       )}
     </div>

@@ -2,8 +2,8 @@
   position: relative;
   width: 1920px;
   padding: 20px 0px 20px 0px;
-  margin-top: 0px;
-  margin-bottom: 3px;
+  margin-top: 7px;
+  margin-bottom: 13px;
 }
 
 .text {
@@ -30,23 +30,24 @@
 .searchBtn{
   position: absolute;
   background-color: transparent;
-  border-left: 1px solid #AFAFAF;
-  border-top: none;
-  border-right: none;
-  border-bottom: none;
-  left: 283px;
-  top: 10px;
+  border: none;
+  left: 273px;
+  top: -1px;
   align-items: center;
 }
 
 input {
-  height: 39px;
+  height: 35px;
   width: 293px;
   border: 1px solid #AFAFAF;
   border-radius: 30px;    
   padding-left: 30px;
   color: #bbb;
   outline: none;
+}
+
+input:focus::placeholder {
+  color: transparent;
 }
 
 .background {
@@ -63,7 +64,7 @@ input {
 
 .background1 {
   width: 1920px;
-  height: 909px;
+  height: 899px;
   border-radius: 30px 30px 0px 0px;
   box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
   margin-top: 0px;
@@ -107,52 +108,52 @@ input {
 
 /* 원본 */
 .frame.position-1 {
-  margin: 33px 0px 425px 40px;
+  margin: 43px 0px 425px 40px;
 }
 
 .frame.position-2 {
-  margin: 364px 0px 94px 40px;
+  margin: 374px 0px 94px 40px;
 }
 
 .frame.position-3 {
-  margin: 81px 0px 376px 40px;
+  margin: 91px 0px 376px 40px;
 }
 
 .frame.position-4 {
-  margin: 302px 0px 166px 40px;
+  margin: 312px 0px 166px 40px;
 }
 
 .frame.position-5 {
-  margin: 33px 0px 425px 40px;
+  margin: 43px 0px 425px 40px;
 }
 
 .frame.position-6 {
-  margin: 349px 0px 99px 40px;
+  margin: 359px 0px 99px 40px;
 }
 
 /* 클론 */
 .clone.position-1 {
-  margin: 33px 0px 425px 40px;
+  margin: 43px 0px 425px 40px;
 }
 
 .clone.position-2 {
-  margin: 364px 0px 94px 40px;
+  margin: 374px 0px 94px 40px;
 }
 
 .clone.position-3 {
-  margin: 61px 0px 376px 40px;
+  margin: 71px 0px 376px 40px;
 }
 
 .clone.position-4 {
-  margin: 302px 0px 166px 40px;
+  margin: 312px 0px 166px 40px;
 }
 
 .clone.position-5 {
-  margin: 33px 0px 425px 40px;
+  margin: 43px 0px 425px 40px;
 }
 
 .clone.position-6 {
-  margin: 349px 0px 99px 40px;
+  margin: 359px 0px 99px 40px;
 }
 
 .comment{
@@ -178,14 +179,11 @@ input {
 }
 
 .popup {
-  position: fixed;
-  top: 88px;
+  position: relative;
+  top: -1000px;
   left: 0px;
   width: 1920px;
-  height: 993px;
-  /* background-color: rgba(255, 255, 255, 0.7); */
-  backdrop-filter: blur(15px);
-  background: rgba(255,255,255,0.4);
+  height: 1003px;
   display: flex;
   justify-content: center;
   border-radius:30px;
@@ -193,9 +191,18 @@ input {
   z-index: 9999;
 }
 
+.back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.4);
+  z-index: -1;
+}
+
 .popup-content {
   position: relative;
-  padding: 20px 0px 0px 185px;
+  padding-left: 185px;
   max-width: 100%;
   max-height: 100%;
 }
@@ -215,17 +222,17 @@ input {
   background-color: rgb(220, 220, 220);
   width: 164px;
   height: 164px;
-  margin: 536px 0px 0px 25px;
+  margin: 515px 0px 0px 25px;
 }
 
 .close-button {
   position: absolute;
-  top: 20px;
+  top: 0px;
   background-color: transparent;
   border: none;
   width: 22px;
   height: 22px;
-  margin-right: 26px;
+  /* margin-right: 26px; */
 }
 
 
