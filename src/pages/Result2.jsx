@@ -132,13 +132,13 @@ function Result() {
 							display: 'flex',
 							justifyCcontent: 'center',
 							top: 175,
-              left: 774,
+              left: 638,
 							alignItems: 'center',
 							margin: '0 auto',
 							marginTop: 36
             }}
           ></div>
-      <div style={{ position: 'absolute', display: 'grid', left: 820, top: 275, gridRowGap: 7, rowGap: 7 }}>
+      <div style={{ position: 'absolute', display: 'grid', left: 683, top: 275, gridRowGap: 7, rowGap: 7 }}>
       <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />

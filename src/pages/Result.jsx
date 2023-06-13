@@ -143,7 +143,7 @@ const style2 = {
           style={{
             position: 'absolute',
             display: 'grid',
-            left: 813.8,
+            left: 682,
               top: 227.14,
               gridRowGap: 8.65,
             }}
