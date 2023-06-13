@@ -30,6 +30,7 @@ function Choiceframe() {
   const [isHovering, setIsHovering] = useState(false);
   const [isHovering2, setIsHovering2] = useState(false);
   const [isHovering3, setIsHovering3] = useState(false);
+  const [buttonColor, setButtonColor] = useState('#BDBDBD');
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -68,6 +69,7 @@ function Choiceframe() {
 
   const handleFrameClick = (frameId) => {
     setSelectedFrame(frameId);
+    setButtonColor('#2B2B2B');
   };
 
   const getDisplayStyle = (frameId) => {
