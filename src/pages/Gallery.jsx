@@ -23,15 +23,17 @@ import search from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
 
 function Gallery() {
-  const [data, setData] = useState([])
-  const frames = [
-    { image: frame1, comment: '유리언니의 전시기록' },
-    { image: frame2, comment: '소리언니의 전시기록' },
-    { image: frame3, comment: '유진언니의 전시기록' },
-    { image: frame4, comment: '해원이의 전시기록' },
-    { image: frame5_1, comment: '가윤이의 전시기록' },
-    { image: frame6_1, comment: '프레임미 최고' }
-  ];
+  const [data, setData] = useState(null)
+  const [frames, setFrames] = useState(
+    [
+      { image: frame1, comment: '유리언니의 전시기록' },
+      { image: frame2, comment: '소리언니의 전시기록' },
+      { image: frame3, comment: '유진언니의 전시기록' },
+      { image: frame4, comment: '해원이의 전시기록' },
+      { image: frame5_1, comment: '가윤이의 전시기록' },
+      { image: frame6_1, comment: '프레임미 최고' }
+    ]
+  );
 
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
@@ -42,16 +44,23 @@ function Gallery() {
     try {
       const response = axios.get("http://localhost:3001/api/select");
       response.then(response => {
-        console.log("성공")
+        
+        console.log("성공"+"SDFsdf")
         const arr = response.data.results
-        setData(arr)
+        setFrames(frames => frames.concat(arr));
+        /*
+        for(const p of arr){
+          console.log(p)
+          frames.push(p)
+          console.log(frames)
+        }*/
       });
     } catch (error) {
       console.error("오류 발생:", error);
     }
-}, []);
+  }, []);  
 
-console.log(data); //첫 로딩 시에는 null -> select 조회 후 배열 생성됨 
+  console.log(frames) 
 
   const openPopup = (frame) => {
     setSelectedFrame(frame);
