@@ -13,7 +13,7 @@ function Result() {
   const name = state.name;
   const qr = state.qr;
   const gallery = state.gallery;
-  const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
+  const storedImages = JSON.parse(localStorage.getItem('selectedImages2'));
   const qrCodeRef = useRef(null);
   const [qrCodeImage, setQrCodeImageURL] = useState(null);
   const divRef = useRef(null);
@@ -192,7 +192,7 @@ const Name = styled.div`
 position: absolute;
 left: 36.24%;
 right: 53.75%;
-top: 86.15%;
+top: 84.15%;
 bottom: 8.15%;
 
 font-family: 'Noto Serif';

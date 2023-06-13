@@ -160,7 +160,7 @@ function Choiceframe2() {
     <div>
       <h1>프레임을 선택해주세요</h1>
       <div id="frameimg" style={frameImgStyle}></div>
-      <div style={{ position: 'absolute', display: 'grid', left: 273, top: 339, gridRowGap: 5, rowGap: 5 }}>
+      <div style={{ position: 'absolute', display: 'grid', left: 273, top: 338, gridRowGap: 5, rowGap: 5 }}>
       {storedImages.map((imageSrc, index) => (
         <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
       ))}

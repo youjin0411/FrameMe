@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function Mainstart(){
    const navigate = useNavigate();
-  
+   localStorage.clear();
    function handleClick() {
       navigate("/frame");
       
