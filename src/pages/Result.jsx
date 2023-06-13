@@ -4,7 +4,6 @@ import QRCode from 'qrcode.react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';  
-import Gallery from './Gallery';
 
 function Result() {
   const navigate = useNavigate();
@@ -66,6 +65,7 @@ function Result() {
   const day = currentDate.getDate();
   const time = `${currentDate.getHours()}:${currentDate.getMinutes()}`
   const today = `${year}.${month}.${day}`
+  const [qrImgUrl, setQrImgUrl] = useState(null)
 
   function handleClick() {
     navigate('/write');
@@ -78,8 +78,8 @@ function Result() {
           name: name, 
           today: today, 
           time: time, 
-          qrCodeImage: qrCodeImage, 
-          frameimage : frameimage
+          qrCodeImage: qrImgUrl,  // 변경
+          frameimage : qrCodeImage
         });
         if(response) {
           console.log("성공")
@@ -94,8 +94,6 @@ function Result() {
   };
 
   const handleUpload = async () => {
-    console.log(1)
-    console.log(scannedImage)
     try {
       if (!scannedImage) {
         console.error('No image to upload');
@@ -112,7 +110,7 @@ function Result() {
         },
       });
       const qrCodeURL = response.data.downloadLink;
-      console.log('QR code generated:', qrCodeURL);
+      setQrImgUrl(response.data.qrimgLinkprint)
       setQrCodeImageURL(qrCodeURL); // Set the QR code URL to state
       setIsLoading(false);
     } catch (error) {
@@ -135,7 +133,7 @@ const style2 = {
             display: 'flex',
             justifyContent: 'center',
             top: 175,
-            left: 775,
+            left: 644,
             alignItems: 'center',
             margin: '0 auto',
             marginTop: 36,

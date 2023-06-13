@@ -16,7 +16,6 @@ function Result() {
   const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
   const qrCodeRef = useRef(null);
   const [qrCodeImage, setQrCodeImageURL] = useState(null);
-
   const divRef = useRef(null);
   const [scannedImage, setScannedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -65,14 +64,13 @@ function Result() {
   const day = currentDate.getDate();
   const time = `${currentDate.getHours()}:${currentDate.getMinutes()}`
   const today = `${year}.${month}.${day}`
+  const [qrImgUrl, setQrImgUrl] = useState(null)
 
   function handleClick2() {
     navigate('/write2');
   }
 
   const handleUpload = async () => {
-    console.log(1)
-    console.log(scannedImage)
     try {
       if (!scannedImage) {
         console.error('No image to upload');
@@ -88,8 +86,9 @@ function Result() {
           'Content-Type': 'multipart/form-data',
         },
       });
+
       const qrCodeURL = response.data.downloadLink;
-      console.log('QR code generated:', qrCodeURL);
+      setQrImgUrl(response.data.qrimgLinkprint)
       setQrCodeImageURL(qrCodeURL); // Set the QR code URL to state
       setIsLoading(false);
     } catch (error) {
@@ -103,8 +102,8 @@ function Result() {
           name: name, 
           today: today, 
           time: time, 
-          qrCodeImage: qrCodeImage, 
-          frameimage : frameimage
+          qrCodeImage: qrImgUrl, 
+          frameimage : qrCodeImage
         });
         if(response) {
           console.log("성공")

@@ -219,7 +219,7 @@ input:focus::placeholder {
 
 
 .QR{
-  background-color: rgb(220, 220, 220);
+  background-size: cover;
   width: 164px;
   height: 164px;
   margin: 515px 0px 0px 25px;

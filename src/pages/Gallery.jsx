@@ -26,34 +26,24 @@ function Gallery() {
   const [data, setData] = useState(null)
   const [frames, setFrames] = useState(
     [
-      { image: frame1, comment: '유리언니의 전시기록' },
-      { image: frame2, comment: '소리언니의 전시기록' },
-      { image: frame3, comment: '유진언니의 전시기록' },
-      { image: frame4, comment: '해원이의 전시기록' },
-      { image: frame5_1, comment: '가윤이의 전시기록' },
-      { image: frame6_1, comment: '프레임미 최고' }
+      {name: '유리', day: '2023.6.13', time: '9:38', qr: null, frame: frame1},
+      {name: '소리', day: '2023.6.13', time: '9:38', qr: null, frame: frame2},
+      {name: '유진', day: '2023.6.13', time: '9:38', qr: null, frame: frame3},
+      {name: '해원', day: '2023.6.13', time: '9:38', qr: null, frame: frame4},
+      {name: '가윤', day: '2023.6.13', time: '9:38', qr: null, frame: frame5_1},
+      {name: '프레임미', day: '2023.6.13', time: '9:38', qr: null, frame: frame6_1}
     ]
   );
-
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const clonedFrames = [...frames, ...frames]; // 원본 요소를 복제하여 새로운 배열 생성
-
   // 데이터베이스에서 데이터 꺼내오기
   useEffect(() => {
     try {
       const response = axios.get("http://localhost:3001/api/select");
       response.then(response => {
-        
-        console.log("성공"+"SDFsdf")
         const arr = response.data.results
         setFrames(frames => frames.concat(arr));
-        /*
-        for(const p of arr){
-          console.log(p)
-          frames.push(p)
-          console.log(frames)
-        }*/
       });
     } catch (error) {
       console.error("오류 발생:", error);
@@ -70,20 +60,11 @@ function Gallery() {
     setSelectedFrame(null);
   };
 
-  const getCurrentDateTime = () => {
-    const currentDateTime = new Date();
-    const currentDate = currentDateTime.toLocaleDateString('ko-KR');
-    const currentTime = currentDateTime.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: false });
-    const formattedDate = currentDate.replace('.', '');
-    const formattedTime = currentTime.replace('오후', '').replace('오전', '');
-    return { date: formattedDate, time: formattedTime };
-  };
   
   useEffect(() => {
     function random(min, max) {
       return parseFloat((Math.random() * (max - min) + min).toFixed(2));
     }
-  
     function UpDown(selector, delay, size) {
       gsap.to(selector, random(3, 4), {
         y: size,
@@ -93,21 +74,17 @@ function Gallery() {
         delay: random(0, delay)
       });
     }
-  
     const slideInterval = setInterval(() => {
       setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % clonedFrames.length);
     }, 3000);
-  
     const originalFrames = document.querySelectorAll('.frame');
     originalFrames.forEach((frame, index) => {
       UpDown(frame, 1 + index * 0.5, 5 + index * 3);
     });
-  
     const clonedFrames = document.querySelectorAll('.clone');
     clonedFrames.forEach((frame, index) => {
       UpDown(frame, 1 + index * 0.5, 5 + index * 3);
     });
-  
     return () => {
       clearInterval(slideInterval);
     };
@@ -118,7 +95,7 @@ function Gallery() {
       <div className='bar'>
         <h1 className='text'>GALLERY</h1>
         <p className='barcomment'>사진을 눌러 큐알코드로 이미지를 다운받아보세요!</p>
-        {/* <div style={{backgroundImage:`url(${data.results.frame})`}}></div> */}
+        {/* <div style={{backgroun frame:`url(${data.results.frame})`}}></div> */}
         <div className='search'>
           <input type="text" placeholder='이름, 날짜, 시간 검색'></input>
           <button className='searchBtn'><img src={search} width={48} height={39}></img></button>
@@ -142,22 +119,22 @@ function Gallery() {
             <SwiperSlide key={index}>
               <div className={`container`}>
                 <div className={`frame position-${index + 1}`} onClick={() => openPopup(frame)}>
-                  <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
-                  <div className='comment'>{frame.comment}</div>
-                  <div className='day'>{getCurrentDateTime().date}</div>
-                  <div className='time'>{getCurrentDateTime().time}</div>
+                  <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
+                  <div className='comment'>{frame.name}의 추억</div>
+                  <div className='day'>{frame.day}</div>
+                  <div className='time'>{frame.time}</div>
                 </div>
               </div>
             </SwiperSlide>
           ))}
-           {clonedFrames.map((frame, index) => (
+          {frames.map((frame, index) => (
             <SwiperSlide key={index}>
               <div className={`container`}>
                 <div className={`frame position-${(index % frames.length) + 1}`} onClick={() => openPopup(frame)}>
-                  <img src={frame.image} width="322" height="375" alt={`frame${index + 1}`} />
-                  <div className='comment'>{frame.comment}</div>
-                  <div className='day'>{getCurrentDateTime().date}</div>
-                  <div className='time'>{getCurrentDateTime().time}</div>
+                  <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
+                  <div className='comment'>{frame.name}의 추억</div>
+                  <div className='day'>{frame.day}</div>
+                  <div className='time'>{frame.time}</div>
                 </div>
               </div>
             </SwiperSlide>
@@ -170,13 +147,13 @@ function Gallery() {
       {selectedFrame && (
         <div className="popup">
           <div className="popup-content">
-            <img src={selectedFrame.image} width="590" height="684" alt="selected-frame" />
+            <img src={selectedFrame.frame} width="590" height="684" alt="selected-frame" />
             <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}><img src={Xicon} width="22" height="22" alt="close"></img></button>
-            <div className='comment p1'>{selectedFrame.comment}</div>
-            <div className='day p2'>{getCurrentDateTime().date}</div>
-            <div className='time p2' style={{ marginLeft: '50%' }}>{getCurrentDateTime().time}</div>
+            <div className='comment p1'>{selectedFrame.name}의 추억</div>
+            <div className='day p2'>{selectedFrame.day}</div>
+            <div className='time p2' style={{ marginLeft: '50%' }}>{selectedFrame.time}</div>
           </div>          
-          <div className='QR'></div>
+          <div className='QR' style={{backgroundImage: `url(${selectedFrame.qr})`}}></div>
           <div className='back' onClick={closePopup}></div>
         </div>
       )}
