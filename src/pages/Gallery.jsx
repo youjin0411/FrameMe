@@ -3,7 +3,8 @@ import { gsap, Power1 } from "gsap";
 import './gallery.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
-import axios from 'axios'; 
+import { useNavigate } from "react-router-dom"
+import axios from 'axios';
 
 import 'swiper/css';
 import 'swiper/css/bundle';
@@ -22,7 +23,11 @@ import Xicon from '../img/Xicon.png';
 import search from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
 
+
 function Gallery() {
+  const navigate = useNavigate(); 
+  const [search,setSearch] = useState(null)
+
   const [data, setData] = useState(null)
   const [frames, setFrames] = useState(
     [
@@ -37,18 +42,20 @@ function Gallery() {
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const clonedFrames = [...frames, ...frames]; // 원본 요소를 복제하여 새로운 배열 생성
-  // 데이터베이스에서 데이터 꺼내오기
+
   useEffect(() => {
     try {
       const response = axios.get("http://localhost:3001/api/select");
       response.then(response => {
         const arr = response.data.results
-        setFrames(frames => frames.concat(arr));
+        setFrames(frames => frames.concat(arr.reverse()));
       });
     } catch (error) {
       console.error("오류 발생:", error);
     }
-  }, []);  
+  }, []);
+
+  
 
   console.log(frames) 
 
@@ -59,6 +66,16 @@ function Gallery() {
   const closePopup = () => {
     setSelectedFrame(null);
   };
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const nextPage = () => {
+    navigate("/SearchSave", { 
+      state: {
+        search: search,
+      },
+    });
+  }
 
   
   useEffect(() => {
@@ -85,10 +102,11 @@ function Gallery() {
     clonedFrames.forEach((frame, index) => {
       UpDown(frame, 1 + index * 0.5, 5 + index * 3);
     });
+    
     return () => {
       clearInterval(slideInterval);
     };
-  }, []);  
+  }, []); 
 
   return (
     <div className='gallery'>
@@ -97,42 +115,47 @@ function Gallery() {
         <p className='barcomment'>사진을 눌러 큐알코드로 이미지를 다운받아보세요!</p>
         {/* <div style={{backgroun frame:`url(${data.results.frame})`}}></div> */}
         <div className='search'>
-          <input type="text" placeholder='이름, 날짜, 시간 검색'></input>
-          <button className='searchBtn'><img src={search} width={48} height={39}></img></button>
+          <input type="text" 
+          placeholder='이름, 날짜, 시간 검색'
+                      value={search}
+                      onChange={(e) => {
+                        setSearch(e.target.value);
+                      }} ></input>
+          <button className='searchBtn'><img src={search} width={48} height={39} alt="search" onClick={nextPage}></img></button>
         </div>
       </div>
       <div className="background">
         <div className="frames">
-        <Swiper
-          modules={[Autoplay]}
-          loop={true}
-          speed={5000}
-          autoplay={{
-            delay: 0,
-            disableOnInteraction: false
-          }}
-          slidesPerView={5.4}
-          onSlideChange={() => console.log('slide change')}
-          onSwiper={(swiper) => console.log(swiper)}
-        >
-          {frames.map((frame, index) => (
-            <SwiperSlide key={index}>
-              <div className={`container`}>
-                <div className={`frame position-${index + 1}`} onClick={() => openPopup(frame)}>
-                  <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
-                  <div className='comment'>{frame.name}의 추억</div>
+          <Swiper
+            modules={[Autoplay]}
+            loop={true}
+            speed={5000}
+            autoplay={{
+              delay: 0,
+              disableOnInteraction: false
+            }}
+            slidesPerView={5.4}
+            onSlideChange={() => console.log('slide change')}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            {frames.map((frame, index) => (
+              <SwiperSlide key={index}>
+                <div className={`container`}>
+                  <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(frame)}>
+                    <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
+                  <div className='comment'>{frame.name}</div>
                   <div className='day'>{frame.day}</div>
                   <div className='time'>{frame.time}</div>
                 </div>
               </div>
             </SwiperSlide>
           ))}
-          {frames.map((frame, index) => (
-            <SwiperSlide key={index}>
-              <div className={`container`}>
-                <div className={`frame position-${(index % frames.length) + 1}`} onClick={() => openPopup(frame)}>
-                  <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
-                  <div className='comment'>{frame.name}의 추억</div>
+            {clonedFrames.map((frame, index) => (
+              <SwiperSlide key={index}>
+                <div className={`container`}>
+                  <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(frame)}>
+                    <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
+                  <div className='comment'>{frame.name}</div>
                   <div className='day'>{frame.day}</div>
                   <div className='time'>{frame.time}</div>
                 </div>
@@ -140,7 +163,6 @@ function Gallery() {
             </SwiperSlide>
           ))}
         </Swiper>
-        
         </div>
       </div>
 
@@ -149,7 +171,7 @@ function Gallery() {
           <div className="popup-content">
             <img src={selectedFrame.frame} width="590" height="684" alt="selected-frame" />
             <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}><img src={Xicon} width="22" height="22" alt="close"></img></button>
-            <div className='comment p1'>{selectedFrame.name}의 추억</div>
+            <div className='comment p1'>{selectedFrame.name}</div>
             <div className='day p2'>{selectedFrame.day}</div>
             <div className='time p2' style={{ marginLeft: '50%' }}>{selectedFrame.time}</div>
           </div>          

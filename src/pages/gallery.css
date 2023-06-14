@@ -175,7 +175,7 @@ input:focus::placeholder {
   color: #B9B9B9;
   bottom: -51px;
   left: 45%;
-  margin-left: 45%;
+  margin-left: 43%;
 }
 
 .popup {
@@ -243,15 +243,19 @@ input:focus::placeholder {
 }
 
 .frames1 {
-  display: flex;
-  width: 100%;
+  display: grid;
+  width: 95%;
   height: 100%;
-  flex-wrap: wrap;
-  align-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto, 1fr);
+  place-items: center;
+  row-gap: 50px;
+  column-gap: 0px;
+  margin: 0 auto;
 }
 
 .frame1{
-  margin: 20px 10px 0px 120px;
+  margin: 60px 0px 0px 0px;
 }
 
 .swiper-wrapper {
