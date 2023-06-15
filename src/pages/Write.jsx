@@ -50,7 +50,7 @@ function Write() {
          backgroundImage: state,
       }}>
       </div>
-      <div style={{position: 'absolute', display: 'grid',left: 277.5, top: 290, gridRowGap: 9.9, rowGap: 9.9}}>
+      <div style={{position: 'absolute', display: 'grid',left: 276.5, top: 290, gridRowGap: 9.9, rowGap: 9.9}}>
       <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />

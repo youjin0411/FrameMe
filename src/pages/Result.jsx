@@ -133,7 +133,7 @@ const style2 = {
             display: 'flex',
             justifyContent: 'center',
             top: 175,
-            left: 644,
+            left: 662,
             alignItems: 'center',
             margin: '0 auto',
             marginTop: 36,
@@ -143,7 +143,7 @@ const style2 = {
           style={{
             position: 'absolute',
             display: 'grid',
-            left: 682,
+            left: 700,
               top: 227.14,
               gridRowGap: 8.65,
             }}

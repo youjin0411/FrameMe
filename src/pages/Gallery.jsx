@@ -3,7 +3,7 @@ import { gsap, Power1 } from "gsap";
 import './gallery.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import axios from 'axios';
 
 import 'swiper/css';
@@ -26,6 +26,8 @@ import backgroundImage from '../img/backgroundImage.png';
 
 function Gallery() {
   const navigate = useNavigate(); 
+  const location = useLocation();
+  
   const [search,setSearch] = useState(null)
 
   const [data, setData] = useState(null)
@@ -48,7 +50,7 @@ function Gallery() {
       const response = axios.get("http://localhost:3001/api/select");
       response.then(response => {
         const arr = response.data.results
-        setFrames(frames => frames.concat(arr.reverse()));
+        setFrames(frames => frames.concat(arr));
       });
     } catch (error) {
       console.error("오류 발생:", error);
@@ -77,6 +79,15 @@ function Gallery() {
     });
   }
 
+  const handleSearch = () => {
+    navigate("/SearchSave", { state: searchQuery });
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
   
   useEffect(() => {
     function random(min, max) {
@@ -116,12 +127,17 @@ function Gallery() {
         {/* <div style={{backgroun frame:`url(${data.results.frame})`}}></div> */}
         <div className='search'>
           <input type="text" 
-          placeholder='이름, 날짜, 시간 검색'
-                      value={search}
-                      onChange={(e) => {
-                        setSearch(e.target.value);
-                      }} ></input>
-          <button className='searchBtn'><img src={search} width={48} height={39} alt="search" onClick={nextPage}></img></button>
+                 placeholder='이름, 날짜, 시간 검색'
+                 value={search}
+                 onChange={(e) => {
+                   setSearch(e.target.value);
+                 }}
+                 onKeyPress={handleKeyPress} >
+                  
+          </input>
+          <button className='searchBtn'>
+            <img src={search} width={48} height={39} alt='search-icon' onClick={nextPage}/>
+          </button>
         </div>
       </div>
       <div className="background">

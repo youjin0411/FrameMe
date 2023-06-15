@@ -60,7 +60,6 @@ function Choiceframe() {
       updatedStoredImages[index] = filteredImageSrc;
     });
   
-    localStorage.setItem('selectedImages', JSON.stringify(updatedStoredImages));
     navigate("/write", { state: frameimage});
   }
   
