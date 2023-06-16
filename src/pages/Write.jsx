@@ -50,64 +50,35 @@ function Write() {
          backgroundImage: state,
       }}>
       </div>
-      <div style={{position: 'absolute', display: 'grid',left: 276.5, top: 290, gridRowGap: 9.9, rowGap: 9.9}}>
+      <div style={{position: 'absolute', display: 'grid',left: 276.5, top: 326, gridRowGap: 10, rowGap: 9}}>
       <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
       <div style={{ ...style2, backgroundImage: `url(${storedImages[3]})` }} />
       </div>
         <form onSubmit={handleSubmit}>
-          <h2 id="htext1" style={{
-            position: 'relative',
-            float: 'left',
-            margin: '0 auto',
-            top: '94px'
-          }}>사진 이름</h2>
+          <h2 id="htext1">사진 이름</h2>
           <input
             id="Namep"
             placeholder="사진 이름을 작성해주세요"
             type="text"
+            maxLength="10"
+            autoComplete="off"
             value={nameValue}
             onChange={(e) => {
               setNameValue(e.target.value);
             }}    
             style={{
-              lineHeight: '20px',
-              padding: '30px',
-              width: '475px',
-              height: '50px',
-              left: '960px',
-              top: '223px',
-              backgroundBlendMode: 'overlay',
-              borderRadius: '30px',
-              margin: '131px 433px 348px 0px'
+              color : nameValue ? "#000000" : '#B7B7B7'
             }}
           />
-          <h2 id="htext2" style={{
-            position: 'relative',
-            float: 'left',
-            margin: '0 auto',
-            top: '300px',
-            left: '812px'
-          }}>전시 소감</h2>
+          <h2 id="htext2">전시 소감</h2>
           <textarea
             id="Impressionp"
             placeholder="전시 소감을 작성해주세요. &#13;&#10;사진에 함께 들어갑니다."
             value={impressionValue}
             onChange={(e) => {
               setImpressionValue(e.target.value);
-            }}    
-            style={{
-              padding: '30px',
-              position: 'absolute',
-              width: '475px',
-              height: '110px',
-              left: '960px',
-              top: '230px',
-              lineHeight: '20px',
-              backgroundBlendMode: 'overlay',
-              borderRadius: '30px',
-              margin: '331px 433px 348px 0px'
             }}
           />
           <label
