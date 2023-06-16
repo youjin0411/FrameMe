@@ -23,14 +23,14 @@ code {
 
 #backdrop {
     position: absolute;
-    width: 1173px;
-    height: 699px;
-    border-radius: 30px;
+    width: 3300px;
+    height: 1900px;
+    border-radius: 50px;
     background-color: rgba(255, 255, 192, 0.1);
     backdrop-filter: blur(10px);
     box-shadow: 2px 7px 10px 8px rgb(141 141 141 / 41%);
-    border: solid 0.5px white;
-    transform: translate(373px, 137px);
+    border: solid 4px white;
+    transform: translate(28%, 28%);
 }
 
 #logo {
@@ -44,11 +44,11 @@ code {
 #btnSt {
     color: white;
     text-align: center;
-    font-size: 20px;
-    line-height: 60px;
-    width: 275px;
-    height: 60px;
-    border-radius: 50px;
+    font-size: 400%;
+    line-height: 180px;
+    width: 948px;
+    height: 180px;
+    border-radius: 200px;
     background-color: rgba(255, 255, 192, 0.1);
     backdrop-filter: blur(10px);
     border: solid 0.5px white;
