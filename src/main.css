@@ -256,54 +256,75 @@ h1 {
 }
 
 #htext1 {
+    width : 95px;
+    height : 33px;
+    text-align : center;
     position: absolute;
     left: 50%;
     right: 45.05%;
-    top: 25.37%;
+    top: 27%;
     bottom: 71.57%;
+    font-family: 'Noto Serif';
+    font-style: bold;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 22px;
     line-height: 33px;
-    /* identical to box height */
     color: #444444;
 }
 
 #htext2 {
+    width : 95px;
+    height : 33px;
+    text-align : center;
     position: absolute;
     left: 50%;
     right: 45.05%;
-    top: 43.7%;
+    top: 44%;
     bottom: 53.24%;
+    font-family: 'Noto Serif';
+    font-style: bold;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 22px;
     line-height: 33px;
-    /* identical to box height */
     color: #444444;
 }
 
-#Namep {
+input#Namep {
     position: absolute;
-    margin: 0 auto;
-    width: 475px;
-    height: 0.025%;
-    top: 221px;
+    line-height: 20px;
+    width: 487.5px;
+    height: 58px;
+    left : 960px;
+    top: 230px;
     background-blend-mode: overlay;
     border-radius: 30px;
+    margin : 131px 433px 348px 0px;
     outline: none;
     border: none;
-    box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
+    font-size : 18px;
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-weight: 500;
+    box-shadow: -5px 5px 30px 2px rgb(239, 239, 239)
 }
 
 #Impressionp {
-    position: absolute;
-    margin: 0 auto;
-    width: 475px;
-    height: 221px;
-    top: 511px;
+    position : absolute;
+    line-height : 30px;
+    width : 475px;
+    height : 206px;
+    left : 960px;
+    top : 210px;
+    padding : 18px 22px;
     background-blend-mode: overlay;
     border-radius: 30px;
+    margin : 331px 433px 348px 0;
     outline: none;
     border: none;
+    font-size : 18px;
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-weight: 500;
     box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
 }
 
@@ -311,10 +332,10 @@ h1 {
     position: absolute;
     left: 50%;
     right: 43.91%;
-    top: 77%;
+    top: 78%;
     bottom: 18.24%;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 22px;
     line-height: 33px;
     color: #444444;
 }
@@ -324,17 +345,17 @@ h1 {
     width: 24px;
     height: 24px;
     left: 1100px;
-    top: 836px;
+    top: 846px;
 }
 
 #checktx2 {
     position: absolute;
     left: 50%;
     right: 43.91%;
-    top: 81%;
+    top: 82%;
     bottom: 27.78%;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 22px;
     line-height: 33px;
     color: #444444;
 }
@@ -344,7 +365,7 @@ h1 {
     width: 24px;
     height: 24px;
     left: 1100px;
-    top: 880px;
+    top: 890px;
 }
 
 #button {

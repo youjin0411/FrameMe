@@ -161,7 +161,7 @@ const style2 = {
 				  </div>
 				) : null}
 
-			<Name>{name}의 전시기록</Name>
+			<Name>{name}</Name>
 			<Names>{year}.{month}.{day}</Names>
 			<button
 				id="button"
@@ -201,9 +201,9 @@ const Review = styled.div`
 `
 const Name = styled.div`
 position: absolute;
-left: 34.24%;
+left: 34.2%;
 right: 53.75%;
-top: 87.15%;
+top: 85.15%;
 bottom: 8.15%;
 
 font-family: 'Noto Serif';

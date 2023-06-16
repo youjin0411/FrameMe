@@ -115,8 +115,8 @@ function Choiceframe() {
   const frameimage = getBackgroundImage()
 
   const style2 = {
-    width: 221, 
-    height: 140.77,
+    width: 220, 
+    height: 140,
     backgroundSize: 'cover'
   }
 
@@ -132,9 +132,9 @@ const applyFilter = (filterFunction) => {
 
     const image = new Image();
     image.onload = () => {
-      canvas.width = 219.98;
-      canvas.height = 140.77;
-      ctx.drawImage(image, 0, 0, 219.98, 140.77);
+      canvas.width = 220;
+      canvas.height = 140;
+      ctx.drawImage(image, 0, 0, 220, 140);
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
       const imageCopy = new ImageData(imageData.width, imageData.height);
@@ -319,23 +319,22 @@ const handleFilterButtonClick = (filterFunction) => {
         </div>
       </div>
 
-      <Btn style={{left: 938, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
+      <Btn style={{left: 972.5, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           brightnessFilter
           onClick={() => { handleFilterButtonClick(brightnessFilter)}}
       >밝게</Btn>
-      <Btn style={{left: 1230, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1197.5, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver2}
           onMouseOut={handleMouseOut2}
           onClick={() => { handleFilterButtonClick(grayscaleFilter) }}
       >흑백</Btn>
-      <Btn style={{left: 1525, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1422.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver3}
           onMouseOut={handleMouseOut3}
           onClick={() => handleFilterButtonClick(originalFilter)}
       >원본</Btn>
-
         <button id="button" style={{
           position: 'absolute',
           borderRadius: '30px',

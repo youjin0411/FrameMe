@@ -315,18 +315,18 @@ function Choiceframe2() {
             }}
           />
         </div>
-        <Btn style={{left: 938, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
+        <Btn style={{left: 972.5, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           brightnessFilter
           onClick={() => { handleFilterButtonClick(brightnessFilter)}}
       >밝게</Btn>
-      <Btn style={{left: 1230, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1197.5, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver2}
           onMouseOut={handleMouseOut2}
           onClick={() => { handleFilterButtonClick(grayscaleFilter) }}
       >흑백</Btn>
-      <Btn style={{left: 1525, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1422.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver3}
           onMouseOut={handleMouseOut3}
           onClick={() => handleFilterButtonClick(originalFilter)}

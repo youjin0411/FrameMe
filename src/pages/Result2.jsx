@@ -150,7 +150,7 @@ function Result() {
 						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1379}}/>
 				  </div>
 				) : null}
-			<Name>{name}의 전시기록</Name>
+			<Name>{name}</Name>
 			<Names>{year}.{month}.{day}</Names>
 			<button
 				id="button"

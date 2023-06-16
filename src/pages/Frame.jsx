@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Frame() {
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [intent, setIntent] = useState(-1);
+  const [buttonColor, setButtonColor] = useState('#BDBDBD');
 
   const navigate = useNavigate();
   
@@ -20,6 +21,7 @@ function Frame() {
   }
   const handleClick = (frameId) => {
     setSelectedFrame(frameId);
+    setButtonColor('#2B2B2B');
   };
 
   const isImageVisible = (frameId) => {
@@ -107,6 +109,7 @@ function Frame() {
             top: '980px',
             backgroundBlendMode: 'overlay',
             background: 'white',
+            color: buttonColor
           }} onClick={photoshootintent}
         >
         다음&nbsp;&nbsp;&nbsp;〉
