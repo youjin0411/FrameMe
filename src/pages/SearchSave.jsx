@@ -93,7 +93,7 @@ function SearchSave() {
             onKeyPress={handleKeyPress}
           />
           <button className='searchBtn'>
-            <img src={search} width={48} height={39} alt='search-icon' onClick={handleSearch} />
+            <img src={search} width={80} height={71} alt='search-icon' onClick={handleSearch} />
           </button>
         </div>
       </div>
@@ -101,9 +101,9 @@ function SearchSave() {
         {filteredFrames.length > 0 ? (
           <div className='frames1'>
             {filteredFrames.map((frame, index) => (
-              <div className={`container1`} key={index}>
-                <div className={`frame1`} onClick={() => openPopup(frame)}>
-                  <img src={frame.frame} width='322' height='375' alt={`frame${index + 1}`} />
+              <div className={`container`}>
+                <div className={`frame`} onClick={() => openPopup(frame)}>
+                    <img src={frame.frame} width="80%" height="80%" alt={`frame`} />
                   <div className='comment'>{frame.name}</div>
                   <div className='day'>{frame.day}</div>
                   <div className='time'>{frame.time}</div>
@@ -125,7 +125,7 @@ function SearchSave() {
             </button>
             <div className='comment p1'>{selectedFrame.name}</div>
             <div className='day p2'>{selectedFrame.day}</div>
-            <div className='time p2' style={{ marginLeft: '50%' }}>{selectedFrame.time}</div>
+            <div className='time p2' style={{ marginLeft: '10%' }}>{selectedFrame.time}</div>
           </div>
           <div className='QR' style={{ backgroundImage: `url(${selectedFrame.qr})` }}></div>
           <div className='back' onClick={closePopup}></div>

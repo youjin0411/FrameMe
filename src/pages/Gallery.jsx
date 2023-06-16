@@ -158,7 +158,7 @@ function Gallery() {
               <SwiperSlide key={index}>
                 <div className={`container`}>
                   <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(frame)}>
-                    <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
+                    <img src={frame.frame} width="100%" height="100%" alt={`frame${index + 1}`} />
                   <div className='comment'>{frame.name}</div>
                   <div className='day'>{frame.day}</div>
                   <div className='time'>{frame.time}</div>
@@ -170,7 +170,7 @@ function Gallery() {
               <SwiperSlide key={index}>
                 <div className={`container`}>
                   <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(frame)}>
-                    <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
+                    <img src={frame.frame} width="100%" height="100%" alt={`frame${index + 1}`} />
                   <div className='comment'>{frame.name}</div>
                   <div className='day'>{frame.day}</div>
                   <div className='time'>{frame.time}</div>
@@ -185,8 +185,8 @@ function Gallery() {
       {selectedFrame && (
         <div className="popup">
           <div className="popup-content">
-            <img src={selectedFrame.frame} width="590" height="684" alt="selected-frame" />
-            <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}><img src={Xicon} width="22" height="22" alt="close"></img></button>
+            <img src={selectedFrame.frame} width="1290" height="1484" alt="selected-frame" />
+            <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}><img src={Xicon} width="50" height="50" alt="close"></img></button>
             <div className='comment p1'>{selectedFrame.name}</div>
             <div className='day p2'>{selectedFrame.day}</div>
             <div className='time p2' style={{ marginLeft: '50%' }}>{selectedFrame.time}</div>
