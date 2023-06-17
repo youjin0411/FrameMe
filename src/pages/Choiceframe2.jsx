@@ -30,6 +30,7 @@ function Choiceframe2() {
   const [isHovering, setIsHovering] = useState(false);
   const [isHovering2, setIsHovering2] = useState(false);
   const [isHovering3, setIsHovering3] = useState(false);
+  const [buttonColor, setButtonColor] = useState('#BDBDBD');
   const handleMouseOver = () => {
     setIsHovering(true);
   };
@@ -65,6 +66,7 @@ function Choiceframe2() {
 
   const handleFrameClick = (frameId) => {
     setSelectedFrame(frameId);
+    setButtonColor('#2B2B2B');
   };
 
   const getDisplayStyle = (frameId) => {
@@ -100,7 +102,6 @@ function Choiceframe2() {
       return Framew9;
     }
     if (selectedFrame === 'f10') {
-
       return Framew10;
     }
   };
@@ -177,6 +178,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -192,6 +194,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -207,6 +210,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -222,6 +226,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -237,6 +242,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -252,6 +258,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -267,6 +274,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -282,6 +290,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -297,6 +306,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -312,6 +322,7 @@ function Choiceframe2() {
               marginRight: "auto",
               marginTop: "10%",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -340,7 +351,8 @@ function Choiceframe2() {
           left: '1633px',
           top: '980px',
           backgroundBlendMode: 'overlay',
-          background: 'white'
+          background: 'white',
+          color : buttonColor,
         }} onClick={handleClick}
         >
         다음&nbsp;&nbsp;&nbsp;〉

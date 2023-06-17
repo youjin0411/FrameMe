@@ -23,14 +23,14 @@ code {
 
 #backdrop {
     position: absolute;
-    width: 3300px;
-    height: 1900px;
-    border-radius: 50px;
+    width: 1173px;
+    height: 699px;
+    border-radius: 30px;
     background-color: rgba(255, 255, 192, 0.1);
     backdrop-filter: blur(10px);
-    box-shadow: 2px 7px 10px 8px rgb(141 141 141 / 41%);
-    border: solid 4px white;
-    transform: translate(28%, 28%);
+    box-shadow: 2px 7px 10px 8px rgba(0, 0, 0, 0.3);
+    border: solid 0.5px white;
+    transform: translate(373px, 137px);
 }
 
 #logo {
@@ -44,11 +44,11 @@ code {
 #btnSt {
     color: white;
     text-align: center;
-    font-size: 400%;
-    line-height: 180px;
-    width: 948px;
-    height: 180px;
-    border-radius: 200px;
+    font-size: 20px;
+    line-height: 60px;
+    width: 275px;
+    height: 60px;
+    border-radius: 50px;
     background-color: rgba(255, 255, 192, 0.1);
     backdrop-filter: blur(10px);
     border: solid 0.5px white;
@@ -251,7 +251,8 @@ h1 {
     width: 592px;
     height: 683px;
     left: 238px;
-    top: 273px;
+    top: 310px;
+    background-color: #232323;
     background-size: cover;
 }
 
@@ -290,12 +291,13 @@ h1 {
 }
 
 input#Namep {
-    position: absolute;
-    line-height: 20px;
-    width: 487.5px;
-    height: 58px;
+    position : absolute;
+    line-height : 20px;
+    width : 475px;
+    height : 58px;
     left : 960px;
-    top: 230px;
+    top : 230px;
+    padding : 0 22px;
     background-blend-mode: overlay;
     border-radius: 30px;
     margin : 131px 433px 348px 0px;
@@ -305,7 +307,7 @@ input#Namep {
     font-family: 'Noto Serif';
     font-style: normal;
     font-weight: 500;
-    box-shadow: -5px 5px 30px 2px rgb(239, 239, 239)
+    box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
 }
 
 #Impressionp {
@@ -334,6 +336,8 @@ input#Namep {
     right: 43.91%;
     top: 78%;
     bottom: 18.24%;
+    font-family: 'Noto Serif';
+    font-style: bold;
     font-weight: 500;
     font-size: 22px;
     line-height: 33px;
@@ -344,7 +348,7 @@ input#Namep {
     position: absolute;
     width: 24px;
     height: 24px;
-    left: 1100px;
+    left: 1110px;
     top: 846px;
 }
 
@@ -354,6 +358,8 @@ input#Namep {
     right: 43.91%;
     top: 82%;
     bottom: 27.78%;
+    font-family: 'Noto Serif';
+    font-style: bold;
     font-weight: 500;
     font-size: 22px;
     line-height: 33px;
@@ -364,7 +370,7 @@ input#Namep {
     position: absolute;
     width: 24px;
     height: 24px;
-    left: 1100px;
+    left: 1110px;
     top: 890px;
 }
 
@@ -375,7 +381,7 @@ input#Namep {
     font-weight: 700;
     font-size: 20px;
     line-height: 27px;
-    color: var(--links-color, #BDBDBD);
+    color: var(--links-color,#BDBDBD);
     text-decoration: none;
     text-align: center;
     outline: none;

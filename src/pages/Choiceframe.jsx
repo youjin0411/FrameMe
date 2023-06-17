@@ -31,7 +31,6 @@ function Choiceframe() {
   const [isHovering2, setIsHovering2] = useState(false);
   const [isHovering3, setIsHovering3] = useState(false);
   const [buttonColor, setButtonColor] = useState('#BDBDBD');
-
   const handleMouseOver = () => {
     setIsHovering(true);
   };
@@ -61,8 +60,7 @@ function Choiceframe() {
     });
   
     navigate("/write", { state: frameimage});
-  }
-  
+  };
 
   const [selectedFrame, setSelectedFrame] = useState(null);
 
@@ -75,44 +73,45 @@ function Choiceframe() {
     return selectedFrame === frameId ? 'block' : 'none';
   };
 
-  const getBackgroundImage = () => {
+  const getFrameImage = () => {
     if (selectedFrame === 'f1') {
-      return `url(${Frameh1})`;
+      return Frameh1;
     }
     if (selectedFrame === 'f2') {
-      return `url(${Frameh2})`;
+      return Frameh2;
     }
     if (selectedFrame === 'f3') {
-      return `url(${Frameh3})`;
+      return Frameh3;
     }
     if (selectedFrame === 'f4') {
-      return `url(${Frameh4})`;
+      return Frameh4;
     }
     if (selectedFrame === 'f5') {
-      return `url(${Frameh5})`;
+      return Frameh5;
     }
     if (selectedFrame === 'f6') {
-      return `url(${Frameh6})`;
+      return Frameh6;
     }
     if (selectedFrame === 'f7') {
-      return `url(${Frameh7})`;
+      return Frameh7;
     }
     if (selectedFrame === 'f8') {
-      return `url(${Frameh8})`;
+      return Frameh8;
     }
     if (selectedFrame === 'f9') {
-      return `url(${Frameh9})`;
+      return Frameh9;
     }
     if (selectedFrame === 'f10') {
-      return `url(${Frameh10})`;
+      return Frameh10;
     }
   };
 
   const frameImgStyle = {
-    backgroundImage: getBackgroundImage(),
+    backgroundImage: getFrameImage() ? `url(${getFrameImage()})` : null,
   };
 
-  const frameimage = getBackgroundImage()
+  const frameimage = getFrameImage()
+  console.log(frameimage)
 
   const style2 = {
     width: 220, 
@@ -179,6 +178,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -194,6 +194,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -209,6 +210,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -224,6 +226,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -239,6 +242,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -254,6 +258,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -269,6 +274,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -284,6 +290,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -299,6 +306,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -314,6 +322,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginRight: "auto",
               marginTop: "-738px",
               marginBottom: "50%",
+              opacity: "78%"
             }}
           />
         </div>
@@ -343,7 +352,8 @@ const handleFilterButtonClick = (filterFunction) => {
           left: '1633px',
           top: '980px',
           backgroundBlendMode: 'overlay',
-          background: 'white'
+          background: 'white',
+          color : buttonColor,
         }} onClick={handleClick}
         >
         다음&nbsp;&nbsp;&nbsp;〉
