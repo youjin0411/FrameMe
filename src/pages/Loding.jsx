@@ -10,32 +10,29 @@ return (
   );
 }
 const Text = styled.div`
-  position: absolute;
-  width: 500px;
-  height: 54px;
-  left: 696px;
-  top: 365px;
-
-  font-family: 'Noto Serif';
-  font-style: normal;
-  font-weight: 540;
-  font-size: 40px;
-  line-height: 54px;
-
-  color: #2B2B2B;
+position: absolute;
+width: 100%
+height: 5.4vw;
+top: 18vw;
+left :34vw;
+font-family: 'Noto Serif';
+font-style: normal;
+font-weight: 540;
+font-size: 2.8vw;
+line-height: 5.4vw;
+color: #2B2B2B;
 `;
 const Frames = styled.div`
-    position: absolute;
-    margin: 0 auto;
-    marginTop: 23px;
-    background: white;
-    width: 1820px;
-    height: 967px;
-    left: 50px;
-    top: 180px;
-    background-blend-mode: overlay;
-    border-radius: 30px 30px 0px 0px;
-    box-shadow: 0px 0px 49px 3px #F5F5F5;
-    margin-top: -25px;
-    `
+position: absolute;
+margin: 0 auto;
+margin-top: 2.3vw;
+background: white;
+width: 100%;
+height: 51vw;
+left: 0%;
+top: 7.5vw;
+background-blend-mode: overlay;
+border-radius: 3vw 3vw 0 0;
+box-shadow: 0px 0px 3.9vw 0.3vw #F5F5F5;
+margin-top: -2.5vw;`;
 export default Loding;

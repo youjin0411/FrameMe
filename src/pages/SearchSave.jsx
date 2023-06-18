@@ -48,6 +48,16 @@ function SearchSave() {
     }
   }, []);
 
+  useEffect(() => {
+    const filtered = frames.filter(frame =>
+      (frame.name.includes(state) ||
+        frame.day.includes(state) ||
+        frame.time.includes(state))
+    );
+    setFilteredFrames(filtered);
+    setShowResults(true);
+  }, [state]);  
+
   const handleSearch = () => {
     const filtered = frames.filter(frame =>
       (state && (frame.name.includes(state) || frame.day.includes(state) || frame.time.includes(state))) ||

@@ -20,7 +20,7 @@ import frame4 from '../img/frame4.png';
 import frame5_1 from '../img/frame5-1.png';
 import frame6_1 from '../img/frame6-1.png';
 import Xicon from '../img/Xicon.png';
-import search from '../img/search-icon.png'
+import searchs from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
 
 
@@ -68,24 +68,13 @@ function Gallery() {
   const closePopup = () => {
     setSelectedFrame(null);
   };
-
-  const [searchQuery, setSearchQuery] = useState('');
-
   const nextPage = () => {
-    navigate("/SearchSave", { 
-      state: {
-        search: search,
-      },
-    });
+    navigate("/SearchSave", { state: search});
   }
-
-  const handleSearch = () => {
-    navigate("/SearchSave", { state: searchQuery });
-  };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSearch();
+      navigate("/SearchSave", { state: search });
     }
   };
   
@@ -136,7 +125,7 @@ function Gallery() {
                   
           </input>
           <button className='searchBtn'>
-            <img src={search} width={48} height={39} alt='search-icon' onClick={nextPage}/>
+            <img src={searchs} width={48} height={39} alt='search-icon' onClick={nextPage}/>
           </button>
         </div>
       </div>
