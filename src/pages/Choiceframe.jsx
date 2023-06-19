@@ -176,7 +176,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f1'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -192,7 +192,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f2'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -208,7 +208,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f3'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -224,7 +224,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f4'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -240,7 +240,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f5'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -256,7 +256,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f6'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -272,7 +272,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f7'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -288,7 +288,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f8'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -304,7 +304,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f9'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -320,7 +320,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f10'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
