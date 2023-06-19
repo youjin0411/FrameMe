@@ -114,8 +114,8 @@ function Choiceframe2() {
   console.log(frameimage)
 
   const style2 = {
-    width: 500,
-    height: 143,
+    width: 402.79,
+    height: 140.24,
     backgroundSize: 'cover',
   };
   const storedImages = JSON.parse(localStorage.getItem('selectedImages2')) || [];
@@ -158,14 +158,16 @@ function Choiceframe2() {
 
   return (
     <div>
-      <h1>프레임을 선택해주세요</h1>
-      <div id="frameimg" style={frameImgStyle}></div>
-      <div style={{ position: 'absolute', display: 'grid', left: 273, top: 338, gridRowGap: 5, rowGap: 5 }}>
-      {storedImages.map((imageSrc, index) => (
-        <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
-      ))}
-      </div>
-      <div id="fragr">
+      <Text>프레임을 선택해주세요</Text>
+      <div style={{margin:'0 auto', background:'white', width: 1820, height:967, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5'}}>
+      <div id="frameimg" style={frameImgStyle}>
+          <div style={{display: 'grid', gridTemplateColumns: '402.79px', gridRowGap: 8, rowGap: 8 , justifyContent: 'center', marginTop: 81}}>
+              {storedImages.map((imageSrc, index) => (
+                <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
+              ))}
+          </div>
+        </div>
+      <div id="fragrs">
         <div className="fragr" id="f1" onClick={() => handleFrameClick('f1')}>
           <img
             src={choose2}
@@ -359,8 +361,21 @@ function Choiceframe2() {
         </button> 
       </div>
     </div>
+    </div>
   );
 }
+const Text = styled.div`
+    font-family: "Noto Serif";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: rgb(43, 43, 43);
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+`
 const Btn = styled.button`
   position: absolute;
   width: 196px;

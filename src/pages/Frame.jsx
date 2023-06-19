@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../main.css';
 import choose from '../img/Vector.png';
 import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
 
 function Frame() {
   const [selectedFrame, setSelectedFrame] = useState(null);
@@ -30,21 +31,8 @@ function Frame() {
 
   return (
     <div>
-      <h1>프레임을 선택해주세요</h1>
-      <div
-        style={{
-          margin: '0 auto',
-          background: 'white',
-          width: 1820,
-          height: 900,
-          left: 50,
-          top: 180,
-          backgroundBlendMode: 'overlay',
-          borderRadius: '30px 30px 0px 0px',
-          boxShadow: '0px 0px 2px 2px #F5F5F5',
-          marginTop: 70,
-        }}
-      ></div>
+      <Text>프레임을 선택해주세요</Text>
+      <Background></Background>
       <div id="frame">
         <div
           id="fra1"
@@ -54,8 +42,6 @@ function Frame() {
           }}
           style={{
             opacity: isImageVisible('c1') ? '100%' : '50%'
-            // opacity: selectedFrame === 'c1' ? '100%' : undefined,
-            // opacity: intent===-1 ? '100%' : isImageVisible('c1') ? '100%' : '50%'
           }}
         >
           {isImageVisible('c1') && (
@@ -80,8 +66,6 @@ function Frame() {
           }}
           style={{
             opacity: isImageVisible('c2') ? '100%' : '50%'
-            //opacity: selectedFrame === 'c2' ? '100%' : undefined,
-            // opacity: intent===-1 ? '100%' : isImageVisible('c2') ? '100%' : '50%'
           }}
         >
           {isImageVisible('c2') && (
@@ -118,5 +102,30 @@ function Frame() {
     </div>
   );
 }
-
+const Text = styled.div`
+    font-family: "Noto Serif";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: #2B2B2B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 20px;
+`
+const Background = styled.div`
+    background: linear-gradient(297.97deg, rgba(255, 255, 255, 0.15) 6.99%, rgba(255, 255, 255, 0.35) 94.43%);
+    box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 30px 30px 0px 0px;
+    margin: 0 auto;
+    background: 'white';
+    width: 1820px;
+    height: 900px;
+    left: 50px;
+    top: 180px;
+    background-blendMode: overlay;
+`
 export default Frame;

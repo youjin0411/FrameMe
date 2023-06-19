@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router-dom"
+import styled from 'styled-components';
 
 function Write() {
   const navigate = useNavigate(); 
@@ -33,8 +34,8 @@ function Write() {
     });
   }
   const style2 = {
-    width: 221, 
-    height: 140.77,
+    width: 218, 
+    height: 141,
     backgroundSize: 'cover'
   }
 
@@ -44,18 +45,16 @@ function Write() {
 
   return (
     <div>
-      <h1>추억을 기록해보세요</h1>
-      <div style={{ margin: '0 auto', background: 'white', width: 1820, height: 900, left: 50, top: 180, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px', boxShadow: '0px 0px 2px 2px #F5F5F5', marginTop: 41 }}>
-        <div id="framee" style={{
-         backgroundImage: state,
-      }}>
-      </div>
-      <div style={{position: 'absolute', display: 'grid',left: 276.5, top: 326, gridRowGap: 10, rowGap: 9}}>
-      <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
-      <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
-      <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
-      <div style={{ ...style2, backgroundImage: `url(${storedImages[3]})` }} />
-      </div>
+      <Text>추억을 기록해보세요</Text>
+      <div style={{margin:'0 auto', background:'white', width: 1820, height:967, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5'}}>
+        <div id="framee" style={{backgroundImage: state}}>
+            <div style={{display: 'grid',gridTemplateColumns: '218px', height: '141px', rowGap: '7px', marginTop: 21, marginLeft: 21}}>
+              <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
+              <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
+              <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
+              <div style={{ ...style2, backgroundImage: `url(${storedImages[3]})` }} />
+            </div>
+          </div>
         <form onSubmit={handleSubmit}>
           <h2 id="htext1">사진 이름</h2>
           <input
@@ -135,5 +134,15 @@ function Write() {
     </div>
   );
 }
-
+const Text = styled.div`
+    font-family: "Noto Serif";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: rgb(43, 43, 43);
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+`
 export default Write;

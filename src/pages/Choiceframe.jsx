@@ -114,8 +114,8 @@ function Choiceframe() {
   console.log(frameimage)
 
   const style2 = {
-    width: 220, 
-    height: 140,
+    width: 218, 
+    height: 141,
     backgroundSize: 'cover'
   }
 
@@ -157,16 +157,17 @@ const handleFilterButtonClick = (filterFunction) => {
 };
   return (
     <div>
-      <h1>프레임을 선택해주세요</h1>
-      <div id="frameimg" style={frameImgStyle}>
-      </div>
-      <div style={{ position: 'absolute', display: 'grid', left: 268.8, top: 290.7, gridRowGap: 8.5, rowGap: 8.5 }}>
-      {storedImages.map((imageSrc, index) => (
-        <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
-      ))}
-    </div>
+      <Text>프레임을 선택해주세요</Text>
+      <div style={{margin:'0 auto', background:'white', width: 1820, height:967, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5'}}>
+          <div id="frameimg" style={frameImgStyle}>
+              <div style={{display: 'grid', gridTemplateColumns: '218px', gridRowGap: 7, rowGap: 7 , marginTop: 21, marginLeft: 21}}>
+                  {storedImages.map((imageSrc, index) => (
+                    <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
+                  ))}
+              </div>
+          </div>
       <div id="fragr">
-        <div className="fragr" id="f1" onClick={() => handleFrameClick('f1')}>
+      <div className="fragr" id="f1" onClick={() => handleFrameClick('f1')}>
           <img
             src={choose2}
             width="95"
@@ -177,6 +178,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -193,6 +195,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -209,6 +212,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -225,6 +229,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -241,6 +246,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -257,6 +263,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -273,6 +280,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -289,6 +297,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -305,6 +314,7 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -320,7 +330,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f10'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -328,18 +338,18 @@ const handleFilterButtonClick = (filterFunction) => {
         </div>
       </div>
 
-      <Btn style={{left: 972.5, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
+      <Btn style={{left: 1022.5, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           brightnessFilter
           onClick={() => { handleFilterButtonClick(brightnessFilter)}}
       >밝게</Btn>
-      <Btn style={{left: 1197.5, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1243.5, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver2}
           onMouseOut={handleMouseOut2}
           onClick={() => { handleFilterButtonClick(grayscaleFilter) }}
       >흑백</Btn>
-      <Btn style={{left: 1422.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1462.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver3}
           onMouseOut={handleMouseOut3}
           onClick={() => handleFilterButtonClick(originalFilter)}
@@ -359,9 +369,21 @@ const handleFilterButtonClick = (filterFunction) => {
         다음&nbsp;&nbsp;&nbsp;〉
         </button> 
     </div>
+    </div>
   );
 }
-
+const Text = styled.div`
+    font-family: "Noto Serif";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: rgb(43, 43, 43);
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+`
 const Btn = styled.button`
   position: absolute;
   width: 196px;
