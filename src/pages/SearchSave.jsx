@@ -103,7 +103,7 @@ function SearchSave() {
             {filteredFrames.map((frame, index) => (
               <div className={`container1`} key={index}>
                 <div className={`frame1`} onClick={() => openPopup(frame)}>
-                  <img src={frame.frame} width='322' height='375' alt={`frame${index + 1}`} />
+                  <img src={frame.frame} width='300' height='443' alt={`frame${index + 1}`} />
                   <div className='comment'>{frame.name}</div>
                   <div className='day'>{frame.day}</div>
                   <div className='time'>{frame.time}</div>
@@ -119,7 +119,7 @@ function SearchSave() {
       {selectedFrame && (
         <div className='popup'>
           <div className='popup-content'>
-            <img src={selectedFrame.frame} width='590' height='684' alt='selected-frame' />
+            <img src={selectedFrame.frame} width='450' height='664' alt='selected-frame' />
             <button className='close-button' onClick={closePopup} style={{ marginLeft: '8px' }}>
               <img src={Xicon} width='22' height='22' alt='close' />
             </button>

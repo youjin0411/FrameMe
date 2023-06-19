@@ -23,24 +23,24 @@ import Xicon from '../img/Xicon.png';
 import search from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
 
+SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 function Gallery() {
   const navigate = useNavigate(); 
   const location = useLocation();
   
-  const [search,setSearch] = useState(null)
+  const [search, setSearch] = useState(null);
 
-  const [data, setData] = useState(null)
-  const [frames, setFrames] = useState(
-    [
-      {name: '유리', day: '2023.6.13', time: '9:38', qr: null, frame: frame1},
-      {name: '소리', day: '2023.6.13', time: '9:38', qr: null, frame: frame2},
-      {name: '유진', day: '2023.6.13', time: '9:38', qr: null, frame: frame3},
-      {name: '해원', day: '2023.6.13', time: '9:38', qr: null, frame: frame4},
-      {name: '가윤', day: '2023.6.13', time: '9:38', qr: null, frame: frame5_1},
-      {name: '프레임미', day: '2023.6.13', time: '9:38', qr: null, frame: frame6_1}
-    ]
-  );
+  const [data, setData] = useState(null);
+  const [frames, setFrames] = useState([
+    {name: '유리', day: '2023.6.13', time: '9:38', qr: null, frame: frame1},
+    {name: '소리', day: '2023.6.13', time: '9:38', qr: null, frame: frame2},
+    {name: '유진', day: '2023.6.13', time: '9:38', qr: null, frame: frame3},
+    {name: '해원', day: '2023.6.13', time: '9:38', qr: null, frame: frame4},
+    {name: '가윤', day: '2023.6.13', time: '9:38', qr: null, frame: frame5_1},
+    {name: '프레임미', day: '2023.6.13', time: '9:38', qr: null, frame: frame6_1}
+  ]);
+
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const clonedFrames = [...frames, ...frames]; // 원본 요소를 복제하여 새로운 배열 생성
@@ -49,7 +49,7 @@ function Gallery() {
     try {
       const response = axios.get("http://localhost:3001/api/select");
       response.then(response => {
-        const arr = response.data.results
+        const arr = response.data.results;
         setFrames(frames => frames.concat(arr));
       });
     } catch (error) {
@@ -57,9 +57,7 @@ function Gallery() {
     }
   }, []);
 
-  
-
-  console.log(frames) 
+  console.log(frames);
 
   const openPopup = (frame) => {
     setSelectedFrame(frame);
@@ -77,7 +75,7 @@ function Gallery() {
         search: search,
       },
     });
-  }
+  };
 
   const handleSearch = () => {
     navigate("/SearchSave", { state: searchQuery });
@@ -102,22 +100,27 @@ function Gallery() {
         delay: random(0, delay)
       });
     }
+  
+    const originalFrames = document.querySelectorAll('.container .frame');
+    originalFrames.forEach((frame, index) => {
+      UpDown(frame, 1 + index * 0.5, 3 + index * 2);
+    });
+    const clonedFrames = document.querySelectorAll('.container .frame');
+    clonedFrames.forEach((frame, index) => {
+      UpDown(frame, 1 + index * 0.5, 3 + index * 2);
+    });
+  }, []);
+
+  const handleSwiperInit = (swiper) => {
     const slideInterval = setInterval(() => {
       setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % clonedFrames.length);
     }, 3000);
-    const originalFrames = document.querySelectorAll('.frame');
-    originalFrames.forEach((frame, index) => {
-      UpDown(frame, 1 + index * 0.5, 5 + index * 3);
-    });
-    const clonedFrames = document.querySelectorAll('.clone');
-    clonedFrames.forEach((frame, index) => {
-      UpDown(frame, 1 + index * 0.5, 5 + index * 3);
-    });
-    
+    swiper.autoplay.start();
+
     return () => {
       clearInterval(slideInterval);
     };
-  }, []); 
+  };
 
   return (
     <div className='gallery'>
@@ -126,17 +129,17 @@ function Gallery() {
         <p className='barcomment'>사진을 눌러 큐알코드로 이미지를 다운받아보세요!</p>
         {/* <div style={{backgroun frame:`url(${data.results.frame})`}}></div> */}
         <div className='search'>
-          <input type="text" 
-                 placeholder='이름, 날짜, 시간 검색'
-                 value={search}
-                 onChange={(e) => {
-                   setSearch(e.target.value);
-                 }}
-                 onKeyPress={handleKeyPress} >
-                  
-          </input>
+          <input
+            type="text"
+            placeholder='이름, 날짜, 시간 검색'
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            onKeyPress={handleKeyPress}
+          />
           <button className='searchBtn'>
-            <img src={search} width={48} height={39} alt='search-icon' onClick={nextPage}/>
+            <img src={search} width={48} height={39} alt='search-icon' onClick={nextPage} />
           </button>
         </div>
       </div>
@@ -152,46 +155,48 @@ function Gallery() {
             }}
             slidesPerView={5.4}
             onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
+            onSwiper={handleSwiperInit}
           >
             {frames.map((frame, index) => (
               <SwiperSlide key={index}>
                 <div className={`container`}>
                   <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(frame)}>
-                    <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
-                  <div className='comment'>{frame.name}</div>
-                  <div className='day'>{frame.day}</div>
-                  <div className='time'>{frame.time}</div>
+                    <img src={frame.frame} width="300" height="443" alt={`frame${index + 1}`} />
+                    <div className='comment'>{frame.name}</div>
+                    <div className='day'>{frame.day}</div>
+                    <div className='time'>{frame.time}</div>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            ))}
             {clonedFrames.map((frame, index) => (
               <SwiperSlide key={index}>
                 <div className={`container`}>
                   <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(frame)}>
-                    <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
-                  <div className='comment'>{frame.name}</div>
-                  <div className='day'>{frame.day}</div>
-                  <div className='time'>{frame.time}</div>
+                    <img src={frame.frame} width="300" height="443" alt={`frame${index + 1}`} />
+                    <div className='comment'>{frame.name}</div>
+                    <div className='day'>{frame.day}</div>
+                    <div className='time'>{frame.time}</div>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
 
       {selectedFrame && (
         <div className="popup">
           <div className="popup-content">
-            <img src={selectedFrame.frame} width="590" height="684" alt="selected-frame" />
-            <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}><img src={Xicon} width="22" height="22" alt="close"></img></button>
+            <img src={selectedFrame.frame} width="450" height="664" alt="selected-frame" />
+            <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}>
+              <img src={Xicon} width="22" height="22" alt="close"></img>
+            </button>
             <div className='comment p1'>{selectedFrame.name}</div>
             <div className='day p2'>{selectedFrame.day}</div>
             <div className='time p2' style={{ marginLeft: '50%' }}>{selectedFrame.time}</div>
-          </div>          
-          <div className='QR' style={{backgroundImage: `url(${selectedFrame.qr})`}}></div>
+          </div>
+          <div className='QR' style={{ backgroundImage: `url(${selectedFrame.qr})` }}></div>
           <div className='back' onClick={closePopup}></div>
         </div>
       )}

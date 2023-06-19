@@ -2,7 +2,7 @@
   position: relative;
   width: 1920px;
   padding: 20px 0px 20px 0px;
-  margin-top: 7px;
+  margin-top: 6px;
   margin-bottom: 13px;
 }
 
@@ -32,18 +32,19 @@
   background-color: transparent;
   border: none;
   left: 273px;
-  top: -1px;
+  top: -0.8px;
   align-items: center;
 }
 
 input {
   height: 35px;
-  width: 293px;
-  border: 1px solid #AFAFAF;
+  width: 308px;
+  border: 1px solid #bdbdbd;
   border-radius: 30px;    
-  padding-left: 30px;
+  padding-left: 15px;
   color: #bbb;
   outline: none;
+
 }
 
 input:focus::placeholder {
@@ -245,16 +246,17 @@ input:focus::placeholder {
 .frames1 {
   display: grid;
   width: 95%;
+  margin-top: 70px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(auto, 1fr);
   place-items: center;
-  row-gap: 50px;
+  row-gap: 60px;
   column-gap: 0px;
   margin: 0 auto;
 }
 
 .frame1{
-  margin: 60px 0px 0px 0px;
+  margin-top: 70px;
 }
 
 .noResult{
