@@ -229,7 +229,6 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
-              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -246,7 +245,6 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
-              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -263,7 +261,6 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
-              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -280,7 +277,6 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
-              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -297,7 +293,6 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
-              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -314,7 +309,6 @@ const handleFilterButtonClick = (filterFunction) => {
               marginLeft: "auto",
               marginRight: "auto",
               marginTop: "-738px",
-              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
