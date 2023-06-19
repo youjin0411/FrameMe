@@ -20,7 +20,7 @@ import frame4 from '../img/frame4.png';
 import frame5_1 from '../img/frame5-1.png';
 import frame6_1 from '../img/frame6-1.png';
 import Xicon from '../img/Xicon.png';
-import search from '../img/search-icon.png'
+import searchs from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
 
 
@@ -68,24 +68,13 @@ function Gallery() {
   const closePopup = () => {
     setSelectedFrame(null);
   };
-
-  const [searchQuery, setSearchQuery] = useState('');
-
   const nextPage = () => {
-    navigate("/SearchSave", { 
-      state: {
-        search: search,
-      },
-    });
+    navigate("/SearchSave", { state: search});
   }
-
-  const handleSearch = () => {
-    navigate("/SearchSave", { state: searchQuery });
-  };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSearch();
+      navigate("/SearchSave", { state: search });
     }
   };
   
@@ -136,7 +125,7 @@ function Gallery() {
                   
           </input>
           <button className='searchBtn'>
-            <img src={search} width={48} height={39} alt='search-icon' onClick={nextPage}/>
+            <img src={searchs} width={48} height={39} alt='search-icon' onClick={nextPage}/>
           </button>
         </div>
       </div>
@@ -158,7 +147,7 @@ function Gallery() {
               <SwiperSlide key={index}>
                 <div className={`container`}>
                   <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(frame)}>
-                    <img src={frame.frame} width="100%" height="100%" alt={`frame${index + 1}`} />
+                    <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
                   <div className='comment'>{frame.name}</div>
                   <div className='day'>{frame.day}</div>
                   <div className='time'>{frame.time}</div>
@@ -170,7 +159,7 @@ function Gallery() {
               <SwiperSlide key={index}>
                 <div className={`container`}>
                   <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(frame)}>
-                    <img src={frame.frame} width="100%" height="100%" alt={`frame${index + 1}`} />
+                    <img src={frame.frame} width="322" height="375" alt={`frame${index + 1}`} />
                   <div className='comment'>{frame.name}</div>
                   <div className='day'>{frame.day}</div>
                   <div className='time'>{frame.time}</div>
@@ -185,8 +174,8 @@ function Gallery() {
       {selectedFrame && (
         <div className="popup">
           <div className="popup-content">
-            <img src={selectedFrame.frame} width="1290" height="1484" alt="selected-frame" />
-            <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}><img src={Xicon} width="50" height="50" alt="close"></img></button>
+            <img src={selectedFrame.frame} width="590" height="684" alt="selected-frame" />
+            <button className="close-button" onClick={closePopup} style={{ marginLeft: '8px' }}><img src={Xicon} width="22" height="22" alt="close"></img></button>
             <div className='comment p1'>{selectedFrame.name}</div>
             <div className='day p2'>{selectedFrame.day}</div>
             <div className='time p2' style={{ marginLeft: '50%' }}>{selectedFrame.time}</div>

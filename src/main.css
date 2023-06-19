@@ -8,6 +8,13 @@ body {
     overflow: hidden;
 }
 
+@page {
+    size: auto;
+    margin: 20mm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -257,9 +264,9 @@ h1 {
 }
 
 #htext1 {
-    width : 95px;
-    height : 33px;
-    text-align : center;
+    width: 95px;
+    height: 33px;
+    text-align: center;
     position: absolute;
     left: 50%;
     right: 45.05%;
@@ -274,9 +281,9 @@ h1 {
 }
 
 #htext2 {
-    width : 95px;
-    height : 33px;
-    text-align : center;
+    width: 95px;
+    height: 33px;
+    text-align: center;
     position: absolute;
     left: 50%;
     right: 45.05%;
@@ -291,19 +298,19 @@ h1 {
 }
 
 input#Namep {
-    position : absolute;
-    line-height : 20px;
-    width : 475px;
-    height : 58px;
-    left : 960px;
-    top : 230px;
-    padding : 0 22px;
+    position: absolute;
+    line-height: 20px;
+    width: 475px;
+    height: 58px;
+    left: 960px;
+    top: 230px;
+    padding: 0 22px;
     background-blend-mode: overlay;
     border-radius: 30px;
-    margin : 131px 433px 348px 0px;
+    margin: 131px 433px 348px 0px;
     outline: none;
     border: none;
-    font-size : 18px;
+    font-size: 18px;
     font-family: 'Noto Serif';
     font-style: normal;
     font-weight: 500;
@@ -311,19 +318,19 @@ input#Namep {
 }
 
 #Impressionp {
-    position : absolute;
-    line-height : 30px;
-    width : 475px;
-    height : 206px;
-    left : 960px;
-    top : 210px;
-    padding : 18px 22px;
+    position: absolute;
+    line-height: 30px;
+    width: 475px;
+    height: 206px;
+    left: 960px;
+    top: 210px;
+    padding: 18px 22px;
     background-blend-mode: overlay;
     border-radius: 30px;
-    margin : 331px 433px 348px 0;
+    margin: 331px 433px 348px 0;
     outline: none;
     border: none;
-    font-size : 18px;
+    font-size: 18px;
     font-family: 'Noto Serif';
     font-style: normal;
     font-weight: 500;
@@ -381,7 +388,7 @@ input#Namep {
     font-weight: 700;
     font-size: 20px;
     line-height: 27px;
-    color: var(--links-color,#BDBDBD);
+    color: var(--links-color, #BDBDBD);
     text-decoration: none;
     text-align: center;
     outline: none;

@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import ReactToPrint from "react-to-print";
 import html2canvas from 'html2canvas';
 import QRCode from 'qrcode.react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -16,7 +17,7 @@ function Result() {
   const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
   const qrCodeRef = useRef(null);
   const [qrCodeImage, setQrCodeImageURL] = useState(null);
-  const divRef = useRef(null);
+  const divRef = useRef();
   const [scannedImage, setScannedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -69,6 +70,9 @@ function Result() {
 
   function handleClick() {
     navigate('/write');
+  }
+  function Printhandler() {
+    
   }
 
   const handleInsert = async () => {
@@ -155,14 +159,36 @@ const style2 = {
           </div>
 					<Review>{review}</Review>
 			</Print>
-        {isLoading ? (<p style={{marginTop: -50, marginLeft: 1395}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
+        {isLoading ? (<p style={{marginTop: -50, marginLeft: 1260}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
           <div style={{marginTop: -17}}>
-						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1388}}/>
+						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1260}}/>
 				  </div>
 				) : null}
 
 			<Name>{name}</Name>
 			<Names>{year}.{month}.{day}</Names>
+      <ReactToPrint
+          trigger={() => 
+            <button
+            id="button"
+            type="submit"
+            style={{
+              position: 'absolute',
+              borderRadius: '30px',
+              width: '196px',
+              height: '60px',
+              left: '1633px',
+              top: '900px',
+              background: 'white',
+              backgroundBlendMode: 'overlay',
+            }}
+            onClick={Printhandler}
+          >
+          인쇄하기 &nbsp;&nbsp;&nbsp;〉
+          </button>
+          }
+          content={() => divRef.current}
+        />
 			<button
 				id="button"
 				type="submit"
@@ -218,7 +244,7 @@ const Names = styled.div`
 position: absolute;
 left: 34.24%;
 right: 59.17%;
-top: 91%;
+top: 88%;
 bottom: 4.91%;
 
 font-family: 'Noto Serif';
