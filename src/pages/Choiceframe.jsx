@@ -57,7 +57,7 @@ function Choiceframe() {
       const filteredImageSrc = canvas.toDataURL();
       updatedStoredImages[index] = filteredImageSrc;
     });
-    localStorage.setItem('selectedImages', JSON.stringify(storedImages));
+    localStorage.setItem('selectedImages', JSON.stringify(updatedStoredImages));
     navigate("/write", { state: frameimage});
   };
 
@@ -129,9 +129,9 @@ const applyFilter = (filterFunction) => {
 
     const image = new Image();
     image.onload = () => {
-      canvas.width = 220;
-      canvas.height = 140;
-      ctx.drawImage(image, 0, 0, 220, 140);
+      canvas.width = 218;
+      canvas.height = 141;
+      ctx.drawImage(image, 0, 0, 218, 141);
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const imageCopy = new ImageData(imageData.width, imageData.height);
       imageCopy.data.set(imageData.data);

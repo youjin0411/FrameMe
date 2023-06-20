@@ -30,7 +30,7 @@ const WebcamApp = () => {
   const timeRef = useRef(Date.now());
   // webcam 
   const webcamRef = useRef(null);
-  const [newQ, setNewQ] = useState(Array(3).fill(null));
+  const [newQ, setNewQ] = useState(Array(4).fill(null));
 
   const [showLoadingPage, setShowLoadingPage] = useState(false);
   const [showWebcam, setShowWebcam] = useState(false);
