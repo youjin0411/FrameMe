@@ -177,7 +177,6 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f1'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
               marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
@@ -194,7 +193,6 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f2'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
               marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
@@ -211,7 +209,6 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f3'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
               marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
@@ -228,7 +225,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f4'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -244,7 +241,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f5'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -260,7 +257,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f6'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -276,7 +273,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f7'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -292,7 +289,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f8'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -308,7 +305,7 @@ const handleFilterButtonClick = (filterFunction) => {
               display: getDisplayStyle('f9'),
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "-738px",
+              marginTop: "10%",
               marginBottom: "50%",
               opacity: "78%"
             }}
@@ -338,12 +335,12 @@ const handleFilterButtonClick = (filterFunction) => {
           brightnessFilter
           onClick={() => { handleFilterButtonClick(brightnessFilter)}}
       >밝게</Btn>
-      <Btn style={{left: 1243.5, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1255, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver2}
           onMouseOut={handleMouseOut2}
           onClick={() => { handleFilterButtonClick(grayscaleFilter) }}
       >흑백</Btn>
-      <Btn style={{left: 1462.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1473.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver3}
           onMouseOut={handleMouseOut3}
           onClick={() => handleFilterButtonClick(originalFilter)}
