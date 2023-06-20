@@ -24,7 +24,6 @@ function useCanvasRefs(count) {
 
   return canvasRefs;
 }
-
 function Choiceframe() {
   const navigate = useNavigate();
   const [isHovering, setIsHovering] = useState(false);
@@ -58,7 +57,6 @@ function Choiceframe() {
       const filteredImageSrc = canvas.toDataURL();
       updatedStoredImages[index] = filteredImageSrc;
     });
-  
     navigate("/write", { state: frameimage});
   };
 
@@ -118,7 +116,6 @@ function Choiceframe() {
     height: 141,
     backgroundSize: 'cover'
   }
-
   const storedImages = JSON.parse(localStorage.getItem('selectedImages')) || [];
   const canvasRefs = useCanvasRefs(storedImages.length);  
 
@@ -135,14 +132,10 @@ const applyFilter = (filterFunction) => {
       canvas.height = 140;
       ctx.drawImage(image, 0, 0, 220, 140);
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
       const imageCopy = new ImageData(imageData.width, imageData.height);
       imageCopy.data.set(imageData.data);
-
       filterFunction(imageCopy);
-
       ctx.putImageData(imageCopy, 0, 0);
-
       const filteredImageSrc = canvas.toDataURL();
       updatedStoredImages[index] = filteredImageSrc;
     };
@@ -150,7 +143,6 @@ const applyFilter = (filterFunction) => {
   });
   localStorage.setItem('selectedImages', JSON.stringify(storedImages));
 };
-
 // 필터 버튼 클릭 시 적용할 필터 함수
 const handleFilterButtonClick = (filterFunction) => {
   applyFilter(filterFunction);
@@ -158,14 +150,14 @@ const handleFilterButtonClick = (filterFunction) => {
   return (
     <div>
       <Text>프레임을 선택해주세요</Text>
-      <div style={{margin:'0 auto', background:'white', width: 1820, height:967, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5'}}>
+      <div style={{margin:'0 auto', background:'white', width: 1820, height:926, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5'}}>
           <div id="frameimg" style={frameImgStyle}>
               <div style={{display: 'grid', gridTemplateColumns: '218px', gridRowGap: 7, rowGap: 7 , marginTop: 21, marginLeft: 21}}>
                   {storedImages.map((imageSrc, index) => (
-                    <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
-                  ))}
+                        <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
+                    ))} 
               </div>
-          </div>
+            </div>
       <div id="fragr">
       <div className="fragr" id="f1" onClick={() => handleFrameClick('f1')}>
           <img

@@ -27,7 +27,7 @@ const WebcamApp2 = () => {
   // 촬영한 사진 배열
   const [images, setImages] = useState([]);
   // 6초 촬영 타이머
-  const [timeLeft, setTimeLeft] = useState(3); //수정
+  const [timeLeft, setTimeLeft] = useState(5); //수정
   // 6초 감소 시킬 timeRef
   const timeRef = useRef(Date.now());
   // webcam 
@@ -139,14 +139,14 @@ const WebcamApp2 = () => {
       const timeoutId = setTimeout(() => {
         const intervalId = setInterval(() => {
           setTimeLeft((prevTimeLeft) => {
-            const newTimeLeft = Math.max(0, prevTimeLeft - 0.3); //수정
+            const newTimeLeft = Math.max(0, prevTimeLeft - 0.1); //수정
             if (newTimeLeft === 0) {
               clearInterval(intervalId);
               capture();
             }
             return newTimeLeft;
           });
-        }, 300); //수정 
+        }, 500); //수정 
     
         return () => clearInterval(intervalId);
       }, 3500);
@@ -155,13 +155,12 @@ const WebcamApp2 = () => {
     }
   }, [capture, timerStarted]);
   
-
   // 8장 이하로 촬영하기 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (images.length < 6) {
         capture();
-        setTimeLeft(3); //수정 
+        setTimeLeft(6); //수정 
         timeRef.current = Date.now();
       }
     }, timeLeft * 3500);

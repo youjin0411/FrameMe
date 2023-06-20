@@ -25,13 +25,12 @@ const WebcamApp = () => {
   // 촬영한 사진 배열
   const [images, setImages] = useState([]);
   // 6초 촬영 타이머
-  const [timeLeft, setTimeLeft] = useState(3); //수정
+  const [timeLeft, setTimeLeft] = useState(5); //수정
   // 6초 감소 시킬 timeRef
   const timeRef = useRef(Date.now());
-  // webcam
+  // webcam 
   const webcamRef = useRef(null);
-  
-  const [newQ, setNewQ] = useState(Array(4).fill(null));
+  const [newQ, setNewQ] = useState(Array(3).fill(null));
 
   const [showLoadingPage, setShowLoadingPage] = useState(false);
   const [showWebcam, setShowWebcam] = useState(false);
@@ -54,7 +53,7 @@ const WebcamApp = () => {
       audioRef.current.play();
     }
   }, []);
-  
+
   useEffect(() => {
     setShowWebcam(true);
     setShowLoadingPage(true);
@@ -71,20 +70,18 @@ const WebcamApp = () => {
     (data) => {
       setNewQ((prevQ) => {
         let newQ = [...prevQ];
-        if(newQ.every((item) => item === null)){
+        if(newQ.every((item) => item === null)){  
           newQ[0] = data;
         }else if(newQ[1] == null) {
           newQ[1] = data;
         }else if(newQ[2] == null){
           newQ[2] = data;
-        }else if(newQ[3] == null){
-          newQ[3] = data;
         }
-        else if (newQ.length === 4 && !newQ.every((item) => item === null)) {
+        else if (newQ.length === 3 && !newQ.every((item) => item === null)) {
           newQ.shift();
           newQ.push(data);
         }
-        localStorage.setItem('selectedImages', JSON.stringify(newQ));
+        localStorage.setItem('selectedImages2', JSON.stringify(newQ));
         return newQ;
       });
     },
@@ -110,7 +107,7 @@ const WebcamApp = () => {
   );
 
   useEffect(() => {
-    const storedImages = JSON.parse(localStorage.getItem('selectedImages'));
+    const storedImages = JSON.parse(localStorage.getItem('selectedImages2'));
     if (storedImages) {
       setNewQ(storedImages);
     }
@@ -132,7 +129,7 @@ const WebcamApp = () => {
     });
     playSoundEffect(); // 효과음 재생
   }
-  }, [webcamRef, maxCount]);
+  }, [webcamRef, maxCount,playSoundEffect]);
   
   // 타임에 맞추어 타이머 돌리기 
   useEffect(() => {
@@ -140,14 +137,14 @@ const WebcamApp = () => {
       const timeoutId = setTimeout(() => {
         const intervalId = setInterval(() => {
           setTimeLeft((prevTimeLeft) => {
-            const newTimeLeft = Math.max(0, prevTimeLeft - 0.3); //수정
+            const newTimeLeft = Math.max(0, prevTimeLeft - 0.1); //수정
             if (newTimeLeft === 0) {
               clearInterval(intervalId);
               capture();
             }
             return newTimeLeft;
           });
-        }, 100); //수정
+        }, 100); //수정 
     
         return () => clearInterval(intervalId);
       }, 3500);
@@ -156,13 +153,12 @@ const WebcamApp = () => {
     }
   }, [capture, timerStarted]);
   
-
   // 8장 이하로 촬영하기 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (images.length < 8) {
+      if (images.length < 6) {
         capture();
-        setTimeLeft(3); //수정 
+        setTimeLeft(5); //수정 
         timeRef.current = Date.now();
       }
     }, timeLeft * 3500);

@@ -10,6 +10,7 @@ function Write() {
   const [isChecked1, setIsChecked1] = useState(false);
   const [isChecked2, setIsChecked2] = useState(false);
   const { state } = useLocation();
+  console.log(state)
 
   const handleCheckboxChange = (event) => {
     setIsChecked1(event.target.checked);
@@ -47,7 +48,7 @@ function Write() {
     <div>
       <Text>추억을 기록해보세요</Text>
       <div style={{margin:'0 auto', background:'white', width: 1820, height:967, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5'}}>
-        <div id="framee" style={{backgroundImage: state}}>
+        <div id="framee" style={{backgroundImage: `url(${state}`}}>
             <div style={{display: 'grid',gridTemplateColumns: '218px', height: '141px', rowGap: '7px', marginTop: 21, marginLeft: 21}}>
               <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
               <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />

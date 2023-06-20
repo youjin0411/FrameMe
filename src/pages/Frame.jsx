@@ -90,7 +90,7 @@ function Frame() {
             width: '196px',
             height: '60px',
             left: '1633px',
-            top: '980px',
+            top: '949px',
             backgroundBlendMode: 'overlay',
             background: 'white',
             color: buttonColor

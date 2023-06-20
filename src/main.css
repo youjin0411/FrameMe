@@ -99,7 +99,8 @@ h1 {
 #frameimg {
     width: 463px;
     height: 683px;
-    background-image: url("./img/baseframe.jpg");
+    /* background-image: url("./img/baseframe.jpg"); */
+    background-color: #232323;
     position: relative;
     float: left;
     margin: 100px 1101.61px 111px 231px;

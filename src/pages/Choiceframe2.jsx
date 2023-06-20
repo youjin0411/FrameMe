@@ -17,11 +17,9 @@ import { grayscaleFilter, brightnessFilter,originalFilter } from './filters.js';
 
 function useCanvasRefs(count) {
   const [canvasRefs, setCanvasRefs] = useState([]);
-
   useEffect(() => {
     setCanvasRefs(Array.from({ length: count }, () => React.createRef()));
   }, [count]);
-
   return canvasRefs;
 }
 
@@ -58,10 +56,11 @@ function Choiceframe2() {
       const filteredImageSrc = canvas.toDataURL();
       updatedStoredImages[index] = filteredImageSrc;
     });
-  
+
+    localStorage.setItem('selectedImages2', JSON.stringify(updatedStoredImages));
     navigate("/write2", { state: frameimage});
   };
-
+  
   const [selectedFrame, setSelectedFrame] = useState(null);
 
   const handleFrameClick = (frameId) => {
@@ -131,9 +130,9 @@ function Choiceframe2() {
   
       const image = new Image();
       image.onload = () => {
-        canvas.width = 500;
-        canvas.height = 143;
-        ctx.drawImage(image, 0, 0, 500, 143);
+        canvas.width = 402.79;
+        canvas.height = 140.24;
+        ctx.drawImage(image, 0, 0, 402.79, 140.24);
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   
         const imageCopy = new ImageData(imageData.width, imageData.height);

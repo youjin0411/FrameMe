@@ -199,19 +199,19 @@ const Save = styled.div`
     background-size: cover;
 `
 const Review = styled.div`
-	position: absolute;
-	word-break:break-all;
-	width: 208px;
-	left: 50.35%;
-	right: 37.81%;
-	top: 48.52%;
-	bottom: 34.81%;
-	font-family: 'Noto Serif';
-	font-style: normal;
-	font-weight: 500;
-	font-size: 15px;
-	line-height: 30px;
-	color: #FFFFFF;
+  position: absolute;
+  word-break: break-all;
+  width: 180px;
+  height: 400px;
+  left: 980px;
+  top: 393px;
+  padding: 6px 20px 20px 17px;
+  font-family: "Noto Serif";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 30px;
+  color: rgb(255, 255, 255);
 `
 const Name = styled.div`
 position: absolute;
