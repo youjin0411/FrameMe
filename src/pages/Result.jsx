@@ -48,7 +48,6 @@ function Result() {
         setQrCodeImageURL(image);
       }
     };
-
     generateQRCodeImage();
   }, []);
   useEffect(() => {
@@ -122,46 +121,25 @@ function Result() {
     }
   };
 const style2 = {
-  width: 223, 
-  height: 142,
+  width: 218, 
+  height: 141,
   backgroundSize: 'cover'
 };
   return (
     <div>
       <Mt>사진을 저장하세요</Mt>
-      <Print ref={divRef}>
-        <div
-          id="framee"
-          style={{
-            backgroundImage: frameimage,
-            display: 'flex',
-            justifyContent: 'center',
-            top: 175,
-            left: 662,
-            alignItems: 'center',
-            margin: '0 auto',
-            marginTop: 36,
-          }}
-        ></div>
-        <div
-          style={{
-            position: 'absolute',
-            display: 'grid',
-            left: 700,
-              top: 227.14,
-              gridRowGap: 8.65,
-            }}
-          >
+      <Save ref={divRef} style={{backgroundImage: `url(${frameimage}`}}>
+        <div style={{display: 'grid', gridRowGap: 7, gridTemplateColumns: '218px', paddingTop: 21, marginLeft: 21}}>
             <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
             <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
             <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
             <div style={{ ...style2, backgroundImage: `url(${storedImages[3]})` }} />
-          </div>
+        </div>
 					<Review>{review}</Review>
-			</Print>
-        {isLoading ? (<p style={{marginTop: -50, marginLeft: 1260}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
+			</Save>
+        {isLoading ? (<p style={{marginTop: -50, marginLeft: 1207}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
           <div style={{marginTop: -17}}>
-						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1260}}/>
+						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1197}}/>
 				  </div>
 				) : null}
 
@@ -210,6 +188,16 @@ const style2 = {
       </div>
   );
 }
+const Save = styled.div`
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 36px
+    position: absolute;
+    width: 465px;
+    height: 686px;
+    background-color: #232323;
+    background-size: cover;
+`
 const Review = styled.div`
 	position: absolute;
 	word-break:break-all;
@@ -227,9 +215,9 @@ const Review = styled.div`
 `
 const Name = styled.div`
 position: absolute;
-left: 34.2%;
+left: 38.24%;
 right: 53.75%;
-top: 85.15%;
+top: 85%;
 bottom: 8.15%;
 
 font-family: 'Noto Serif';
@@ -242,7 +230,7 @@ color: #3C3C3C;
 `
 const Names = styled.div`
 position: absolute;
-left: 34.24%;
+left: 38.24%;
 right: 59.17%;
 top: 88%;
 bottom: 4.91%;
@@ -268,32 +256,18 @@ outline: none;
 border: none;
 box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
 `
-const Print = styled.div`
-display: flex;
-width: 588px;
-height: 683px;
-justify-content: center;
-align-items: center;
-margin: 0 auto;
-margin-top: 125px;
-`
-const Mt = styled.div`
-position: absolute;
-left: 45.21%;
-right: 45.26%;
-top: 11.76%;
-bottom: 85.19%;
-width : 199px;
-font-family: 'Noto Serif';
-font-style: normal;
-font-weight: 600;
-font-size: 24px;
-line-height: 33px;
-/* identical to box height */
-margin: 0 auto;
-text-align: center;
-/* 타이틀 */
 
-color: #2B2B2B;
+const Mt = styled.div`
+    width: 199px;
+    font-family: "Noto Serif";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    margin: 0px auto;
+    text-align: center;
+    color: rgb(43, 43, 43);
+    padding-top: 41px;
+    padding-bottom: 55px;
 `
 export default Result;

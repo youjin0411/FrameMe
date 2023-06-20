@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import '../main.css';
 import choose2 from '../img/Vector1.png';
-import Frameh1 from "../img/frameh1.png";
-import Frameh2 from "../img/frameh2.png";
-import Frameh3 from "../img/frameh3.png";
-import Frameh4 from "../img/frameh4.png";
-import Frameh5 from "../img/frameh5.png";
-import Frameh6 from "../img/frameh6.png";
-import Frameh7 from "../img/frameh7.png";
-import Frameh8 from "../img/frameh8.png";
-import Frameh9 from "../img/frameh9.png";
-import Frameh10 from "../img/frameh10.png";
+import Frameh1 from "../img/이미지/frame_1.png";
+import Frameh2 from "../img/이미지/frame2_1.png";
+import Frameh3 from "../img/이미지/frame3_1.png";
+import Frameh4 from "../img/이미지/frame4_1.png";
+import Frameh5 from "../img/이미지/frame5_1.png";
+import Frameh6 from "../img/이미지/frmae6_1.png";
+import Frameh7 from "../img/이미지/frame7_1.png";
+import Frameh8 from "../img/이미지/frame8_1.png";
+import Frameh9 from "../img/이미지/frame9_1.png";
+import Frameh10 from "../img/이미지/frame10_1.png";
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { grayscaleFilter, brightnessFilter,originalFilter } from './filters.js';
@@ -114,8 +114,8 @@ function Choiceframe() {
   console.log(frameimage)
 
   const style2 = {
-    width: 220, 
-    height: 140,
+    width: 218, 
+    height: 141,
     backgroundSize: 'cover'
   }
 
@@ -157,16 +157,17 @@ const handleFilterButtonClick = (filterFunction) => {
 };
   return (
     <div>
-      <h1>프레임을 선택해주세요</h1>
-      <div id="frameimg" style={frameImgStyle}>
-      </div>
-      <div style={{ position: 'absolute', display: 'grid', left: 268.8, top: 290.7, gridRowGap: 8.5, rowGap: 8.5 }}>
-      {storedImages.map((imageSrc, index) => (
-        <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
-      ))}
-    </div>
+      <Text>프레임을 선택해주세요</Text>
+      <div style={{margin:'0 auto', background:'white', width: 1820, height:967, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5'}}>
+          <div id="frameimg" style={frameImgStyle}>
+              <div style={{display: 'grid', gridTemplateColumns: '218px', gridRowGap: 7, rowGap: 7 , marginTop: 21, marginLeft: 21}}>
+                  {storedImages.map((imageSrc, index) => (
+                    <canvas key={index} ref={canvasRefs[index]} style={{ ...style2, backgroundImage: `url(${imageSrc})` }} />
+                  ))}
+              </div>
+          </div>
       <div id="fragr">
-        <div className="fragr" id="f1" onClick={() => handleFrameClick('f1')}>
+      <div className="fragr" id="f1" onClick={() => handleFrameClick('f1')}>
           <img
             src={choose2}
             width="95"
@@ -328,18 +329,18 @@ const handleFilterButtonClick = (filterFunction) => {
         </div>
       </div>
 
-      <Btn style={{left: 972.5, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
+      <Btn style={{left: 1022.5, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           brightnessFilter
           onClick={() => { handleFilterButtonClick(brightnessFilter)}}
       >밝게</Btn>
-      <Btn style={{left: 1197.5, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1255, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver2}
           onMouseOut={handleMouseOut2}
           onClick={() => { handleFilterButtonClick(grayscaleFilter) }}
       >흑백</Btn>
-      <Btn style={{left: 1422.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1473.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
           onMouseOver={handleMouseOver3}
           onMouseOut={handleMouseOut3}
           onClick={() => handleFilterButtonClick(originalFilter)}
@@ -359,9 +360,21 @@ const handleFilterButtonClick = (filterFunction) => {
         다음&nbsp;&nbsp;&nbsp;〉
         </button> 
     </div>
+    </div>
   );
 }
-
+const Text = styled.div`
+    font-family: "Noto Serif";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: rgb(43, 43, 43);
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+`
 const Btn = styled.button`
   position: absolute;
   width: 196px;

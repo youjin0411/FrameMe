@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import ReactToPrint from "react-to-print";
 import html2canvas from 'html2canvas';
 import QRCode from 'qrcode.react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -69,7 +70,10 @@ function Result() {
   function handleClick2() {
     navigate('/write2');
   }
-
+  function Printhandler() {
+    
+  }
+  
   const handleUpload = async () => {
     try {
       if (!scannedImage) {
@@ -86,7 +90,6 @@ function Result() {
           'Content-Type': 'multipart/form-data',
         },
       });
-
       const qrCodeURL = response.data.downloadLink;
       setQrImgUrl(response.data.qrimgLinkprint)
       setQrCodeImageURL(qrCodeURL); // Set the QR code URL to state
@@ -117,41 +120,50 @@ function Result() {
     }
   };
   const style2 = {
-    width: 500,
-    height: 143,
+    width: 402.79,
+    height: 140.24,
     backgroundSize: 'cover',
   }
   return (
     <div>
       <Mt>사진을 저장하세요</Mt>
-        <Print ref={divRef}>
-          <div
-            id="framee"
-            style={{
-              backgroundImage: `url(${frameimage}`,
-							display: 'flex',
-							justifyCcontent: 'center',
-							top: 175,
-              left: 638,
-							alignItems: 'center',
-							margin: '0 auto',
-							marginTop: 36
-            }}
-          ></div>
-      <div style={{ position: 'absolute', display: 'grid', left: 683, top: 275, gridRowGap: 7, rowGap: 7 }}>
-      <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
-      <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
-      <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
+      <Save ref={divRef} style={{backgroundImage: `url(${frameimage}`}}>
+          <div style={{display: 'grid', gridRowGap: 7.79, gridTemplateColumns: '402.79px', paddingTop: 81, justifyContent:'center'}}>
+              <div style={{ ...style2, backgroundImage: `url(${storedImages[0]})` }} />
+              <div style={{ ...style2, backgroundImage: `url(${storedImages[1]})` }} />
+              <div style={{ ...style2, backgroundImage: `url(${storedImages[2]})` }} />
           </div>
 					<Review>{review}</Review>
-			</Print>
-      {isLoading ? (<p style={{marginTop: -50, marginLeft: 1400}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
+      </Save>
+      {isLoading ? (<p style={{marginTop: -50, marginLeft: 1207}}>Loading...<br/>잠시 후 QR이 생설될 것 입니다.</p>) : qr ? (
           <div style={{marginTop: -17}}>
-						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1379}}/>
+						<QRCode value={qrCodeImage} renderAs="canvas" style={{marginTop: -350, marginLeft: 1197}}/>
 				  </div>
 				) : null}
 			<Name>{name}</Name>
 			<Names>{year}.{month}.{day}</Names>
+      <ReactToPrint
+          trigger={() => 
+            <button
+            id="button"
+            type="submit"
+            style={{
+              position: 'absolute',
+              borderRadius: '30px',
+              width: '196px',
+              height: '60px',
+              left: '1633px',
+              top: '900px',
+              background: 'white',
+              backgroundBlendMode: 'overlay',
+            }}
+            onClick={Printhandler}
+          >
+          인쇄하기 &nbsp;&nbsp;&nbsp;〉
+          </button>
+          }
+          content={() => divRef.current}
+        />
 			<button
 				id="button"
 				type="submit"
@@ -173,26 +185,32 @@ function Result() {
       </div>
   );
 }
+
+const Save = styled.div`
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 36px
+    position: absolute;
+    width: 465px;
+    height: 686px;
+    background-color: #232323;
+    background-size: cover;
+`
 const Review = styled.div`
-	position: absolute;
-	word-break:break-all;
-	width: 208px;
-	left: 49.52%;
-	right: 37.81%;
-	top: 73.52%;
-	bottom: 34.81%;
-	font-family: 'Noto Serif';
-	font-style: normal;
-	font-weight: 500;
-	font-size: 15px;
-	line-height: 30px;
-	color: #FFFFFF;
+    position: absolute;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 30px;
+    color: rgb(255, 255, 255);
+    margin-top: 62px;
+    margin-left: 200px;
 `
 const Name = styled.div`
 position: absolute;
-left: 36.24%;
+left: 38.24%;
 right: 53.75%;
-top: 84.15%;
+top: 85%;
 bottom: 8.15%;
 
 font-family: 'Noto Serif';
@@ -205,9 +223,9 @@ color: #3C3C3C;
 `
 const Names = styled.div`
 position: absolute;
-left: 36.24%;
+left: 38.24%;
 right: 59.17%;
-top: 90%;
+top: 88%;
 bottom: 4.91%;
 
 font-family: 'Noto Serif';
@@ -231,32 +249,17 @@ outline: none;
 border: none;
 box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
 `
-const Print = styled.div`
-display: flex;
-width: 588px;
-height: 683px;
-justify-content: center;
-align-items: center;
-margin: 0 auto;
-margin-top: 125px;
-`
 const Mt = styled.div`
-position: absolute;
-left: 45.21%;
-right: 45.26%;
-top: 11.76%;
-bottom: 85.19%;
-width : 199px;
-font-family: 'Noto Serif';
-font-style: normal;
-font-weight: 600;
-font-size: 24px;
-line-height: 33px;
-/* identical to box height */
-margin: 0 auto;
-text-align: center;
-/* 타이틀 */
-
-color: #2B2B2B;
+    width: 199px;
+    font-family: "Noto Serif";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    margin: 0px auto;
+    text-align: center;
+    color: rgb(43, 43, 43);
+    padding-top: 41px;
+    padding-bottom: 55px;
 `
 export default Result;

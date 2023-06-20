@@ -5,17 +5,18 @@ import LoadingPage from './Loding';
 
 // 비디오 콘테이너
 const videoConstraints = {
-  width: 1164,
-  height: 327,
+  width: 1192,
+  height: 415,
   facingMode: 'user',
 };
 const style2 = {
-  width: 495,
-  height: 140,
+  width: 402.79,
+  height: 140.24,
   background: 'white',
   backgroundSize: 'cover',
   display: 'grid',
-  alignItems: 'center'
+  alignItems: 'center',
+  border: 'none',
 }
 
 const WebcamApp2 = () => {
@@ -192,21 +193,23 @@ const WebcamApp2 = () => {
     if (showResult) {
       return (
         <>
-          <div style={{ fontSize: 24, textAlign: 'center', fontWeight: 600, marginTop: 28, fontFamily: 'Noto Serif'}}>사진을 선택해주세요</div>
+          <div style={{ fontSize: 24, textAlign: 'center', fontWeight: 600, marginTop: 40, fontFamily: 'Noto Serif', color: '#2B2B2B'}}>
+            사진을 선택해주세요
+          </div>
           <Frames>
             <Choice>
               {images.map((i, index) => (
                 <div>
                   <Img src="Vector1.png" alt="Thumbnail 1" onClick={() => handleClick(i)} style={{ display: imagescount.includes(i) ? "block" : "none" }}/>
-                <img key={index} src={i} onClick={() => { q(i); handleClick(i)}} style={{width: 342, height:96.73 }} />
+                  <img key={index} src={i} onClick={() => { q(i); handleClick(i)}} style={{width: 342, height:119 }} alt="Thumbnail 1" />
                 </div>
               ))}
             </Choice>
-            <div style={{ position: 'absolute', width: 583, height:683, left:105, top:222, background:'#000000',marginLeft:916, marginTop:60}}>
-                <div style={{display:'grid', gridTemplateColumns:'495px', gridRowGap:9, marginTop: 50, alignItems: 'center',  placeContent: 'center'}}>
+            <Imgchoice>
+                <div style={{display:'grid', gridTemplateColumns:'402.79px', gridRowGap:8, marginTop: 81,justifyContent: 'center'}} id='print'>
                   {renderQueue(newQ)}
                 </div>
-            </div>
+            </Imgchoice>
             </Frames>
             <Btn>
             <Links href="/ChoiceFrame2">다음&nbsp;&nbsp;&nbsp;〉</Links>
@@ -220,19 +223,19 @@ const WebcamApp2 = () => {
             <div style={{margin:'0 auto', background:'white', width: 1820, height:967, left: 50, top: 130, backgroundBlendMode: 'overlay', borderRadius: '30px 30px 0px 0px',boxShadow: '0px 0px 49px 3px #F5F5F5', marginTop:70}}>
               <br />
                <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 40}}>{`${count}/${maxCount}`}</div>
-               <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 70}}>{Math.round(timeLeft)}</div>
+               <div style={{display:'flex', justifyContent:'center', alignItems: 'center', fontSize: 80}}>{Math.round(timeLeft)}</div>
                <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                <div>
                 {showLoadingPage && <LoadingPage />}
                 {showWebcam && (
                   <>
                     <Webcam
-                      style={{width: 1164,height: 327,background: 'black',marginTop: 200,}}
+                      style={{width: 1192,height: 415,background: 'black',marginTop: 146,}}
                       audio={false}
-                      height={720}
+                      height={415}
                       ref={webcamRef}
                       screenshotFormat="image/jpeg"
-                      width={1280}
+                      width={1192}
                       videoConstraints={videoConstraints}/>
                   </>
                 )}
@@ -244,9 +247,13 @@ const WebcamApp2 = () => {
     );
 }
 
-// const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(<WebcamApp2 />);
-
+const Imgchoice = styled.div`
+    width: 462px;
+    height: 681.7px;
+    background: rgb(0, 0, 0);
+    margin-top: 119px;
+    margin-left: -10px;
+`;
 const Links = styled.a`
   font-size: 20px;
   font-family: 'Noto Serif';
@@ -274,27 +281,31 @@ const Btn = styled.button`
   padding: 10px 10px 10px 10px;
 `;
 const Frames = styled.div`
-    margin: 28px auto 0px;
+    margin: 0 auto;
     background: white;
     width: 1820px;
     height: 967px;
-    left: 50px;
-    top: 190px;
     background-blend-mode: overlay;
     border-radius: 30px 30px 0px 0px;
     box-shadow: 0px 0px 49px 3px #F5F5F5;
+    margin-top: 20px;
+    background: linear-gradient(297.97deg, rgba(255, 255, 255, 0.15) 6.99%, rgba(255, 255, 255, 0.35) 94.43%);
+    box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 30px 30px 0px 0px;
+    display: grid;
+    grid-template-columns: 520px 520px;
+    justify-content: space-evenly;
 `;
 const Choice = styled.div`
     display: grid;
     grid-template-columns: 342px 342px;
-    position: absolute;
-    width: 723px;
-    height: 336.73px;
-    left: 168px;
-    margin-top: 266px;
-    grid-column-gap: 39px;
-    grid-row-gap:24px;
-    `;
+    width: 696px;
+    height: 389px;
+    margin-top: 260px;
+    gap: 16px 12px;
+    margin-left: -62px;
+`;
     const Img = styled.img`
       position: absolute;
       width: 45px; 
