@@ -36,6 +36,7 @@ function SearchSave() {
   const [filteredFrames, setFilteredFrames] = useState([]);
   const [showResults, setShowResults] = useState(false);
 
+
   useEffect(() => {
     try {
       const response = axios.get('http://localhost:3001/api/select');
@@ -48,9 +49,22 @@ function SearchSave() {
     }
   }, []);
 
-  const handleSearch = () => {
+  useEffect(() => {
     const filtered = frames.filter(frame =>
-      (state && (frame.name.includes(state) || frame.day.includes(state) || frame.time.includes(state))) ||
+      (frame.name.includes(state) ||
+        frame.day.includes(state) ||
+        frame.time.includes(state))
+    );
+    setFilteredFrames(filtered);
+    setShowResults(true);
+    
+  }, [state]);  
+
+  const handleSearch = () => {
+    setFilteredFrames([]);
+    setShowResults(false);
+  
+    const filtered = frames.filter(frame =>
       frame.name.includes(searchQuery) ||
       frame.day.includes(searchQuery) ||
       frame.time.includes(searchQuery)
@@ -58,7 +72,6 @@ function SearchSave() {
     setFilteredFrames(filtered);
     setShowResults(true);
   };
-  
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {

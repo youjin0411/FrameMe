@@ -1,17 +1,15 @@
 import React from "react";
-// npm install styled-components
 import styled from "styled-components";
 
 const DropdownMenu = () => {
-
-	return (
+  return (
     <>
-		<Wrapper>
-			<Link href="/photoshoot">PHOTO</Link>
-			<Link href="/Gallery">네컷갤러리</Link>
-		</Wrapper>
+      <Wrapper>
+        <Link href="/photoshoot">PHOTO</Link>
+        <Link href="/Gallery">네컷갤러리</Link>
+      </Wrapper>
     </>
-	);
+  );
 };
 
 export default DropdownMenu;
@@ -20,25 +18,26 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  column-gap: 44px;
+  column-gap: 3%;
   color: white;
-  font-size: 15px;
-  width: 220px;
+  font-size: 1.5vw;
+  width: 22%;
 `;
 
 const Link = styled.a`
-font-family: 'Noto Serif';
-  font-weight: medium;
+  font-weight: 520;
+  font-family: "Noto Serif";
   text-decoration: none;
   color: black;
-  font-size: 16px;
-  width: 50%;
+  font-size: 0.8vw;
+  width: 27%;
   display: block;
   text-align: center;
-  border-radius: 24px;
-  box-shadow: 1px 1px 1px 1px #BDBDBD;
-  &:hover {
-    transition: all .3s;
-    border: 1px solid #ABBF98;
-  }
+  border-radius: 2vw;
+  padding: 0.1vw 0.1vw;
+  box-shadow: 0.3vw 0.3vw 2.3vw 0.3vw rgb(235 235 235);
+    &:hover {
+      transition: all 0.3s;
+      border: 0.2vw solid #abbf98;
+    }
 `;

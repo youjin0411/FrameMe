@@ -20,27 +20,27 @@ import frame4 from '../img/frame4.png';
 import frame5_1 from '../img/frame5-1.png';
 import frame6_1 from '../img/frame6-1.png';
 import Xicon from '../img/Xicon.png';
-import search from '../img/search-icon.png'
+import searchs from '../img/search-icon.png'
 import backgroundImage from '../img/backgroundImage.png';
 
-SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 function Gallery() {
   const navigate = useNavigate(); 
   const location = useLocation();
   
-  const [search, setSearch] = useState(null);
+  const [search,setSearch] = useState(null)
 
-  const [data, setData] = useState(null);
-  const [frames, setFrames] = useState([
-    {name: '유리', day: '2023.6.13', time: '9:38', qr: null, frame: frame1},
-    {name: '소리', day: '2023.6.13', time: '9:38', qr: null, frame: frame2},
-    {name: '유진', day: '2023.6.13', time: '9:38', qr: null, frame: frame3},
-    {name: '해원', day: '2023.6.13', time: '9:38', qr: null, frame: frame4},
-    {name: '가윤', day: '2023.6.13', time: '9:38', qr: null, frame: frame5_1},
-    {name: '프레임미', day: '2023.6.13', time: '9:38', qr: null, frame: frame6_1}
-  ]);
-
+  const [data, setData] = useState(null)
+  const [frames, setFrames] = useState(
+    [
+      {name: '유리', day: '2023.6.13', time: '9:38', qr: null, frame: frame1},
+      {name: '소리', day: '2023.6.13', time: '9:38', qr: null, frame: frame2},
+      {name: '유진', day: '2023.6.13', time: '9:38', qr: null, frame: frame3},
+      {name: '해원', day: '2023.6.13', time: '9:38', qr: null, frame: frame4},
+      {name: '가윤', day: '2023.6.13', time: '9:38', qr: null, frame: frame5_1},
+      {name: '프레임미', day: '2023.6.13', time: '9:38', qr: null, frame: frame6_1}
+    ]
+  );
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const clonedFrames = [...frames, ...frames]; // 원본 요소를 복제하여 새로운 배열 생성
@@ -49,7 +49,7 @@ function Gallery() {
     try {
       const response = axios.get("http://localhost:3001/api/select");
       response.then(response => {
-        const arr = response.data.results;
+        const arr = response.data.results
         setFrames(frames => frames.concat(arr));
       });
     } catch (error) {
@@ -57,7 +57,9 @@ function Gallery() {
     }
   }, []);
 
-  console.log(frames);
+  
+
+  console.log(frames) 
 
   const openPopup = (frame) => {
     setSelectedFrame(frame);
@@ -66,24 +68,13 @@ function Gallery() {
   const closePopup = () => {
     setSelectedFrame(null);
   };
-
-  const [searchQuery, setSearchQuery] = useState('');
-
   const nextPage = () => {
-    navigate("/SearchSave", { 
-      state: {
-        search: search,
-      },
-    });
-  };
-
-  const handleSearch = () => {
-    navigate("/SearchSave", { state: searchQuery });
-  };
+    navigate("/SearchSave", { state: search});
+  }
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSearch();
+      navigate("/SearchSave", { state: search });
     }
   };
   
@@ -92,7 +83,7 @@ function Gallery() {
       return parseFloat((Math.random() * (max - min) + min).toFixed(2));
     }
     function UpDown(selector, delay, size) {
-      gsap.to(selector, random(3, 4), {
+      gsap.to(selector, random(4, 5), {
         y: size,
         repeat: -1,
         yoyo: true,
@@ -100,16 +91,22 @@ function Gallery() {
         delay: random(0, delay)
       });
     }
-  
-    const originalFrames = document.querySelectorAll('.container .frame');
+    const slideInterval = setInterval(() => {
+      setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % clonedFrames.length);
+    }, 3000);
+    const originalFrames = document.querySelectorAll('.frame');
     originalFrames.forEach((frame, index) => {
-      UpDown(frame, 1 + index * 0.5, 3 + index * 2);
+      UpDown(frame, 1 + index * 0.5, 5 + index * 3);
     });
-    const clonedFrames = document.querySelectorAll('.container .frame');
+    const clonedFrames = document.querySelectorAll('.clone');
     clonedFrames.forEach((frame, index) => {
-      UpDown(frame, 1 + index * 0.5, 3 + index * 2);
+      UpDown(frame, 1 + index * 0.5, 5 + index * 3);
     });
-  }, []);
+    
+    return () => {
+      clearInterval(slideInterval);
+    };
+  }, []); 
 
   const handleSwiperInit = (swiper) => {
     const slideInterval = setInterval(() => {
@@ -121,6 +118,7 @@ function Gallery() {
       clearInterval(slideInterval);
     };
   };
+
 
   return (
     <div className='gallery'>
@@ -139,7 +137,7 @@ function Gallery() {
             onKeyPress={handleKeyPress}
           />
           <button className='searchBtn'>
-            <img src={search} width={48} height={39} alt='search-icon' onClick={nextPage} />
+            <img src={searchs} width={48} height={39} alt='search-icon' onClick={nextPage} />
           </button>
         </div>
       </div>
