@@ -197,14 +197,14 @@ const Save = styled.div`
     background-size: cover;
 `
 const Review = styled.div`
-    font-weight: 500;
-    width: 245px;
-    height: 108px;
-    line-height: 30px;
-    color: rgb(255, 255, 255);
-    font-size: 15px;
-    margin-left: 183px;
-    margin-top: 31px;
+height: 109px;
+width: 245px;
+color: rgb(255, 255, 255);
+font-size: 14px;
+margin-left: 189px;
+margin-top: 36px;
+position: fixed;
+word-break: break-all;
 `
 const Name = styled.div`
 position: absolute;

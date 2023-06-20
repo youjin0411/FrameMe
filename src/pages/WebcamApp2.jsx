@@ -146,7 +146,7 @@ const WebcamApp2 = () => {
             }
             return newTimeLeft;
           });
-        }, 500); //수정 
+        }, 100); //수정 
     
         return () => clearInterval(intervalId);
       }, 3500);

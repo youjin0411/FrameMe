@@ -70,18 +70,20 @@ const WebcamApp = () => {
     (data) => {
       setNewQ((prevQ) => {
         let newQ = [...prevQ];
-        if(newQ.every((item) => item === null)){  
+        if(newQ.every((item) => item === null)){
           newQ[0] = data;
         }else if(newQ[1] == null) {
           newQ[1] = data;
         }else if(newQ[2] == null){
           newQ[2] = data;
+        }else if(newQ[3] == null){
+          newQ[3] = data;
         }
-        else if (newQ.length === 3 && !newQ.every((item) => item === null)) {
+        else if (newQ.length === 4 && !newQ.every((item) => item === null)) {
           newQ.shift();
           newQ.push(data);
         }
-        localStorage.setItem('selectedImages2', JSON.stringify(newQ));
+        localStorage.setItem('selectedImages', JSON.stringify(newQ));
         return newQ;
       });
     },
@@ -156,7 +158,7 @@ const WebcamApp = () => {
   // 8장 이하로 촬영하기 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (images.length < 6) {
+      if (images.length < 8) {
         capture();
         setTimeLeft(5); //수정 
         timeRef.current = Date.now();

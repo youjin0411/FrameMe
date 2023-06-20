@@ -57,6 +57,7 @@ function Choiceframe() {
       const filteredImageSrc = canvas.toDataURL();
       updatedStoredImages[index] = filteredImageSrc;
     });
+    localStorage.setItem('selectedImages', JSON.stringify(storedImages));
     navigate("/write", { state: frameimage});
   };
 
@@ -142,6 +143,7 @@ const applyFilter = (filterFunction) => {
     image.src = storedImages[index];
   });
   localStorage.setItem('selectedImages', JSON.stringify(storedImages));
+  
 };
 // 필터 버튼 클릭 시 적용할 필터 함수
 const handleFilterButtonClick = (filterFunction) => {
