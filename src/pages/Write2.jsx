@@ -64,6 +64,7 @@ function Write() {
             placeholder="사진 이름을 작성해주세요"
             type="text"
             maxLength="10"
+            autoComplete="off"
             value={nameValue}
             onChange={(e) => {
               setNameValue(e.target.value);
