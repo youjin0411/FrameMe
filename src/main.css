@@ -51,6 +51,9 @@ code {
 #btnSt {
     color: white;
     text-align: center;
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-weight: 100;
     font-size: 20px;
     line-height: 60px;
     width: 275px;
