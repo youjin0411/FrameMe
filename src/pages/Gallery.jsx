@@ -17,10 +17,15 @@ import frame1 from '../img/frame1.png';
 import frame2 from '../img/frame2.png';
 import frame3 from '../img/frame3.png';
 import frame4 from '../img/frame4.png';
-import frame5_1 from '../img/frame5.png';
-import frame6_1 from '../img/frame6.png';
+import frame6_1 from '../img/frame6-1.png';
 import Xicon from '../img/Xicon.png';
 import searchs from '../img/search-icon.png'
+import frame_s from '../img/frame_s.png'
+import frame_y1 from '../img/frame_y2.png'
+import frame_y2 from '../img/frame_y1.png'
+import frame_h from '../img/frame_h.png'
+import frame_g from '../img/frame_g.png'
+import frame_me from '../img/frame_me.png'
 import backgroundImage from '../img/backgroundImage.png';
 
 
@@ -33,12 +38,12 @@ function Gallery() {
   const [data, setData] = useState(null)
   const [frames, setFrames] = useState(
     [
-      {name: '유리', day: '2023.6.13', time: '9:38', qr: null, frame: frame1},
-      {name: '소리', day: '2023.6.13', time: '9:38', qr: null, frame: frame2},
-      {name: '유진', day: '2023.6.13', time: '9:38', qr: null, frame: frame3},
-      {name: '해원', day: '2023.6.13', time: '9:38', qr: null, frame: frame4},
-      {name: '가윤', day: '2023.6.13', time: '9:38', qr: null, frame: frame5_1},
-      {name: '프레임미', day: '2023.6.13', time: '9:38', qr: null, frame: frame6_1}
+      {name: '유리', day: '2023.6.21', time: '9:38', qr: null, frame: frame_y1},
+      {name: '뇸', day: '2023.6.21', time: '9:38', qr: null, frame: frame_s},
+      {name: '유진', day: '2023.6.21', time: '9:38', qr: null, frame: frame_y2},
+      {name: '해원', day: '2023.6.21', time: '9:38', qr: null, frame: frame_h},
+      {name: '가윤', day: '2023.6.21', time: '9:38', qr: null, frame: frame_g},
+      {name: '프레임미', day: '2023.6.21', time: '9:38', qr: null, frame: frame_me}
     ]
   );
   const [selectedFrame, setSelectedFrame] = useState(null);

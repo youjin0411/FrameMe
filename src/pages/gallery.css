@@ -113,7 +113,7 @@ input:focus::placeholder {
 }
 
 .frame.position-2 {
-  margin: 374px 0px 94px 40px;
+  margin: 374px 0px 84px 40px;
 }
 
 .frame.position-3 {
@@ -121,7 +121,7 @@ input:focus::placeholder {
 }
 
 .frame.position-4 {
-  margin: 312px 0px 166px 40px;
+  margin: 312px 0px 156px 40px;
 }
 
 .frame.position-5 {
@@ -129,7 +129,7 @@ input:focus::placeholder {
 }
 
 .frame.position-6 {
-  margin: 359px 0px 99px 40px;
+  margin: 359px 0px 89px 40px;
 }
 
 /* 클론 */
@@ -138,7 +138,7 @@ input:focus::placeholder {
 }
 
 .clone.position-2 {
-  margin: 374px 0px 94px 40px;
+  margin: 374px 0px 74px 40px;
 }
 
 .clone.position-3 {
@@ -146,7 +146,7 @@ input:focus::placeholder {
 }
 
 .clone.position-4 {
-  margin: 312px 0px 166px 40px;
+  margin: 312px 0px 156px 40px;
 }
 
 .clone.position-5 {
@@ -154,7 +154,7 @@ input:focus::placeholder {
 }
 
 .clone.position-6 {
-  margin: 359px 0px 99px 40px;
+  margin: 359px 0px 79px 40px;
 }
 
 .comment{
