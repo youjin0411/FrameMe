@@ -323,18 +323,18 @@ const handleFilterButtonClick = (filterFunction) => {
         </div>
       </div>
 
-      <Btn style={{left: 1022.5, backgroundColor: isHovering ? "#FFFAE0" : "white"}}        
+      <Btn style={{left: 1022.5, backgroundColor: isHovering ? "#FFFAE0" : "white", fontSize: "18px"}}        
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           brightnessFilter
           onClick={() => { handleFilterButtonClick(brightnessFilter)}}
       >밝게</Btn>
-      <Btn style={{left: 1255, backgroundColor: isHovering2 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1255, backgroundColor: isHovering2 ? "#FFFAE0" : "white", fontSize: "18px"}}
           onMouseOver={handleMouseOver2}
           onMouseOut={handleMouseOut2}
           onClick={() => { handleFilterButtonClick(grayscaleFilter) }}
       >흑백</Btn>
-      <Btn style={{left: 1473.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white"}}
+      <Btn style={{left: 1473.5, backgroundColor: isHovering3 ? "#FFFAE0" : "white", fontSize: "18px"}}
           onMouseOver={handleMouseOver3}
           onMouseOut={handleMouseOut3}
           onClick={() => handleFilterButtonClick(originalFilter)}
