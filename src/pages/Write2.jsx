@@ -10,6 +10,7 @@ function Write() {
   const [isChecked1, setIsChecked1] = useState(false);
   const [isChecked2, setIsChecked2] = useState(false);
   const { state } = useLocation();
+  const [nameCharacterCount, setNameCharacterCount] = useState(0);
 
   const handleCheckboxChange = (event) => {
     setIsChecked1(event.target.checked);
@@ -20,6 +21,12 @@ function Write() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+  };
+
+  const handleNameInputChange = (event) => {
+    const inputValue = event.target.value;
+    setNameValue(inputValue);
+    setNameCharacterCount(inputValue.length);
   };
   
   function handleClick() {
@@ -33,7 +40,7 @@ function Write() {
       },
     });
   }
-  console.log(state)
+  
   const style2 = {
     width: '402.79px',
     height: '140.24px',
@@ -63,16 +70,15 @@ function Write() {
             id="Namep"
             placeholder="사진 이름을 작성해주세요"
             type="text"
-            maxLength="10"
+            maxLength="7"
             autoComplete="off"
             value={nameValue}
-            onChange={(e) => {
-              setNameValue(e.target.value);
-            }}    
+            onChange={handleNameInputChange} 
             style={{
               color : nameValue ? "#000000" : "#B7B7B7"
             }}
           />
+          <span id="inputCnt">{nameCharacterCount} / 7</span>
           <h2 id="htext2">전시 소감</h2>
           <textarea
             id="Impressionp"

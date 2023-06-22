@@ -51,6 +51,9 @@ code {
 #btnSt {
     color: white;
     text-align: center;
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-weight: 100;
     font-size: 20px;
     line-height: 60px;
     width: 275px;
@@ -337,6 +340,17 @@ input#Namep {
     font-style: normal;
     font-weight: 500;
     box-shadow: -5px 5px 30px 2px rgb(239, 239, 239);
+}
+
+#inputCnt{
+    position: absolute;
+    left: 74%;
+    top: 39.5%;
+    bottom: 71.57%;
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-weight: 500;
+    line-height: 33px;
 }
 
 #checktx1 {
