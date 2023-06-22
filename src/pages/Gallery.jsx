@@ -21,8 +21,8 @@ import frame6_1 from '../img/frame6-1.png';
 import Xicon from '../img/Xicon.png';
 import searchs from '../img/search-icon.png'
 import frame_s from '../img/frame_s.png'
-import frame_y1 from '../img/frame_y2.png'
-import frame_y2 from '../img/frame_y1.png'
+import frame_y1 from '../img/frame_y1.png'
+import frame_y2 from '../img/frame_y2.png'
 import frame_h from '../img/frame_h.png'
 import frame_g from '../img/frame_g.png'
 import frame_me from '../img/frame_me.png'

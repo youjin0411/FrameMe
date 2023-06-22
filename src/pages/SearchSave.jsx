@@ -30,11 +30,11 @@ function SearchSave() {
   console.log(state);
   const [frames, setFrames] = useState(
     [
-      {name: '유리', day: '2023.6.21', time: '9:38', qr: null, frame: frame_y1},
+      {name: '유리', day: '2023.6.21', time: '9:38', qr: null, frame: frame_y2},
       {name: '뇸', day: '2023.6.21', time: '9:38', qr: null, frame: frame_s},
-      {name: '유진', day: '2023.6.21', time: '9:38', qr: null, frame: frame_y2},
+      {name: '유진', day: '2023.6.21', time: '9:38', qr: null, frame: frame_y1},
       {name: '해원', day: '2023.6.21', time: '9:38', qr: null, frame: frame_h},
-      {name: '가윤', day: '2023.6.21', time: '9:38', qr: null, frame: frame_s},
+      {name: '가윤', day: '2023.6.21', time: '9:38', qr: null, frame: frame_g},
       {name: '프레임미', day: '2023.6.21', time: '9:38', qr: null, frame: frame_me}
     ]
   );
