@@ -101,7 +101,7 @@ function Result() {
   const handleInsert = async () => {
     if(gallery){
       try {
-        const response = await axios.post("http://localhost:3001/api/insert", {
+        const response = await axios.post("https://port-0-framemeserver-7xwyjq992llisq9g9j.sel4.cloudtype.app/insert", {
           name: name, 
           today: today, 
           time: time, 
@@ -142,28 +142,7 @@ function Result() {
 				) : null}
 			<Name>{name}</Name>
 			<Names>{year}.{month}.{day}</Names>
-      <ReactToPrint
-          trigger={() => 
-            <button
-            id="button"
-            type="submit"
-            style={{
-              position: 'absolute',
-              borderRadius: '30px',
-              width: '196px',
-              height: '60px',
-              left: '1633px',
-              top: '900px',
-              background: 'white',
-              backgroundBlendMode: 'overlay',
-            }}
-            onClick={Printhandler}
-          >
-          인쇄하기 &nbsp;&nbsp;&nbsp;〉
-          </button>
-          }
-          content={() => divRef.current}
-        />
+      
 			<button
 				id="button"
 				type="submit"

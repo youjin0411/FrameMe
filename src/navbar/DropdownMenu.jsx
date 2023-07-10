@@ -5,7 +5,7 @@ const DropdownMenu = () => {
   return (
     <>
       <Wrapper>
-        <Link href="/photoshoot">PHOTO</Link>
+        <Link href="/frame">PHOTO</Link>
         <Link href="/Gallery">네컷갤러리</Link>
       </Wrapper>
     </>

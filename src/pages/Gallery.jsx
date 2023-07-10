@@ -2,22 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { gsap, Power1 } from "gsap";
 import './gallery.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
+import { Autoplay } from "swiper";
 import { useNavigate, useLocation } from "react-router-dom"
 import axios from 'axios';
 
 import 'swiper/css';
 import 'swiper/css/bundle';
-
-import pinkframe from '../img/pinkframe.png';
-import charcoalframe from '../img/charcoalframe.png';
-import skyblueframe from '../img/skyblueframe.png';
-import yellowframe from '../img/yellowframe.png';
-import frame1 from '../img/frame1.png';
-import frame2 from '../img/frame2.png';
-import frame3 from '../img/frame3.png';
-import frame4 from '../img/frame4.png';
-import frame6_1 from '../img/frame6-1.png';
 import Xicon from '../img/Xicon.png';
 import searchs from '../img/search-icon.png'
 import frame_s from '../img/frame_s.png'
@@ -26,16 +16,11 @@ import frame_y2 from '../img/frame_y2.png'
 import frame_h from '../img/frame_h.png'
 import frame_g from '../img/frame_g.png'
 import frame_me from '../img/frame_me.png'
-import backgroundImage from '../img/backgroundImage.png';
-
-
 function Gallery() {
   const navigate = useNavigate(); 
-  const location = useLocation();
   
   const [search,setSearch] = useState(null)
 
-  const [data, setData] = useState(null)
   const [frames, setFrames] = useState(
     [
       {name: '유리', day: '2023.6.21', time: '9:38', qr: null, frame: frame_y2},
@@ -52,20 +37,24 @@ function Gallery() {
 
   useEffect(() => {
     try {
-      const response = axios.get("http://localhost:3001/api/select");
+      const response = axios.get("https://port-0-framemeserver-7xwyjq992llisq9g9j.sel4.cloudtype.app/select");
       response.then(response => {
-        const arr = response.data.results
-        setFrames(frames => frames.concat(arr));
+        const newData = response.data.map(item => ({
+          name: item.name,
+          day: item.day,
+          time: item.time,
+          qr: item.qr,
+          frame: item.frame
+        }));
+        console.log("ddfsf", newData);
+        setFrames(frames => frames.concat(newData));
       });
     } catch (error) {
       console.error("오류 발생:", error);
     }
   }, []);
-
   
-
-  console.log(frames) 
-
+  
   const openPopup = (frame) => {
     setSelectedFrame(frame);
   };
@@ -124,13 +113,11 @@ function Gallery() {
     };
   };
 
-
   return (
     <div className='gallery'>
       <div className='bar'>
         <h1 className='text'>GALLERY</h1>
         <p className='barcomment'>사진을 눌러 큐알코드로 이미지를 다운받아보세요!</p>
-        {/* <div style={{backgroun frame:`url(${data.results.frame})`}}></div> */}
         <div className='search'>
           <input
             type="text"
@@ -160,14 +147,14 @@ function Gallery() {
             onSlideChange={() => console.log('slide change')}
             onSwiper={handleSwiperInit}
           >
-            {frames.map((frame, index) => (
+            {frames.map((framee, index) => (
               <SwiperSlide key={index}>
                 <div className={`container`}>
-                  <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(frame)}>
-                    <img src={frame.frame} width="300" height="443" alt={`frame${index + 1}`} />
-                    <div className='comment'>{frame.name}</div>
-                    <div className='day'>{frame.day}</div>
-                    <div className='time'>{frame.time}</div>
+                  <div className={`frame position-${(index % 6) + 1}`} onClick={() => openPopup(framee)}>
+                    <img src={framee.frame} width="300" height="443" alt={`frame${index + 1}`} />
+                    <div className='comment'>{framee.name}</div>
+                    <div className='day'>{framee.day}</div>
+                    <div className='time'>{framee.time}</div>
                   </div>
                 </div>
               </SwiperSlide>
