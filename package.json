@@ -2,7 +2,7 @@
     "name": "frameme",
     "version": "0.1.0",
     "private": true,
-    "homepage": "http://youjin0411.github.io/Frame-Me",
+    "homepage": "https://youjin0411.github.io/Frame-Me",
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
