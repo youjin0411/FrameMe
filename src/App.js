@@ -21,7 +21,7 @@ import Result2 from "./pages/Result2"
 
 function App() {
   return (
-    <Router basename={'https://youjin0411.github.io/Frame-Me'}>
+    <Router>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/photoshoot" element={
